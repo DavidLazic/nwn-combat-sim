@@ -45,20 +45,24 @@ SIMULATION = (function($){
 
 	self.setValue = function(e){
 		var object = $(e.target).data('object'),
-			target = $(e.target).data('target'),
+			property = $(e.target).data('property'),
 			currentObject = eval(this[object]),
-			currentTarget = eval(currentObject()[target].currentValue);
+			currentProperty = eval(currentObject()[property]),
+			value = parseInt($(e.target).parent().find('input').val());
 
-		console.log(currentTarget);
+		currentProperty(value);
+		console.log(currentProperty());
 	},
 
 	self.hero = function(){
 		var hero = {};
 
-		hero.ac = {
-			max: 100,
-			min: 0,
-			currentValue: null
+		hero.ac = function(val){
+			return {
+				max: 100,
+				min: 0,
+				currentValue: val || null
+			}
 		},
 
 		hero.checkInput = function(){
@@ -66,16 +70,17 @@ SIMULATION = (function($){
 				length = $('.ac-input').val().length;
 
 			// if empty
-			if(length == 0){
+			if(length == 0 || this.ac().currentValue == null){
 				self.globalMessage(self.valueNotSet);
 			}else{
 				// if not a number
 				if(isNaN(inputValue)){
 					self.globalMessage(self.valueNaN);
 				// if less than 0 or higher than 99
-				}else if(inputValue <= this.ac.min || inputValue >= this.ac.max){
+				}else if(inputValue <= this.ac().min || inputValue >= this.ac().max){
 					self.globalMessage(self.valueRange);
 				}else{
+					console.log(this.ac().currentValue);
 					return true;
 				}
 			}
