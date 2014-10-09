@@ -6697,13 +6697,13 @@ button.close {
 }
 
 .btn {
-  background-color: #AA0000;
+  background-color: #e74045;
   color: #fff;
   margin-bottom: 20px;
-  padding: 10px 40px;
+  padding: 5px 40px;
 }
 .btn:hover {
-  background-color: #770000;
+  background-color: #d91b21;
   color: #fff;
 }
 .btn.disabled {
@@ -6711,6 +6711,9 @@ button.close {
 }
 .btn.disabled:hover {
   background-color: #999;
+}
+.btn.btn-green {
+  background-color: #25d1ae;
 }
 
 .report-log {

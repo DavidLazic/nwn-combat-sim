@@ -6,12 +6,12 @@
 }
 
 .btn{
-	background-color: #AA0000;
+	background-color: #e74045;
 	color: #fff;
 	margin-bottom: 20px;
-	padding: 10px 40px;
+	padding: 5px 40px;
 	&:hover{
-		background-color: darken(#AA0000, 10);
+		background-color: darken(#e74045, 10);
 		color: #fff;
 	}
 	&.disabled{
@@ -19,6 +19,9 @@
 		&:hover{
 			background-color: #999;
 		}
+	}
+	&.btn-green{
+		background-color: #25d1ae;
 	}
 }
 
