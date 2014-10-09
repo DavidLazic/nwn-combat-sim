@@ -28,7 +28,7 @@ SIMULATION = (function($){
 	},
 
 	self.startFight = function(){
-		this.validateInput(this.hero());
+		this.validateInput(this.char());
 	},
 
 	self.validateInput = function(obj){
@@ -54,10 +54,10 @@ SIMULATION = (function($){
 		console.log(currentProperty());
 	},
 
-	self.hero = function(){
-		var hero = {};
+	self.char = function(){
+		var char = {};
 
-		hero.ac = function(val){
+		char.ac = function(val){
 			return {
 				max: 100,
 				min: 0,
@@ -65,7 +65,7 @@ SIMULATION = (function($){
 			}
 		},
 
-		hero.checkInput = function(){
+		char.checkInput = function(){
 			var inputValue = parseInt($('.ac-input').val()),
 				length = $('.ac-input').val().length;
 
@@ -86,7 +86,7 @@ SIMULATION = (function($){
 			}
 		}
 
-		return hero;
+		return char;
 	}
 
 	return self;
