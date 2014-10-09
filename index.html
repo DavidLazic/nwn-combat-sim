@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>Neverwinter Nights | Fight Simulator</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<h1>Neverwinter Nights</h1>
+		<h4>Fight Simulator</h4>
+
+		<div class="col-md-12">
+			<div>Instructions:</div>
+			<div>Enter hero's and opponent's AC (Armor Class) to simulate a fight.</div>
+			<div>Base attack damage for both has been set to 12.</div>
+			<div>Opponent's default AC is 45.</div>
+		</div>
+
+		<div class="col-md-6 input-container">
+			<h5>Hero</h5>
+			<input class="form-control hero-ac-input" placeholder="Enter AC">
+		</div>
+		<div class="col-md-6 input-container">
+			<h5>Opponent</h5>
+			<input class="form-control" placeholder="Enter AC">
+		</div>
+
+		<div class="col-md-6 col-md-offset-3">
+			<a class="btn btn-fight" href="javascript:void(0)">Fight!</a>
+		</div>
+
+		<ul class="col-md-6 col-md-offset-1 report-log">
+
+		</ul>
+	</div>
+
+</body>
+</html>
