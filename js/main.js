@@ -43,8 +43,13 @@ SIMULATION = (function($){
 		this.$reportLog.html(msg);
 	},
 
-	self.setValue = function(){
+	self.setValue = function(e){
+		var object = $(e.target).data('object'),
+			target = $(e.target).data('target'),
+			currentObject = eval(this[object]),
+			currentTarget = eval(currentObject()[target].currentValue);
 
+		console.log(currentTarget);
 	},
 
 	self.hero = function(){
