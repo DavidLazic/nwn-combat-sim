@@ -67,20 +67,23 @@ SIMULATION = (function($){
 
 		char.checkInput = function(){
 			var inputValue = parseInt($('.ac-input').val()),
-				length = $('.ac-input').val().length;
+				length = $('.ac-input').val().length,
+				max = this.ac().max,
+				min = this.ac().min,
+				currentValue = this.ac().currentValue;
+
 
 			// if empty
-			if(length == 0 || this.ac().currentValue == null){
+			if(length == 0 || currentValue == null){
 				self.globalMessage(self.valueNotSet);
 			}else{
 				// if not a number
 				if(isNaN(inputValue)){
 					self.globalMessage(self.valueNaN);
 				// if less than 0 or higher than 99
-				}else if(inputValue <= this.ac().min || inputValue >= this.ac().max){
+				}else if(inputValue <= min || inputValue >= max){
 					self.globalMessage(self.valueRange);
 				}else{
-					console.log(this.ac().currentValue);
 					return true;
 				}
 			}
