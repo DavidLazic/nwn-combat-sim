@@ -1,42 +1,129 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Neverwinter Nights | Fight Simulator</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
 
+	<!-- Main container -->
 	<div class="container">
 		<h1>Neverwinter Nights</h1>
 		<h4>Fight Simulator</h4>
 
-		<div class="col-md-12">
-			<div>Instructions:</div>
-			<div>Enter hero's and opponent's AC (Armor Class) to simulate a fight.</div>
-			<div>Base attack damage for both has been set to 12.</div>
-			<div>Opponent's default AC is 45.</div>
+		<div class="col-md-6 input-container">
+			<h5>Character Record</h5>
+			<div class="col-md-12">
+				<ul>
+					<li>
+						Overview
+					</li>
+					<li>
+						Statistics
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-4">
+					<div class="avatar"></div>
+					<div>
+						<div>
+							<div>AC</div>
+							<input class="form-control ac-input" placeholder="AC Value">
+						</div>
+						<div>
+							<div>HP</div>
+							<div>226/226</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div>Race, Class</div>
+					<ul>
+						<li>
+							<span class="col-md-6">Strength</span>
+							<span class="col-md-2">img</span>
+							<span class="col-md-2">21</span>
+							<span class="col-md-2">15</span>
+						</li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<ul>
+					<li>Attack bonus: <span></span></li>
+					<li>Damage: <span></span></li>
+				</ul>
+			</div>
+			<div class="col-md-12"></div>
 		</div>
 
-		<div class="col-md-6 input-container">
-			<h5>Hero</h5>
-			<input class="form-control ac-input" placeholder="Enter AC">
-			<a class="btn btn-green btn-set" data-object="char" data-property="ac" href="javascript:void(0)">Set</a>
+		<div class="col-md-6">
+			<h5>Creature Record</h5>
+			<div class="col-md-12">
+				<ul>
+					<li>
+						Overview
+					</li>
+					<li>
+						Statistics
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-4">
+					<div class="avatar"></div>
+					<div>
+						<div>
+							<div>AC</div>
+							<div>59</div>
+						</div>
+						<div>
+							<div>HP</div>
+							<div>226/226</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div>Race, Class</div>
+					<ul>
+						<li>
+							<span class="col-md-6">Strength</span>
+							<span class="col-md-2">img</span>
+							<span class="col-md-2">21</span>
+							<span class="col-md-2">15</span>
+						</li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<ul>
+					<li>Attack bonus: <span></span></li>
+					<li>Damage: <span></span></li>
+				</ul>
+			</div>
+			<div class="col-md-12"></div>
 		</div>
-		<!-- <div class="col-md-6 input-container">
-			<h5>Opponent</h5>
-			<input class="form-control" placeholder="Enter AC">
-		</div> -->
 
 		<div class="col-md-6 col-md-offset-3">
-			<a class="btn btn-fight" href="javascript:void(0)">Fight!</a>
+			<a class="btn" id="btn-fight" href="javascript:void(0)">Fight!</a>
 		</div>
 
 		<ul class="col-md-6 col-md-offset-1 report-log">
 
 		</ul>
-	</div>
-
+	</div><!-- End main container -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/event_handler.js"></script>
 </body>
 </html>

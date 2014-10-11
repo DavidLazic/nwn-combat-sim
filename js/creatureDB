@@ -1,0 +1,11 @@
+[
+{
+	"name" : "Ancient White Dragon",
+	"race" : "dragon",
+	"alignment" : "chaotic evil",
+	"armorClass" : 37,
+	"hitPoints" : 375,
+	"attackBonus" : [34, 29, 24, 19],
+	"damage" : [2, 6, 11]
+}
+]

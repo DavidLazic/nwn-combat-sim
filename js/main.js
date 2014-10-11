@@ -1,97 +1,101 @@
-$(function(){
-	SIMULATION.init();
-});
+// Application namespace
+var APP = APP || {};
 
-SIMULATION = (function($){
+// $(function(){
+// 	SIMULATION.init();
+// });
 
-	var self = {};
+// SIMULATION = (function($, w){
 
-	self.valueNotSet = '<li>You need to set AC value first</li>',
-	self.valueNaN = '<li>AC value must be a number</li>',
-	self.valueRange = '<li>AC value must be between 1 and 99</li>',
-	self.fightStarted = '<li>Fight Started!</li>',
+// 	var self = {};
 
-	self.init = function(){
-		this.globalDOM();
-		this.bindEvents();
-	},
+// 	self.valueNotSet = '<li>You need to set AC value first</li>',
+// 	self.valueNaN = '<li>AC value must be a number</li>',
+// 	self.valueRange = '<li>AC value must be between 1 and 99</li>',
+// 	self.fightStarted = '<li>Fight Started!</li>',
 
-	self.globalDOM = function(){
-		this.$set = $('.btn-set');
-		this.$fight = $('.btn-fight');
-		this.$reportLog = $('.report-log');
-	},
+// 	self.init = function(){
+// 		this.globalDOM();
+// 		this.bindEvents();
+// 	},
 
-	self.bindEvents = function(){
-		this.$fight.on('click', $.proxy(this, "startFight"));
-		this.$set.on('click', $.proxy(this, "setValue"));
-	},
+// 	self.globalDOM = function(){
+// 		this.$set = $('.btn-set');
+// 		this.$fight = $('.btn-fight');
+// 		this.$reportLog = $('.report-log');
+// 	},
 
-	self.startFight = function(){
-		this.validateInput(this.char());
-	},
+// 	self.bindEvents = function(){
+// 		this.$fight.on('click', $.proxy(this, "startFight"));
+// 		this.$set.on('click', $.proxy(this, "setValue"));
+// 	},
 
-	self.validateInput = function(obj){
+// 	self.startFight = function(){
+// 		this.validateInput(this.character());
+// 	},
 
-		if(obj.checkInput() == true){
-			self.globalMessage(self.fightStarted);
-			self.$fight.addClass('disabled');
-		}
-	},
+// 	self.validateInput = function(obj){
 
-	self.globalMessage = function(msg){
-		this.$reportLog.html(msg);
-	},
+// 		if(obj.checkInput() == true){
+// 			self.globalMessage(self.fightStarted);
+// 			self.$fight.addClass('disabled');
+// 		}
+// 	},
 
-	self.setValue = function(e){
-		var object = $(e.target).data('object'),
-			property = $(e.target).data('property'),
-			currentObject = eval(this[object]),
-			currentProperty = eval(currentObject()[property]),
-			value = parseInt($(e.target).parent().find('input').val());
+// 	self.globalMessage = function(msg){
+// 		this.$reportLog.html(msg);
+// 	},
 
-		currentProperty(value);
-		console.log(currentProperty());
-	},
+// 	self.setValue = function(e){
+// 		var object = $(e.target).data('object'),
+// 			property = $(e.target).data('property'),
+// 			currentObject = eval(this[object]),
+// 			currentProperty = eval(currentObject()[property]),
+// 			value = parseInt($(e.target).parent().find('input').val());
 
-	self.char = function(){
-		var char = {};
+// 		currentProperty(value);
+// 		this.character().checkInput(value);
+// 	},
 
-		char.ac = function(val){
-			return {
-				max: 100,
-				min: 0,
-				currentValue: val || null
-			}
-		},
+// 	self.character = function(){
+// 		var character = {};
 
-		char.checkInput = function(){
-			var inputValue = parseInt($('.ac-input').val()),
-				length = $('.ac-input').val().length,
-				max = this.ac().max,
-				min = this.ac().min,
-				currentValue = this.ac().currentValue;
+// 		character.ac = function(val){
+// 			console.log(val);
+// 			return {
+// 				max: 100,
+// 				min: 0,
+// 				currentValue: val || null
+// 			}
+// 		},
 
+// 		character.checkInput = function(val){
+// 			var inputValue = val,
+// 				length = $('.ac-input').val().length,
+// 				max = this.ac().max,
+// 				min = this.ac().min,
+// 				currentValue = this.ac().currentValue;
+// 				// console.log(val, inputValue, currentValue);
 
-			// if empty
-			if(length == 0 || currentValue == null){
-				self.globalMessage(self.valueNotSet);
-			}else{
-				// if not a number
-				if(isNaN(inputValue)){
-					self.globalMessage(self.valueNaN);
-				// if less than 0 or higher than 99
-				}else if(inputValue <= min || inputValue >= max){
-					self.globalMessage(self.valueRange);
-				}else{
-					return true;
-				}
-			}
-		}
+// 			// if empty
+// 			if(length == 0 || inputValue == null){
+// 				self.globalMessage(self.valueNotSet);
+// 			}else{
+// 				// if not a number
+// 				if(isNaN(inputValue)){
+// 					self.globalMessage(self.valueNaN);
+// 				// if less than 0 or higher than 99
+// 				}else if(inputValue <= min || inputValue >= max){
+// 					self.globalMessage(self.valueRange);
+// 				}else{
+// 					return true;
+// 				}
+// 			}
+// 		}
 
-		return char;
-	}
+// 		return character;
+// 	}
 
-	return self;
+// 	return self;
 
-})(jQuery);
+// })(jQuery, window);

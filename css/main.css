@@ -6691,11 +6691,6 @@ button.close {
     display: none !important;
   }
 }
-.input-container input {
-  max-width: 20%;
-  width: 100%;
-}
-
 .btn {
   background-color: #e74045;
   color: #fff;
