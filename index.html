@@ -12,7 +12,8 @@
 		<h1>Neverwinter Nights</h1>
 		<h4>Fight Simulator</h4>
 
-		<div class="col-md-6 input-container">
+		<!-- Character container -->
+		<div class="col-md-6" id="character">
 			<h5>Character Record</h5>
 			<div class="col-md-12">
 				<ul>
@@ -40,18 +41,48 @@
 				</div>
 				<div class="col-md-8">
 					<div>Race, Class</div>
-					<ul>
-						<li>
-							<span class="col-md-6">Strength</span>
-							<span class="col-md-2">img</span>
-							<span class="col-md-2">21</span>
-							<span class="col-md-2">15</span>
-						</li>
-						<li></li>
-						<li></li>
-						<li></li>
-						<li></li>
-					</ul>
+					<form>
+						<fieldset>
+							<ul>
+								<li>
+									<span class="col-md-6">Strength</span>
+									<span class="col-md-2">img</span>
+									<span class="col-md-2">21</span>
+									<span class="col-md-2">5</span>
+								</li>
+								<li>
+									<span class="col-md-6">Dexterity</span>
+									<span class="col-md-2">img</span>
+									<span class="col-md-2">39</span>
+									<span class="col-md-2">14</span>
+								</li>
+								<li>
+									<span class="col-md-6">Constitution</span>
+									<span class="col-md-2">img</span>
+									<span class="col-md-2">10</span>
+									<span class="col-md-2">0</span>
+								</li>
+								<li>
+									<span class="col-md-6">Intelligence</span>
+									<span class="col-md-2">img</span>
+									<span class="col-md-2">13</span>
+									<span class="col-md-2">1</span>
+								</li>
+								<li>
+									<span class="col-md-6">Wisdom</span>
+									<span class="col-md-2">img</span>
+									<span class="col-md-2">8</span>
+									<span class="col-md-2">-1</span>
+								</li>
+								<li>
+									<span class="col-md-6">Charisma</span>
+									<span class="col-md-2">img</span>
+									<span class="col-md-2">16</span>
+									<span class="col-md-2">3</span>
+								</li>
+							</ul>
+						</fieldset>
+					</form>
 				</div>
 			</div>
 			<div class="col-md-12">
@@ -61,10 +92,20 @@
 				</ul>
 			</div>
 			<div class="col-md-12"></div>
-		</div>
+		</div><!-- End character container -->
 
-		<div class="col-md-6">
-			<h5>Creature Record</h5>
+		<!-- Creature container -->
+		<div class="col-md-6" id="creature">
+			<div>
+				<h5>Creature Record, </h5>
+				<select id="select-opponent" class="form-control">
+					<option selected="selected" value="null">-- Choose opponent --</option>
+					<optgroup label="Dragons">
+						<option value="awd" data-url="dragons">Ancient white dragon</option>
+						<option value="ard" data-url="dragons">Ancient red dragon</option>
+					</optgroup>
+				</select>
+			</div>
 			<div class="col-md-12">
 				<ul>
 					<li>
@@ -81,49 +122,81 @@
 					<div>
 						<div>
 							<div>AC</div>
-							<div>59</div>
+							<div id="ac">59</div>
 						</div>
 						<div>
 							<div>HP</div>
-							<div>226/226</div>
+							<div id="hp">226/226</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-8">
-					<div>Race, Class</div>
+					<div>
+						<span id="race"></span>,
+						<span id="alignment"></span>
+					</div>
 					<ul>
 						<li>
 							<span class="col-md-6">Strength</span>
 							<span class="col-md-2">img</span>
 							<span class="col-md-2">21</span>
-							<span class="col-md-2">15</span>
+							<span class="col-md-2">5</span>
 						</li>
-						<li></li>
-						<li></li>
-						<li></li>
-						<li></li>
+						<li>
+							<span class="col-md-6">Dexterity</span>
+							<span class="col-md-2">img</span>
+							<span class="col-md-2">39</span>
+							<span class="col-md-2">14</span>
+						</li>
+						<li>
+							<span class="col-md-6">Constitution</span>
+							<span class="col-md-2">img</span>
+							<span class="col-md-2">10</span>
+							<span class="col-md-2">0</span>
+						</li>
+						<li>
+							<span class="col-md-6">Intelligence</span>
+							<span class="col-md-2">img</span>
+							<span class="col-md-2">13</span>
+							<span class="col-md-2">1</span>
+						</li>
+						<li>
+							<span class="col-md-6">Wisdom</span>
+							<span class="col-md-2">img</span>
+							<span class="col-md-2">8</span>
+							<span class="col-md-2">-1</span>
+						</li>
+						<li>
+							<span class="col-md-6">Charisma</span>
+							<span class="col-md-2">img</span>
+							<span class="col-md-2">16</span>
+							<span class="col-md-2">3</span>
+						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-md-12">
 				<ul>
-					<li>Attack bonus: <span></span></li>
-					<li>Damage: <span></span></li>
+					<li>Attack bonus: <span id="ab"></span></li>
+					<li>Dice roll: <span id="dc"></span></li>
+					<li>Damage: <span id="damage"></span></li>
 				</ul>
 			</div>
 			<div class="col-md-12"></div>
-		</div>
+		</div><!-- End creature container -->
 
 		<div class="col-md-6 col-md-offset-3">
-			<a class="btn" id="btn-fight" href="javascript:void(0)">Fight!</a>
+			<a class="btn btn-red" id="btn-fight" href="javascript:void(0)">Fight!</a>
 		</div>
 
+		<!-- Report -->
 		<ul class="col-md-6 col-md-offset-1 report-log">
 
-		</ul>
+		</ul><!-- End report -->
 	</div><!-- End main container -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/event_handler.js"></script>
+	<script type="text/javascript" src="js/ajax_wrapper.js"></script>
 </body>
 </html>

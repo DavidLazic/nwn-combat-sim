@@ -1,0 +1,22 @@
+[
+{
+	"label": "awd",
+	"race" : "dragon",
+	"alignment" : "chaotic evil",
+	"armorClass" : 37,
+	"hitPoints" : 375,
+	"attackBonus" : [34, 29, 24, 19],
+	"diceRoll" : [2, 6],
+	"damage" : [1, 12, 11]
+},
+{
+	"label": "ard",
+	"race" : "dragon",
+	"alignment" : "chaotic evil",
+	"armorClass" : 39,
+	"hitPoints" : 527,
+	"attackBonus" : [39, 34, 29, 24],
+	"diceRoll" : [2, 8],
+	"damage" : [1, 16, 14]
+}
+]

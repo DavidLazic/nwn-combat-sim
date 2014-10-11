@@ -6692,7 +6692,6 @@ button.close {
   }
 }
 .btn {
-  background-color: #e74045;
   color: #fff;
   margin-bottom: 20px;
   padding: 5px 40px;
@@ -6707,14 +6706,17 @@ button.close {
 .btn.disabled:hover {
   background-color: #999;
 }
+.btn.btn-red {
+  background-color: #e74045;
+}
 .btn.btn-green {
   background-color: #25d1ae;
 }
 
 .report-log {
   border: 1px solid #e6e6e6;
+  list-style-type: none;
   min-height: 150px;
   max-height: 150px;
   overflow-y: scroll;
-  list-style-type: none;
 }
