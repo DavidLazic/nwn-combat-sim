@@ -50,40 +50,20 @@ APP.EVENT_HANDLER = (function($, app){
 		},
 
 		/**
-		 * Render given object's properties.
-		 * @params {object}
-		 * @return {object}, {string}
+		 * Populate fields with array data
+		 * @params {array}
+		 * @return {string}
 		 */
-		renderObject: function(object){
+		populateFields: function(objects, labels, avatar, cb){
 
-			var $race = $('#race'),
-				$alignment = $('#alignment'),
-				$AC = $('#ac'),
-				$HP = $('#hp'),
-				$AB = $('#ab'),
-				$DC = $('#dc'),
-				$damage = $('#damage'),
-
-				race = object.race,
-				alignment = object.alignment,
-				AC = object.armorClass,
-				HP = object.hitPoints,
-				AB = '+' + object.attackBonus.join('/+'),
-				DC = object.diceRoll[0] + 'd' + object.diceRoll[1],
-				damage = object.damage[0] + '-' + object.damage[1] + ' + ' + object.damage[2],
-
-				objectsArray = [$race, $alignment, $AC, $HP, $AB, $DC, $damage],
-				labelsArray = [race, alignment, AC, HP, AB, DC, damage];
-
-				this.populateFields(objectsArray, labelsArray);
-		},
-
-		populateFields: function(objects, labels){
+			avatar[0].attr('src', avatar[1]);
 
 			for(var i = 0; i < objects.length; i++){
 
 				objects[i].html(labels[i]);
 			}
+
+			cb();
 		}
 	};
 
