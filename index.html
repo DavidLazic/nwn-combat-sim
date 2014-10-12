@@ -14,88 +14,107 @@
 
 		<!-- Character container -->
 		<div class="col-md-5 record-container padding-0" id="character">
-			<div>Character Record</div>
+
+			<!-- Record header -->
+			<div class="col-md-12 record-header">character record</div><!-- End record header -->
+
+			<!-- Tabs -->
 			<div class="col-md-12">
-				<ul>
-					<li>
-						Overview
-					</li>
-					<li>
-						Statistics
-					</li>
-				</ul>
-			</div>
+				<a id="overview" href="javascript:void(0)">overview</a>
+				<a id="statistics" href="javascript:void(0)">statistics</a>
+			</div><!-- End tabs -->
+
+
 			<div class="col-md-12">
-				<div class="col-md-4">
-					<div class="avatar"></div>
-					<div>
+				<!-- Avatar, AC, HP -->
+				<div class="col-md-4 padding-top-10">
+					<div class="avatar">
+						<img id="char-avatar" src="img/idle_portrait.jpg">
+					</div>
+					<div class="ac-hp">
 						<div>
-							<div>AC</div>
-							<input class="form-control ac-input" placeholder="AC Value">
+							<div>ac:</div>
+							<input class="form-control" id="ac-input" placeholder="AC Value">
 						</div>
 						<div>
-							<div>HP</div>
+							<div>hp:</div>
 							<div>226/226</div>
 						</div>
 					</div>
 				</div>
+				<!-- Table -->
 				<div class="col-md-8">
-					<div>Race, Class</div>
+					<div class="col-md-12 race-alignment"></div>
 					<form class="col-md-12">
 						<fieldset>
 							<ul class="ability-list">
-								<li>
-									<span class="col-md-6">Strength</span>
-									<span class="col-md-2">img</span>
-									<span class="col-md-2">21</span>
-									<span class="col-md-2">5</span>
+								<li class="col-md-12">
+									<span class="col-md-6">strength</span>
+									<span class="col-xs-2 icon"><img src="img/gr_str.jpg"></span>
+									<span class="col-xs-2 value" id="char-strength"></span>
+									<span class="col-xs-2 modifier idle-clear value"></span>
 								</li>
-								<li>
-									<span class="col-md-6">Dexterity</span>
-									<span class="col-md-2">img</span>
-									<span class="col-md-2">39</span>
-									<span class="col-md-2">14</span>
+								<li class="col-md-12">
+									<span class="col-md-6">dexterity</span>
+									<span class="col-xs-2 icon"><img src="img/gr_dex.jpg"></span>
+									<span class="col-xs-2 value" id="char-dexterity"></span>
+									<span class="col-xs-2 modifier value"></span>
 								</li>
-								<li>
-									<span class="col-md-6">Constitution</span>
-									<span class="col-md-2">img</span>
-									<span class="col-md-2">10</span>
-									<span class="col-md-2">0</span>
+								<li class="col-md-12">
+									<span class="col-md-6">constitution</span>
+									<span class="col-xs-2 icon"><img src="img/gr_con.jpg"></span>
+									<span class="col-xs-2 value" id="char-constitution"></span>
+									<span class="col-xs-2 modifier value"></span>
 								</li>
-								<li>
-									<span class="col-md-6">Intelligence</span>
-									<span class="col-md-2">img</span>
-									<span class="col-md-2">13</span>
-									<span class="col-md-2">1</span>
+								<li class="col-md-12">
+									<span class="col-md-6">intelligence</span>
+									<span class="col-xs-2 icon"><img src="img/gr_int.jpg"></span>
+									<span class="col-xs-2 value" id="char-intelligence"></span>
+									<span class="col-xs-2 modifier value"></span>
 								</li>
-								<li>
-									<span class="col-md-6">Wisdom</span>
-									<span class="col-md-2">img</span>
-									<span class="col-md-2">8</span>
-									<span class="col-md-2">-1</span>
+								<li class="col-md-12">
+									<span class="col-md-6">wisdom</span>
+									<span class="col-xs-2 icon"><img src="img/gr_wis.jpg"></span>
+									<span class="col-xs-2 value" id="char-wisdom"></span>
+									<span class="col-xs-2 modifier value"></span>
 								</li>
-								<li>
-									<span class="col-md-6">Charisma</span>
-									<span class="col-md-2">img</span>
-									<span class="col-md-2">16</span>
-									<span class="col-md-2">3</span>
+								<li class="col-md-12">
+									<span class="col-md-6">charisma</span>
+									<span class="col-xs-2 icon"><img src="img/gr_cha.jpg"></span>
+									<span class="col-xs-2 value" id="char-charisma"></span>
+									<span class="col-xs-2 modifier value"></span>
 								</li>
 							</ul>
 						</fieldset>
 					</form>
-				</div>
+				</div><!-- End table -->
 			</div>
+			<!-- Additional stats -->
 			<div class="col-md-12">
 				<ul>
-					<li>Attack bonus: <span></span></li>
-					<li>Damage: <span></span></li>
+					<li class="col-xs-12 col-md-12 padding-0">
+						<span class="col-xs-4 col-md-4 padding-0">attack bonus: </span>
+						<span id="ab" class="col-xs-8 col-md-8 value padding-0"></span>
+					</li>
+					<li class="col-xs-12 col-md-12 padding-0">
+						<span class="col-xs-4 col-md-4 padding-0">dice roll:</span>
+						<span id="dc" class="col-xs-8 col-md-8 value padding-0"></span>
+					</li>
+					<li class="col-xs-12 col-md-12 padding-0">
+						<span class="col-xs-4 col-md-4 padding-0">damage:</span>
+						<span id="damage" class="col-xs-8 col-md-8 value padding-0"></span>
+					</li>
 				</ul>
-			</div>
-			<div class="col-md-12"></div>
+			</div><!-- End additional stats -->
+
+			<!-- Record footer -->
+			<div class="col-md-12"></div><!-- End record footer -->
 		</div><!-- End character container -->
 
 		<!-- Creature container -->
 		<div class="col-md-5 col-md-offset-2 record-container padding-0" id="creature">
+
+			<!-- Record header -->
 			<div class="col-md-12 record-header">
 				<div class="col-md-4 padding-left-0">creature record, </div>
 				<select id="select-opponent" class="col-md-8 form-control">
@@ -108,12 +127,16 @@
 						<option value="black" data-url="dragons">ancient black dragon</option>
 					</optgroup>
 				</select>
-			</div>
+			</div><!-- End record header -->
+
+			<!-- Tabs -->
 			<div class="col-md-12">
 				<a id="overview" href="javascript:void(0)">overview</a>
 				<a id="statistics" href="javascript:void(0)">statistics</a>
-			</div>
+			</div><!-- End tabs -->
+
 			<div class="col-md-12">
+				<!-- Avatar, AC, HP -->
 				<div class="col-md-4 padding-top-10">
 					<div class="avatar">
 						<img id="avatar" src="img/idle_portrait.jpg">
@@ -131,7 +154,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div><!-- End avatar, AC, HP -->
+				<!-- Table -->
 				<div class="col-md-8">
 					<div class="col-md-12 race-alignment">
 						<span id="race" data-property="race" class="idle-clear"></span>
@@ -175,27 +199,34 @@
 							<span class="col-xs-2 modifier idle-clear value"></span>
 						</li>
 					</ul>
-				</div>
+				</div><!-- End table -->
 			</div>
+			<!-- Additional stats -->
 			<div class="col-md-12">
 				<ul>
 					<li class="col-xs-12 col-md-12 padding-0">
 						<span class="col-xs-4 col-md-4 padding-0">attack bonus: </span>
-						<span id="ab" data-property="attackBonus" class="col-xs-8 col-md-8 idle-clear value padding-0"></span></li>
+						<span id="ab" data-property="attackBonus" class="col-xs-8 col-md-8 idle-clear value padding-0"></span>
+					</li>
 					<li class="col-xs-12 col-md-12 padding-0">
 						<span class="col-xs-4 col-md-4 padding-0">dice roll:</span>
-						<span id="dc" data-property="diceRoll" class="col-xs-8 col-md-8 idle-clear value padding-0"></span></li>
+						<span id="dc" data-property="diceRoll" class="col-xs-8 col-md-8 idle-clear value padding-0"></span>
+					</li>
 					<li class="col-xs-12 col-md-12 padding-0">
 						<span class="col-xs-4 col-md-4 padding-0">damage:</span>
-						<span id="damage" data-property="damage" class="col-xs-8 col-md-8 idle-clear value padding-0"></span></li>
+						<span id="damage" data-property="damage" class="col-xs-8 col-md-8 idle-clear value padding-0"></span>
+					</li>
 				</ul>
-			</div>
-			<div class="col-md-12"></div>
+			</div><!-- End additional stats -->
+
+			<!-- Record footer -->
+			<div class="col-md-12"></div><!-- End record footer -->
 		</div><!-- End creature container -->
 
+		<!-- Start fight -->
 		<div class="col-md-6 col-md-offset-3">
 			<a class="btn btn-red" id="btn-fight" href="javascript:void(0)">Fight!</a>
-		</div>
+		</div><!-- End start fight -->
 
 		<!-- Report -->
 		<ul class="col-md-6 col-md-offset-1 report-log">

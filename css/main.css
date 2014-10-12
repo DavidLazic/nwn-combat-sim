@@ -8780,16 +8780,18 @@ a:hover {
 }
 
 .record-container {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
   font-family: 'Neverwinter';
   font-size: 1.2em;
+  padding-bottom: 30px;
 }
-.record-container .record-header {
+
+.record-header {
   background-color: #000;
   margin-bottom: 10px;
 }
-.record-container .record-header select {
+.record-header select {
   background-color: #000;
   border: none;
   color: #fff;
@@ -8800,57 +8802,63 @@ a:hover {
   padding: 0;
   width: auto;
 }
-.record-container .record-header select optgroup {
+.record-header select optgroup {
   background-color: #fff;
   color: #000;
   font-size: 0.6em;
   font-family: Helvetica;
 }
-.record-container .record-header select option {
+.record-header select option {
   background-color: #000;
   color: #fff;
 }
-.record-container .race-alignment {
+
+.race-alignment {
   height: 20px;
   margin-bottom: 10px;
 }
-.record-container .ability-list {
+
+.ability-list {
   padding-left: 0;
 }
-.record-container .ability-list > li {
+.ability-list > li {
   margin-bottom: 5px;
   padding-left: 0;
 }
-.record-container .value {
+
+.value {
   font-family: Helvetica;
   font-size: 0.6em;
   font-weight: bold;
   padding-top: 8px;
 }
-.record-container .icon {
+
+.icon {
   display: inline-block;
   max-width: 20px;
   padding: 0;
   width: 100%;
 }
-.record-container .icon > img {
+.icon > img {
   width: 100%;
 }
-.record-container #avatar {
+
+#avatar {
   margin-bottom: 15px;
 }
-.record-container .ac-hp {
+
+.ac-hp {
   background: url(/img/ac-hp.jpg) center no-repeat;
   background-color: transparent;
-  background-position: 10px 60%;
+  background-position: 10px 50%;
   height: 60px;
   padding: 0 0 0 50px;
 }
-.record-container .ac-hp > div {
+.ac-hp > div {
   float: left;
   width: 100%;
 }
-.record-container .ac-hp > div > div {
+.ac-hp > div > div {
   display: inline-block;
   float: left;
   margin: 0 5px;
