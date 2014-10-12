@@ -1,3 +1,14 @@
 @import "bootstrap";
 
-@import "custom";
+@import "custom/user-fonts";
+@import "custom/user-mixins";
+@import "custom/user-variables";
+@import "custom/helpers";
+
+// Global styles
+@import "custom/global";
+
+// Components
+@import "custom/buttons";
+@import "custom/report";
+@import "custom/record-container";

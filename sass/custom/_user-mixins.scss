@@ -1,0 +1,33 @@
+@mixin transition-prefix($property, $time, $easing) {
+	-webkit-transition: $property $time $easing;
+	-moz-transition: $property $time $easing;
+	-ms-transition: $property $time $easing;
+	-o-transition: $property $time $easing;
+	transition: $property $time $easing;
+}
+
+@mixin input-focus($color) {
+	$color-rgba: rgba(red($color), green($color), blue($color), .6);
+	&:focus {
+		border-color: $color;
+		outline: 0;
+		@include box-shadow(unquote("inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #{$color-rgba}"));
+	}
+}
+
+@mixin responsive($width, $height) {
+	// background-size: 100%;
+	// height: 0;
+	padding-bottom: percentage($height / $width);
+	display: block;
+}
+
+@mixin accelerate($posX, $posY, $posZ) {
+	-webkit-transform: translate3d($posX, $posY, $posZ);
+	-moz-transform: translate3d($posX, $posY, $posZ);
+	-ms-transform: translate3d($posX, $posY, $posZ);
+	-o-transform: translate3d($posX, $posY, $posZ);
+	transform: translate3d($posX, $posY, $posZ);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}

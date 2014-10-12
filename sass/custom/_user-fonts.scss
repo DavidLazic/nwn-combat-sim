@@ -1,0 +1,12 @@
+@font-face {
+	font-family: 'Neverwinter';
+	src: url('/fonts/custom/Neverwinter/Neverwinter.eot');
+	src: url('/fonts/custom/Neverwinter/Neverwinter.eot') format('embedded-opentype'),
+		 url('/fonts/custom/Neverwinter/Neverwinter.woff') format('woff'),
+		 url('/fonts/custom/Neverwinter/Neverwinter.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
