@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Neverwinter Nights | Fight Simulator</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
@@ -101,8 +101,11 @@
 				<select id="select-opponent" class="form-control">
 					<option selected="selected" value="null">-- Choose opponent --</option>
 					<optgroup label="Dragons">
-						<option value="awd" data-url="dragons">Ancient white dragon</option>
-						<option value="ard" data-url="dragons">Ancient red dragon</option>
+						<option value="white" data-url="dragons">Ancient white dragon</option>
+						<option value="red" data-url="dragons">Ancient red dragon</option>
+						<option value="green" data-url="dragons">Ancient green dragon</option>
+						<option value="blue" data-url="dragons">Ancient blue dragon</option>
+						<option value="black" data-url="dragons">Ancient black dragon</option>
 					</optgroup>
 				</select>
 			</div>
@@ -200,8 +203,8 @@
 		</ul><!-- End report -->
 	</div><!-- End main container -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
-	<script type="text/javascript" src="js/event_handler.js"></script>
-	<script type="text/javascript" src="js/ajax_wrapper.js"></script>
+	<script type="text/javascript" src="js/app/main.js"></script>
+	<script type="text/javascript" src="js/app/event_handler.js"></script>
+	<script type="text/javascript" src="js/app/ajax_wrapper.js"></script>
 </body>
 </html>
