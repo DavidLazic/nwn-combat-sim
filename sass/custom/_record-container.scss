@@ -1,4 +1,76 @@
 .record-container{
-	background: rgba(0, 0, 0, 0.4);
+	background: rgba(0, 0, 0, 0.6);
 	color: #fff;
+	font-family: 'Neverwinter';
+	font-size: 1.2em;
+	.record-header{
+		background-color: #000;
+		margin-bottom: 10px;
+		select{
+			background-color: #000;
+			border: none;
+			color: #fff;
+			display: inline-block;
+			font-size: 1.1em;
+			height: auto;
+			line-height: 1;
+			padding: 0;
+			width: auto;
+			optgroup{
+				background-color: #fff;
+				color: #000;
+				font-size: 0.6em;
+				font-family: Helvetica;
+			}
+			option{
+				background-color: #000;
+				color: #fff;
+			}
+		}
+	}
+	.race-alignment{
+		height: 20px;
+		margin-bottom: 10px;
+	}
+	.ability-list{
+		padding-left: 0;
+		> li{
+			margin-bottom: 5px;
+			padding-left: 0;
+		}
+	}
+	.value{
+		font-family: Helvetica;
+		font-size: 0.6em;
+		font-weight: bold;
+		padding-top: 8px;
+	}
+	.icon{
+		display: inline-block;
+		max-width: 20px;
+		padding: 0;
+		width: 100%;
+		> img{
+			width: 100%;
+		}
+	}
+	#avatar{
+		margin-bottom: 15px;
+	}
+	.ac-hp{
+		background: url(/img/ac-hp.jpg) center no-repeat;
+		background-color: transparent;
+		background-position: 10px 60%;
+		height: 60px;
+		padding: 0 0 0 50px;
+		> div{
+			float: left;
+			width: 100%;
+			> div{
+				display: inline-block;
+				float: left;
+				margin: 0 5px;
+			}
+		}
+	}
 }

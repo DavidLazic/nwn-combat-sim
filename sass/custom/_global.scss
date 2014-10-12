@@ -1,3 +1,12 @@
+html, body{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+	width: 100%;
+}
+
 html{
 	height: 100%;
 }
@@ -10,4 +19,21 @@ body{
 
 ul{
 	list-style-type: none;
+}
+
+a{
+	@include transition(all, 0.3, ease);
+	color: #fff;
+	text-decoration: none;
+	&:hover{
+		color: #fff;
+		text-decoration: none;
+	}
+}
+
+.overlay{
+	background-color: rgba(0, 0, 0, 0.6);
+	height: 100%;
+	position: fixed;
+	width: 100%;
 }

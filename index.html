@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-
+	<div class="overlay"></div>
 	<!-- Main container -->
 	<div class="container">
 		<h1>Neverwinter Nights</h1>
@@ -14,7 +14,7 @@
 
 		<!-- Character container -->
 		<div class="col-md-5 record-container padding-0" id="character">
-			<h5>Character Record</h5>
+			<div>Character Record</div>
 			<div class="col-md-12">
 				<ul>
 					<li>
@@ -41,9 +41,9 @@
 				</div>
 				<div class="col-md-8">
 					<div>Race, Class</div>
-					<form>
+					<form class="col-md-12">
 						<fieldset>
-							<ul>
+							<ul class="ability-list">
 								<li>
 									<span class="col-md-6">Strength</span>
 									<span class="col-md-2">img</span>
@@ -96,98 +96,98 @@
 
 		<!-- Creature container -->
 		<div class="col-md-5 col-md-offset-2 record-container padding-0" id="creature">
-			<div>
-				<h5>Creature Record, </h5>
-				<select id="select-opponent" class="form-control">
-					<option selected="selected" value="null">-- Choose opponent --</option>
+			<div class="col-md-12 record-header">
+				<div class="col-md-4 padding-left-0">creature record, </div>
+				<select id="select-opponent" class="col-md-8 form-control">
+					<option selected="selected" value="null">choose opponent</option>
 					<optgroup label="Dragons">
-						<option value="white" data-url="dragons">Ancient white dragon</option>
-						<option value="red" data-url="dragons">Ancient red dragon</option>
-						<option value="green" data-url="dragons">Ancient green dragon</option>
-						<option value="blue" data-url="dragons">Ancient blue dragon</option>
-						<option value="black" data-url="dragons">Ancient black dragon</option>
+						<option value="white" data-url="dragons">ancient white dragon</option>
+						<option value="red" data-url="dragons">ancient red dragon</option>
+						<option value="green" data-url="dragons">ancient green dragon</option>
+						<option value="blue" data-url="dragons">ancient blue dragon</option>
+						<option value="black" data-url="dragons">ancient black dragon</option>
 					</optgroup>
 				</select>
 			</div>
 			<div class="col-md-12">
-				<ul>
-					<li>
-						Overview
-					</li>
-					<li>
-						Statistics
-					</li>
-				</ul>
+				<a id="overview" href="javascript:void(0)">overview</a>
+				<a id="statistics" href="javascript:void(0)">statistics</a>
 			</div>
 			<div class="col-md-12">
-				<div class="col-md-4">
+				<div class="col-md-4 padding-top-10">
 					<div class="avatar">
 						<img id="avatar" src="img/idle_portrait.jpg">
 					</div>
-					<div>
+					<div class="ac-hp">
 						<div>
-							<div>AC</div>
-							<div id="ac" data-property="armorClass" class="idle-clear"></div>
+							<div>ac:</div>
+							<div id="ac" data-property="armorClass" class="idle-clear value"></div>
 						</div>
 						<div>
-							<div>HP</div>
+							<div>hp:</div>
 							<div>
-								<span id="current-hp" class="idle-clear"></span>
-								<span id="hp" data-property="hitPoints" class="idle-clear"></span>
+								<span id="current-hp" class="idle-clear value"></span>
+								<span id="hp" data-property="hitPoints" class="idle-clear value"></span>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-8">
-					<div>
-						<span id="race" data-property="race" class="idle-clear"></span>,
+					<div class="col-md-12 race-alignment">
+						<span id="race" data-property="race" class="idle-clear"></span>
 						<span id="alignment" data-property="alignment" class="idle-clear"></span>
 					</div>
-					<ul>
-						<li>
-							<span class="col-md-6">Strength</span>
-							<span class="col-md-2">img</span>
-							<span class="col-md-2 idle-clear" id="strength" data-property="strength"></span>
-							<span class="col-md-2 modifier idle-clear"></span>
+					<ul class="col-md-12 ability-list">
+						<li class="col-md-12">
+							<span class="col-md-6">strength</span>
+							<span class="col-xs-2 icon"><img src="img/gr_str.jpg"></span>
+							<span class="col-xs-2 idle-clear value" id="strength" data-property="strength"></span>
+							<span class="col-xs-2 modifier idle-clear value"></span>
 						</li>
-						<li>
-							<span class="col-md-6">Dexterity</span>
-							<span class="col-md-2">img</span>
-							<span class="col-md-2 idle-clear" id="dexterity" data-property="dexterity"></span>
-							<span class="col-md-2 modifier idle-clear"></span>
+						<li class="col-md-12">
+							<span class="col-md-6">dexterity</span>
+							<span class="col-xs-2 icon"><img src="img/gr_dex.jpg"></span>
+							<span class="col-xs-2 idle-clear value" id="dexterity" data-property="dexterity"></span>
+							<span class="col-xs-2 modifier idle-clear value"></span>
 						</li>
-						<li>
-							<span class="col-md-6">Constitution</span>
-							<span class="col-md-2">img</span>
-							<span class="col-md-2 idle-clear" id="constitution" data-property="constitution"></span>
-							<span class="col-md-2 modifier idle-clear"></span>
+						<li class="col-md-12">
+							<span class="col-md-6">constitution</span>
+							<span class="col-xs-2 icon"><img src="img/gr_con.jpg"></span>
+							<span class="col-xs-2 idle-clear value" id="constitution" data-property="constitution"></span>
+							<span class="col-xs-2 modifier idle-clear value"></span>
 						</li>
-						<li>
-							<span class="col-md-6">Intelligence</span>
-							<span class="col-md-2">img</span>
-							<span class="col-md-2 idle-clear" id="intelligence" data-property="intelligence"></span>
-							<span class="col-md-2 modifier idle-clear"></span>
+						<li class="col-md-12">
+							<span class="col-md-6">intelligence</span>
+							<span class="col-xs-2 icon"><img src="img/gr_int.jpg"></span>
+							<span class="col-xs-2 idle-clear value" id="intelligence" data-property="intelligence"></span>
+							<span class="col-xs-2 modifier idle-clear value"></span>
 						</li>
-						<li>
-							<span class="col-md-6">Wisdom</span>
-							<span class="col-md-2">img</span>
-							<span class="col-md-2 idle-clear" id="wisdom" data-property="wisdom"></span>
-							<span class="col-md-2 modifier idle-clear"></span>
+						<li class="col-md-12">
+							<span class="col-md-6">wisdom</span>
+							<span class="col-xs-2 icon"><img src="img/gr_wis.jpg"></span>
+							<span class="col-xs-2 idle-clear value" id="wisdom" data-property="wisdom"></span>
+							<span class="col-xs-2 modifier idle-clear value"></span>
 						</li>
-						<li>
-							<span class="col-md-6">Charisma</span>
-							<span class="col-md-2">img</span>
-							<span class="col-md-2 idle-clear" id="charisma" data-property="charisma"></span>
-							<span class="col-md-2 modifier idle-clear"></span>
+						<li class="col-md-12">
+							<span class="col-md-6">charisma</span>
+							<span class="col-xs-2 icon"><img src="img/gr_cha.jpg"></span>
+							<span class="col-xs-2 idle-clear value" id="charisma" data-property="charisma"></span>
+							<span class="col-xs-2 modifier idle-clear value"></span>
 						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-md-12">
 				<ul>
-					<li>Attack bonus: <span id="ab" data-property="attackBonus" class="idle-clear"></span></li>
-					<li>Dice roll: <span id="dc" data-property="diceRoll" class="idle-clear"></span></li>
-					<li>Damage: <span id="damage" data-property="damage" class="idle-clear"></span></li>
+					<li class="col-xs-12 col-md-12 padding-0">
+						<span class="col-xs-4 col-md-4 padding-0">attack bonus: </span>
+						<span id="ab" data-property="attackBonus" class="col-xs-8 col-md-8 idle-clear value padding-0"></span></li>
+					<li class="col-xs-12 col-md-12 padding-0">
+						<span class="col-xs-4 col-md-4 padding-0">dice roll:</span>
+						<span id="dc" data-property="diceRoll" class="col-xs-8 col-md-8 idle-clear value padding-0"></span></li>
+					<li class="col-xs-12 col-md-12 padding-0">
+						<span class="col-xs-4 col-md-4 padding-0">damage:</span>
+						<span id="damage" data-property="damage" class="col-xs-8 col-md-8 idle-clear value padding-0"></span></li>
 				</ul>
 			</div>
 			<div class="col-md-12"></div>

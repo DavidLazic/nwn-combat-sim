@@ -1,8 +1,8 @@
 [
 {
 	"label": "white",
-	"race" : "Dragon",
-	"alignment" : "Chaotic Evil",
+	"race" : "dragon, ",
+	"alignment" : "chaotic evil",
 	"armorClass" : 37,
 	"hitPoints" : 375,
 	"attackBonus" : [34, 29, 24, 19],
@@ -18,8 +18,8 @@
 },
 {
 	"label": "red",
-	"race" : "Dragon",
-	"alignment" : "Chaotic Evil",
+	"race" : "dragon, ",
+	"alignment" : "chaotic evil",
 	"armorClass" : 39,
 	"hitPoints" : 527,
 	"attackBonus" : [39, 34, 29, 24],
@@ -35,8 +35,8 @@
 },
 {
 	"label": "green",
-	"race" : "Dragon",
-	"alignment" : "Lawful Evil",
+	"race" : "dragon, ",
+	"alignment" : "lawful evil",
 	"armorClass" : 37,
 	"hitPoints" : 432,
 	"attackBonus" : [36, 31, 26, 21],
@@ -52,8 +52,8 @@
 },
 {
 	"label": "blue",
-	"race" : "Dragon",
-	"alignment" : "Lawful Evil",
+	"race" : "dragon, ",
+	"alignment" : "lawful evil",
 	"armorClass" : 38,
 	"hitPoints" : 445,
 	"attackBonus" : [37, 32, 27, 22],
@@ -69,8 +69,8 @@
 },
 {
 	"label": "black",
-	"race" : "Dragon",
-	"alignment" : "Chaotic Evil",
+	"race" : "dragon, ",
+	"alignment" : "chaotic evil",
 	"armorClass" : 38,
 	"hitPoints" : 387,
 	"attackBonus" : [35, 30, 25, 20],

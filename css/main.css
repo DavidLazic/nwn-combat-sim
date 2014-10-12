@@ -8708,6 +8708,15 @@ button.close {
   display: none;
 }
 
+html, body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  width: 100%;
+}
+
 html {
   height: 100%;
 }
@@ -8720,6 +8729,25 @@ body {
 
 ul {
   list-style-type: none;
+}
+
+a {
+  -webkit-transition: all, 0.3, ease;
+  -o-transition: all, 0.3, ease;
+  transition: all, 0.3, ease;
+  color: #fff;
+  text-decoration: none;
+}
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  position: fixed;
+  width: 100%;
 }
 
 .btn {
@@ -8752,6 +8780,78 @@ ul {
 }
 
 .record-container {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
+  font-family: 'Neverwinter';
+  font-size: 1.2em;
+}
+.record-container .record-header {
+  background-color: #000;
+  margin-bottom: 10px;
+}
+.record-container .record-header select {
+  background-color: #000;
+  border: none;
+  color: #fff;
+  display: inline-block;
+  font-size: 1.1em;
+  height: auto;
+  line-height: 1;
+  padding: 0;
+  width: auto;
+}
+.record-container .record-header select optgroup {
+  background-color: #fff;
+  color: #000;
+  font-size: 0.6em;
+  font-family: Helvetica;
+}
+.record-container .record-header select option {
+  background-color: #000;
+  color: #fff;
+}
+.record-container .race-alignment {
+  height: 20px;
+  margin-bottom: 10px;
+}
+.record-container .ability-list {
+  padding-left: 0;
+}
+.record-container .ability-list > li {
+  margin-bottom: 5px;
+  padding-left: 0;
+}
+.record-container .value {
+  font-family: Helvetica;
+  font-size: 0.6em;
+  font-weight: bold;
+  padding-top: 8px;
+}
+.record-container .icon {
+  display: inline-block;
+  max-width: 20px;
+  padding: 0;
+  width: 100%;
+}
+.record-container .icon > img {
+  width: 100%;
+}
+.record-container #avatar {
+  margin-bottom: 15px;
+}
+.record-container .ac-hp {
+  background: url(/img/ac-hp.jpg) center no-repeat;
+  background-color: transparent;
+  background-position: 10px 60%;
+  height: 60px;
+  padding: 0 0 0 50px;
+}
+.record-container .ac-hp > div {
+  float: left;
+  width: 100%;
+}
+.record-container .ac-hp > div > div {
+  display: inline-block;
+  float: left;
+  margin: 0 5px;
 }
