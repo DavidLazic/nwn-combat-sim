@@ -21,7 +21,7 @@ APP.EVENT_HANDLER = (function($, app){
 
 			if(selectedValue === 'null'){
 
-				var $clear = $('[data-idle'),
+				var $clear = $('.idle-clear'),
 					$avatar = $('#avatar'),
 					idleURL = '/img/idle_portrait.jpg';
 
@@ -59,7 +59,7 @@ APP.EVENT_HANDLER = (function($, app){
 		},
 
 		/**
-		 * Populate fields with array data
+		 * Loop through {object} and {label} arrays and populate fields with array data.
 		 * @params {array}
 		 * @return {string}
 		 */
@@ -67,10 +67,9 @@ APP.EVENT_HANDLER = (function($, app){
 
 			avatar[0].attr('src', avatar[1]);
 
-			for(var i = 0; i < objects.length; i++){
-
-				objects[i].html(labels[i]);
-			}
+			$.each(objects, function(i){
+				$(this).html(labels[i]);
+			});
 
 			cb();
 		}

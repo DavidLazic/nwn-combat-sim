@@ -53,44 +53,39 @@ APP.AJAX_WRAPPER = (function($, view){
 
 		/**
 		 * Render given object's properties.
+		 * Create arrays from output objects and field labels.
 		 * @params {object}
 		 * @return {array}
 		 */
 		renderObject: function(object){
 
-			var $avatar = $('#avatar'),
-				$race = $('#race'),
-				$alignment = $('#alignment'),
-				$AC = $('#ac'),
-				$HP = $('#hp'),
-				$AB = $('#ab'),
-				$DC = $('#dc'),
-				$damage = $('#damage'),
-				$str = $('#strength'),
-				$dex = $('#dexterity'),
-				$con = $('#constitution'),
-				$intel = $('#intelligence'),
-				$wis = $('#wisdom'),
-				$cha = $('#charisma'),
+			var obj = $('[data-property]'),
+				objectsArray = [],
+				labelsArray = [],
 
+				$avatar = $('#avatar'),
 				avatar = 'img/' + object.avatarURL + '.jpg',
-				race = object.race,
-				alignment = object.alignment,
-				AC = object.armorClass,
-				HP = object.hitPoints,
-				AB = '+' + object.attackBonus.join('/+'),
-				DC = object.diceRoll[0] + 'd' + object.diceRoll[1],
-				damage = object.damage[0] + '-' + object.damage[1] + ' + ' + object.damage[2],
-				str = object.strength,
-				dex = object.dexterity,
-				con = object.constitution,
-				intel = object.intelligence,
-				wis = object.wisdom,
-				cha = object.charisma,
-
-				objectsArray = [$race, $alignment, $AC, $HP, $AB, $DC, $damage, $str, $dex, $con, $intel, $wis, $cha],
-				labelsArray = [race, alignment, AC, HP, AB, DC, damage, str, dex, con, intel, wis, cha],
 				avatarArray = [$avatar, avatar];
+
+			$.each(obj, function(){
+
+				var label = $(this).data('property'),
+					labelValue;
+
+				if(label === 'attackBonus'){
+					labelValue = '+' + object[label].join('/+');
+				}else if(label === 'diceRoll'){
+					labelValue = object[label][0] + 'd' + object[label][1];
+				}else if(label === 'damage'){
+					labelValue = object[label][0] + '-' + object[label][1] + ' + ' + object[label][2];
+				}else{
+					labelValue = object[label];
+				}
+
+				objectsArray.push($(this));
+				labelsArray.push(labelValue);
+
+			});
 
 			view.populateFields(objectsArray, labelsArray, avatarArray, this.calculateModifier);
 		},
