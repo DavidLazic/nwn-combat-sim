@@ -20,7 +20,16 @@ APP.EVENT_HANDLER = (function($, app){
 				ajax = app.AJAX_WRAPPER;
 
 			if(selectedValue === 'null'){
+
+				var $clear = $('[data-idle'),
+					$avatar = $('#avatar'),
+					idleURL = '/img/idle_portrait.jpg';
+
+				$clear.text('');
+				$avatar.attr('src', idleURL);
+
 				return false;
+
 			}else{
 				ajax.sendRequest(url, selectedValue);
 			}
