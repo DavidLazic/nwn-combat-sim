@@ -29,10 +29,9 @@ APP.EVENT_HANDLER = (function($, app){
                 $avatar.attr('src', idleURL);
 
                 return false;
-
-            }else{
-                ajax.sendRequest(url, selectedValue);
             }
+
+            ajax.sendRequest(url, selectedValue);
         }
     };
 
@@ -71,7 +70,9 @@ APP.EVENT_HANDLER = (function($, app){
                 $(this).html(labels[i]);
             });
 
-            cb();
+            if(cb){
+                cb();
+            }
         }
     };
 
