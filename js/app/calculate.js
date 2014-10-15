@@ -24,7 +24,7 @@ APP.CALCULATE = (function($, app){
                 $.each($modifier, function(){
 
                     var value = parseInt($(this).prev().text()),
-                    modValue = Math.floor((value - 10) / 2);
+                        modValue = Math.floor((value - 10) / 2);
 
                     $(this).html(modValue);
                 });
