@@ -1,4 +1,4 @@
-APP.AJAX_WRAPPER = (function($, view){
+APP.AJAX_WRAPPER = (function($, app){
 
     var privateMethod,
         publicMethod;
@@ -7,9 +7,9 @@ APP.AJAX_WRAPPER = (function($, view){
 
         /**
          * Create object.
-         * @return {object}
+         * @return {object}, {boolean}
          */
-        createInstance: function(url, label){
+        createInstance: function(url, label, combatStatus){
 
             var ajaxObj = {};
 
@@ -18,7 +18,7 @@ APP.AJAX_WRAPPER = (function($, view){
             ajaxObj.dataType = 'JSON';
 
             ajaxObj.success = function(data){
-                privateMethod.ajaxSuccess(data, label);
+                privateMethod.ajaxSuccess(data, label, combatStatus);
             };
 
             ajaxObj.error = function(data){
@@ -31,10 +31,10 @@ APP.AJAX_WRAPPER = (function($, view){
 
         /**
          * Match the given label with the right object.
-         * @param label{string}
-         * @return {object}
+         * @param label{string}, {boolean}
+         * @return {object}, {boolean}
          */
-        ajaxSuccess: function(data, label){
+        ajaxSuccess: function(data, label, combatStatus){
 
             for (var i = 0; i < data.length; i++){
 
@@ -42,7 +42,7 @@ APP.AJAX_WRAPPER = (function($, view){
 
                     var currentObject = data[i];
 
-                    this.renderObject(currentObject);
+                    this.renderObject(currentObject, combatStatus);
                 }
             }
         },
@@ -52,20 +52,36 @@ APP.AJAX_WRAPPER = (function($, view){
         },
 
         /**
-         * Render given object's properties.
+         * Render given object in certain way depending on the combatStatus.
+         * @param {object}, {boolean}
+         */
+        renderObject: function(object, combatStatus){
+
+            if(combatStatus == true){
+                this.renderForCombat(object);
+            }else{
+                this.renderForView(object);
+            }
+        },
+
+        /**
+         * Render given object's properties for view.
          * Create arrays from output objects and field labels.
          * @params {object}
          * @return {array}
          */
-        renderObject: function(object){
+        renderForView: function(object){
 
-            var obj = $('[data-property]'),
+            var view = app.EVENT_HANDLER,
+                calculate = app.CALCULATE,
+                obj = $('[data-property]'),
                 objectsArray = [],
                 labelsArray = [],
 
-                $avatar = $('#avatar'),
-                avatar = 'img/' + object.avatarURL + '.jpg',
-                avatarArray = [$avatar, avatar];
+            $avatar = $('#avatar'),
+            avatar = 'img/' + object.avatarURL + '.jpg',
+            avatarArray = [$avatar, avatar];
+
 
             $.each(obj, function(){
 
@@ -77,7 +93,7 @@ APP.AJAX_WRAPPER = (function($, view){
                 }else if(label === 'diceRoll'){
                     labelValue = object[label][0] + 'd' + object[label][1];
                 }else if(label === 'damage'){
-                    labelValue = object[label][0] + '-' + object[label][1] + ' + ' + object[label][2];
+                    labelValue = calculate.calculateDamage(object);
                 }else{
                     labelValue = object[label];
                 }
@@ -87,25 +103,36 @@ APP.AJAX_WRAPPER = (function($, view){
 
             });
 
-            view.populateFields(objectsArray, labelsArray, avatarArray, this.calculateModifier);
+            view.populateFields(objectsArray, labelsArray, avatarArray, calculate.calculateModifier);
         },
 
         /**
-         * Calculate ability modifier based on the current ability value.
-         * For each 2 levels of certain ability starting from level 9, modifier gets raised by 1.
+         * Make @opponent object out of given object.
+         * Make @character object out of input values.
+         * @param {object}
+         * @return {object}
          */
-        calculateModifier: function(){
+        renderForCombat: function(object){
 
-            var $modifier = $('.modifier');
+            var combat = app.COMBAT_MODULE,
+                calculate = app.CALCULATE,
+                myChar = {},
+                myOpp = {};
 
-            $.each($modifier, function(){
+            myChar.strength = parseInt($('#char-str').text()),
+            myChar.hp = $('#char-hp').text(),
+            myChar.ac = $('#char-ac').val(),
+            myChar.ab = $('#char-ab').text(),
+            myChar.dmg = calculate.calculateDamage(myChar);
 
-                var value = parseInt($(this).prev().text()),
-                    modValue = Math.floor((value - 9) / 2);
+            myOpp.hp = object.hitPoints,
+            myOpp.ac = object.armorClass,
+            myOpp.ab = object.attackBonus,
+            myOpp.dmg = calculate.calculateDamage(object);
 
-                $(this).html(modValue);
-            });
+            combat.startFight(myChar, myOpp);
         }
+
     };
 
     publicMethod = {
@@ -113,10 +140,9 @@ APP.AJAX_WRAPPER = (function($, view){
         /**
          * Send request with created object.
          */
+        sendRequest: function(url, label, combatStatus){
 
-        sendRequest: function(url, label){
-
-            var $object = privateMethod.createInstance(url, label);
+            var $object = privateMethod.createInstance(url, label, combatStatus);
 
             $.ajax($object);
         }
@@ -124,4 +150,4 @@ APP.AJAX_WRAPPER = (function($, view){
 
     return publicMethod;
 
-}(jQuery, APP.EVENT_HANDLER));
+}(jQuery, APP));

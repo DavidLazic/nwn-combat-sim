@@ -30,7 +30,7 @@
 
             <div class="col-md-12">
                 <!-- Avatar, AC, HP -->
-                <div class="col-md-4 padding-top-10">
+                <div class="col-md-5 padding-top-10">
                     <div class="avatar">
                         <img id="char-avatar" src="img/idle_portrait.jpg">
                     </div>
@@ -46,9 +46,9 @@
                     </div>
                 </div>
                 <!-- Table -->
-                <div class="col-md-8">
+                <div class="col-md-7 padding-right-0">
                     <div class="col-md-12 race-alignment"></div>
-                    <form class="col-md-12">
+                    <form class="col-md-12 padding-left-0">
                         <fieldset>
                             <ul class="ability-list">
                                 <li class="col-md-12">
@@ -140,7 +140,7 @@
 
             <div class="col-md-12">
                 <!-- Avatar, AC, HP -->
-                <div class="col-md-4 padding-top-10">
+                <div class="col-md-5 padding-top-10">
                     <div class="avatar">
                         <img id="avatar" src="img/idle_portrait.jpg">
                     </div>
@@ -152,14 +152,14 @@
                         <div>
                             <div>hp:</div>
                             <div>
-                                <span id="current-hp" class="idle-clear value"></span>
+                                <span id="current-hp" class="idle-clear value"></span>/
                                 <span id="hp" data-property="hitPoints" class="idle-clear value"></span>
                             </div>
                         </div>
                     </div>
                 </div><!-- End avatar, AC, HP -->
                 <!-- Table -->
-                <div class="col-md-8">
+                <div class="col-md-7 padding-right-0">
                     <div class="col-md-12 race-alignment">
                         <span id="race" data-property="race" class="idle-clear"></span>
                         <span id="alignment" data-property="alignment" class="idle-clear"></span>
@@ -169,7 +169,7 @@
                             <span class="col-md-6">strength</span>
                             <span class="col-xs-2 icon"><img src="img/gr_str.jpg"></span>
                             <span class="col-xs-2 idle-clear value" id="strength" data-property="strength"></span>
-                            <span class="col-xs-2 modifier idle-clear value"></span>
+                            <span class="col-xs-2 modifier idle-clear value" id="str-modifier"></span>
                         </li>
                         <li class="col-md-12">
                             <span class="col-md-6">dexterity</span>
@@ -228,7 +228,7 @@
 
         <!-- Start fight -->
         <div class="col-md-6 col-md-offset-3">
-            <a class="btn btn-red" id="btn-fight" href="javascript:void(0)">Fight!</a>
+            <a class="btn btn-red" id="btn-combat" href="javascript:void(0)">Fight!</a>
         </div><!-- End start fight -->
 
         <!-- Report -->
@@ -240,5 +240,7 @@
     <script type="text/javascript" src="js/app/main.js"></script>
     <script type="text/javascript" src="js/app/event_handler.js"></script>
     <script type="text/javascript" src="js/app/ajax_wrapper.js"></script>
+    <script type="text/javascript" src="js/app/combat_module.js"></script>
+    <script type="text/javascript" src="js/app/calculate.js"></script>
 </body>
 </html>
