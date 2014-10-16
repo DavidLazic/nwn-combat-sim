@@ -78,14 +78,14 @@ APP.AJAX_WRAPPER = (function($, app){
                 objectsArray = [],
                 labelsArray = [],
 
-            $avatar = $('#avatar'),
-            avatar = 'img/' + object.avatarURL + '.jpg',
-            avatarArray = [$avatar, avatar],
+                $avatar = $('#avatar'),
+                avatar = 'img/' + object.avatarURL + '.jpg',
+                avatarArray = [$avatar, avatar],
 
-            $health = $('#current-hp'),
-            maxHP = object.hitPoints,
-            health = calculate.currentHP(maxHP),
-            healthArray = [$health, health];
+                $health = $('#current-hp'),
+                maxHP = object.hitPoints,
+                health = calculate.currentHP(maxHP),
+                healthArray = [$health, health];
 
             $.each(obj, function(){
 

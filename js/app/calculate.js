@@ -5,8 +5,9 @@ APP.CALCULATE = (function($, app, ajax){
 
         privateMethod = {
 
-            /*
+            /**
              * Calculate damage done based on @min, @max and @modifier values.
+             * @return {integer}
              */
             damageRoll: function(dmgMIN, dmgMAX, strModifier){
 
@@ -14,6 +15,18 @@ APP.CALCULATE = (function($, app, ajax){
                     damage =  baseRoll + strModifier;
 
                 return damage;
+            },
+
+            /**
+             * Calculate attack roll based on @min, @max, and @currentBonus values.
+             * @return {integer}
+             */
+            attackRoll: function(rollMin, rollMax, currentAttackBonus){
+
+                var baseRoll = Math.floor((Math.random() * rollMax) + rollMin),
+                    attackRoll = baseRoll + currentAttackBonus;
+
+                return attackRoll;
             }
         };
 
@@ -49,7 +62,7 @@ APP.CALCULATE = (function($, app, ajax){
             },
 
             /**
-             * Render damage property for showing in view
+             * Render damage property for showing in view.
              * e.g. diceRoll (2d8) results in 2-16 + strModifier.
              * @param {object}
              * @return {string}
@@ -73,7 +86,21 @@ APP.CALCULATE = (function($, app, ajax){
 
                     return viewDamage;
                 }
+            },
 
+            /**
+             * Based on the given value, calculate attack roll.
+             * @param {integer}
+             * @return {integer}
+             */
+            calculateAttackRoll: function(value){
+
+                var rollMin = 1,
+                    rollMax = 20,
+                    currentAttackBonus = value,
+                    attackRoll = privateMethod.attackRoll(rollMin, rollMax, currentAttackBonus);
+
+                return attackRoll;
             }
         };
 
