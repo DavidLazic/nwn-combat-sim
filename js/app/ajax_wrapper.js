@@ -98,7 +98,6 @@ APP.AJAX_WRAPPER = (function($, app){
                     labelValue = object[label][0] + 'd' + object[label][1];
                 }else if(label === 'damage'){
                     labelValue = calculate.calculateDamage(object);
-                    console.log(labelValue);
                 }else{
                     labelValue = object[label];
                 }
