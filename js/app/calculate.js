@@ -1,4 +1,4 @@
-APP.CALCULATE = (function($, app, ajax){
+APP.CALCULATE = (function($, app){
 
     var privateMethod,
         publicMethod;
@@ -106,4 +106,4 @@ APP.CALCULATE = (function($, app, ajax){
 
         return publicMethod;
 
-}(jQuery, APP, APP.AJAX_WRAPPER));
+}(jQuery, APP));
