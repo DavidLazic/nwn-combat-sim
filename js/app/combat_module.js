@@ -9,8 +9,8 @@ APP.COMBAT_MODULE = (function($, app){
 
     publicMethod = {
 
-        startFight: function(x){
-            console.log(parseInt(x.dmg));
+        startFight: function(objA, objB){
+            console.log(objA.dmg);
         }
     };
 

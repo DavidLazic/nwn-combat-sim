@@ -80,8 +80,12 @@ APP.AJAX_WRAPPER = (function($, app){
 
             $avatar = $('#avatar'),
             avatar = 'img/' + object.avatarURL + '.jpg',
-            avatarArray = [$avatar, avatar];
+            avatarArray = [$avatar, avatar],
 
+            $health = $('#current-hp'),
+            maxHP = object.hitPoints,
+            health = calculate.currentHP(maxHP),
+            healthArray = [$health, health];
 
             $.each(obj, function(){
 
@@ -94,6 +98,7 @@ APP.AJAX_WRAPPER = (function($, app){
                     labelValue = object[label][0] + 'd' + object[label][1];
                 }else if(label === 'damage'){
                     labelValue = calculate.calculateDamage(object);
+                    console.log(labelValue);
                 }else{
                     labelValue = object[label];
                 }
@@ -103,14 +108,17 @@ APP.AJAX_WRAPPER = (function($, app){
 
             });
 
-            view.populateFields(objectsArray, labelsArray, avatarArray, calculate.calculateModifier);
+            view.populateFields(objectsArray,
+                                labelsArray,
+                                avatarArray,
+                                healthArray,
+                                calculate.calculateModifier);
         },
 
         /**
          * Make @opponent object out of given object.
          * Make @character object out of input values.
          * @param {object}
-         * @return {object}
          */
         renderForCombat: function(object){
 
@@ -119,10 +127,14 @@ APP.AJAX_WRAPPER = (function($, app){
                 myChar = {},
                 myOpp = {};
 
-            myChar.strength = parseInt($('#char-str').text()),
-            myChar.hp = $('#char-hp').text(),
-            myChar.ac = $('#char-ac').val(),
-            myChar.ab = $('#char-ab').text(),
+            myChar.strength = 21,
+            // myChar.strength = parseInt($('#char-str').text()),
+            myChar.hp = 226,
+            // myChar.hp = $('#char-hp').text(),
+            myChar.ac = 59,
+            // myChar.ac = $('#char-ac').val(),
+            myChar.diceRoll = [1, 8],
+            myChar.ab = [57, 52, 47, 42],
             myChar.dmg = calculate.calculateDamage(myChar);
 
             myOpp.hp = object.hitPoints,

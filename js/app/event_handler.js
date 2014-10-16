@@ -71,13 +71,16 @@ APP.EVENT_HANDLER = (function($, app){
          * @params {array}
          * @return {string}
          */
-        populateFields: function(objects, labels, avatar, cb){
+        populateFields: function(objects, labels, avatar, health, cb){
 
             avatar[0].attr('src', avatar[1]);
+
+            health[0].html(health[1]);
 
             $.each(objects, function(i){
                 $(this).html(labels[i]);
             });
+
 
             if(cb){
                 cb();

@@ -1,10 +1,20 @@
-APP.CALCULATE = (function($, app){
+APP.CALCULATE = (function($, app, ajax){
 
     var privateMethod,
         publicMethod;
 
         privateMethod = {
 
+            /*
+             * Calculate damage done based on @min, @max and @modifier values.
+             */
+            damageRoll: function(dmgMIN, dmgMAX, strModifier){
+
+                var baseRoll = Math.floor((Math.random() * (dmgMAX - 1)) + dmgMIN),
+                    damage =  baseRoll + strModifier;
+
+                return damage;
+            }
         };
 
         publicMethod = {
@@ -15,11 +25,7 @@ APP.CALCULATE = (function($, app){
              */
              calculateModifier: function(object){
 
-                var $modifier = $('.modifier'),
-                    maxHP = $('#hp').text(),
-                    $currentHP = $('#current-hp');
-
-                    $currentHP.html(maxHP);
+                var $modifier = $('.modifier');
 
                 $.each($modifier, function(){
 
@@ -31,22 +37,46 @@ APP.CALCULATE = (function($, app){
             },
 
             /**
+             * If object isn't forwarded as an argument, currentHP is maxHP.
+             */
+            currentHP: function(currentHP, object){
+
+                if(!(object == undefined)){
+                    object.html(currentHP);
+                }
+
+                return currentHP;
+            },
+
+            /**
+             * Render damage property for showing in view
              * e.g. diceRoll (2d8) results in 2-16 + strModifier.
              * @param {object}
              * @return {string}
              */
-             calculateDamage: function(object){
+             calculateDamage: function(object, combatStatus){
 
                 var diceRoll = object.diceRoll,
                     strModifier = Math.floor((object.strength - 10) / 2),
                     dmgMIN = diceRoll[0],
                     dmgMAX = diceRoll[1] * dmgMIN,
-                    dmg = dmgMIN + '-' + dmgMAX + ' + ' + strModifier;
+                    viewDamage = dmgMIN + '-' + dmgMAX + ' + ' + strModifier;
 
-                return dmg;
+
+                if(combatStatus == true){
+
+                    var damage = privateMethod.damageRoll(dmgMIN, dmgMAX, strModifier);
+
+                    return damage;
+
+                }else{
+
+                    return viewDamage;
+                }
+
             }
         };
 
         return publicMethod;
 
-}(jQuery, APP));
+}(jQuery, APP, APP.AJAX_WRAPPER));
