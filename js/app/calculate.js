@@ -19,14 +19,18 @@ APP.CALCULATE = (function($, app){
 
             /**
              * Calculate attack roll based on @min, @max, and @currentBonus values.
-             * @return {integer}
+             * @return {object}
              */
             attackRoll: function(rollMin, rollMax, currentAttackBonus){
 
-                var baseRoll = Math.floor((Math.random() * rollMax) + rollMin),
+                var roll = {},
+                    baseRoll = Math.floor((Math.random() * rollMax) + rollMin),
                     attackRoll = baseRoll + currentAttackBonus;
 
-                return [baseRoll, attackRoll];
+                roll.baseRoll = baseRoll;
+                roll.attackRoll = attackRoll;
+
+                return roll;
             }
         };
 

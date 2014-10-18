@@ -15,28 +15,53 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
             for(var i = 0; i < roundLength; i++){
 
-                var randomDelay = calculate.randomValue(500, 300);
+                var randomDelay = calculate.randomValue(500, 300),
 
-                // While iterating over total attacks, set attack counters to 0.
-                var charMaxAttacks = myChar.ab.length,
-                    charAttack = 0,
+                    $charCurrentHP = $('#char-current-hp'),
+                    $oppCurrentHP = $('#current-hp'),
+
+                    charMaxAttacks = myChar.ab.length,
                     charAC = myChar.ac,
                     charHP = myChar.hp,
                     charName = myChar.name,
 
                     oppMaxAttacks = myOpp.ab.length,
-                    oppAttack = 0,
                     oppAC = myOpp.ac,
                     oppHP = myOpp.hp,
-                    oppName = myOpp.name;
+                    oppName = myOpp.name,
+
+                    // While iterating over total attacks, set attack counters to 0.
+                    charAttack = 0,
+                    oppAttack = 0,
+
+                    hasEnded = false;
 
                 // For readability purposes of the combat report log, setTimeout is needed.
                 setTimeout(function(){
 
-                    // Hit can be 0 or 1 based on Math.random().
-                    // Random "hit" value gives the combat a bit more reality, as objects won't be hitting each other
-                    // in a linear way, e.g. 1-1-1-1 / 2-2-2-2.
-                    var hit = calculate.randomValue(2);
+                    if(charHP > 0 && oppHP > 0 && hasEnded == false){
+                        // Hit can be 0 or 1 based on Math.random().
+                        // Random "hit" value gives the combat a bit more reality, as objects won't be hitting each other
+                        // in linear way, e.g. 1-1-1-1 / 2-2-2-2.
+                        var hit = calculate.randomValue(2);
+
+                    }else if(hasEnded == true){
+
+                        return false;
+
+                    }else{
+
+                        if(charHP <= 0){
+                            view.declareWin(oppName, charName);
+                        }else if(oppHP <= 0){
+                            view.declareWin(charName, oppName);
+                        }
+
+                        hasEnded = true;
+
+                        return false;
+                    }
+
 
                     if(hit == 1){
 
@@ -48,15 +73,29 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                 charAttackRoll = calculate.calculateAttackRoll(charBaseAttackBonus);
 
                             // If current attack roll surpases opponent object's AC, calculate damage done for successful hit.
-                            if(charAttackRoll[1] > oppAC){
+                            if(charAttackRoll.attackRoll > oppAC){
 
                                 var charDamageDone = calculate.calculateDamage(myChar, true);
 
-                                view.writeMessage(charName, oppName, charAttackRoll[0], charBaseAttackBonus, charAttackRoll[1], true);
+                                oppHP -= charDamageDone;
+                                calculate.currentHP(oppHP, $oppCurrentHP);
+
+                                view.writeMessage(charName,
+                                                  oppName,
+                                                  charAttackRoll.baseRoll,
+                                                  charBaseAttackBonus,
+                                                  charAttackRoll.attackRoll,
+                                                  charDamageDone,
+                                                  true);
 
                             }else{
 
-                               view.writeMessage(charName, oppName, charAttackRoll[0], charBaseAttackBonus, charAttackRoll[1], false);
+                                view.writeMessage(charName,
+                                                 oppName,
+                                                 charAttackRoll.baseRoll,
+                                                 charBaseAttackBonus,
+                                                 charAttackRoll.attackRoll,
+                                                 false);
                             }
 
                             charAttack++;
@@ -66,15 +105,29 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                             var oppBaseAttackBonus = privateMethod.increaseABIterateCount(myOpp, oppAttack),
                                 oppAttackRoll = calculate.calculateAttackRoll(oppBaseAttackBonus);
 
-                            if(oppAttackRoll > charAC){
+                            if(oppAttackRoll.attackRoll > charAC){
 
                                 var oppDamageDone = calculate.calculateDamage(myOpp, true);
 
-                                view.writeMessage(oppName, charName, oppAttackRoll[0], oppBaseAttackBonus, oppAttackRoll[1], true);
+                                charHP -= oppDamageDone;
+                                calculate.currentHP(charHP, $charCurrentHP);
+
+                                view.writeMessage(oppName,
+                                                  charName,
+                                                  oppAttackRoll.baseRoll,
+                                                  oppBaseAttackBonus,
+                                                  oppAttackRoll.attackRoll,
+                                                  oppDamageDone,
+                                                  true);
 
                             }else{
 
-                                view.writeMessage(oppName, charName, oppAttackRoll[0], oppBaseAttackBonus, oppAttackRoll[1], false);
+                                view.writeMessage(oppName,
+                                                  charName,
+                                                  oppAttackRoll.baseRoll,
+                                                  oppBaseAttackBonus,
+                                                  oppAttackRoll.attackRoll,
+                                                  false);
                             }
 
                             oppAttack++;
@@ -87,15 +140,29 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                             var oppBaseAttackBonus = privateMethod.increaseABIterateCount(myOpp, oppAttack),
                                 oppAttackRoll = calculate.calculateAttackRoll(oppBaseAttackBonus);
 
-                            if(oppAttackRoll > charAC){
+                            if(oppAttackRoll.attackRoll > charAC){
 
                                 var oppDamageDone = calculate.calculateDamage(myOpp, true);
 
-                                view.writeMessage(oppName, charName, oppAttackRoll[0], oppBaseAttackBonus, oppAttackRoll[1], true);
+                                charHP -= oppDamageDone;
+                                calculate.currentHP(charHP, $charCurrentHP);
+
+                                view.writeMessage(oppName,
+                                                  charName,
+                                                  oppAttackRoll.baseRoll,
+                                                  oppBaseAttackBonus,
+                                                  oppAttackRoll.attackRoll,
+                                                  oppDamageDone,
+                                                  true);
 
                             }else{
 
-                                view.writeMessage(oppName, charName, oppAttackRoll[0], oppBaseAttackBonus, oppAttackRoll[1], false);
+                                view.writeMessage(oppName,
+                                                  charName,
+                                                  oppAttackRoll.baseRoll,
+                                                  oppBaseAttackBonus,
+                                                  oppAttackRoll.attackRoll,
+                                                  false);
                             }
 
                             oppAttack++;
@@ -105,14 +172,29 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                             var charBaseAttackBonus = privateMethod.increaseABIterateCount(myChar, charAttack),
                                 charAttackRoll = calculate.calculateAttackRoll(charBaseAttackBonus);
 
-                            if(charAttackRoll[1] > oppAC){
+                            if(charAttackRoll.attackRoll > oppAC){
 
                                 var charDamageDone = calculate.calculateDamage(myChar, true);
 
-                                view.writeMessage(charName, oppName, charAttackRoll[0], charBaseAttackBonus, charAttackRoll[1], true);
+                                oppHP -= charDamageDone;
+                                calculate.currentHP(oppHP, $oppCurrentHP);
+
+                                view.writeMessage(charName,
+                                                  oppName,
+                                                  charAttackRoll.baseRoll,
+                                                  charBaseAttackBonus,
+                                                  charAttackRoll.attackRoll,
+                                                  charDamageDone,
+                                                  true);
+
                             }else{
 
-                                view.writeMessage(charName, oppName, charAttackRoll[0], charBaseAttackBonus, charAttackRoll[1], false);
+                                view.writeMessage(charName,
+                                                  oppName,
+                                                  charAttackRoll.baseRoll,
+                                                  charBaseAttackBonus,
+                                                  charAttackRoll.attackRoll,
+                                                  false);
                             }
 
                             charAttack++;

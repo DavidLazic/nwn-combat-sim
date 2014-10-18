@@ -86,45 +86,53 @@ APP.EVENT_HANDLER = (function($, app){
             }
         },
 
-        writeMessage: function(name, opponent, roll, bonus, total, hit){
+        /**
+         * Write the message in report log.
+         */
+        writeMessage: function(name, opponent, roll, bonus, total, damage, hit){
             var $log = $('#report-log'),
+
                 charSpan = '<div class="text"><span class="capitalize character">',
                 oppSpan = '<div class="text"><span class="capitalize opponent">',
 
-                hitMsg = name +
-                        '</span> attacks ' +
-                        opponent +
-                        ' : *hit* : (' +
-                        roll +
-                        ' + ' +
-                        bonus +
-                        ' = ' +
-                        total +
-                        ')</div>',
-
-                missMsg = name + '</span> attacks ' +
-                        opponent +
-                        ' : *miss* : (' +
-                        roll +
-                        ' + ' +
-                        bonus +
-                        ' = ' +
-                        total +
-                        ')</div>';
-
+                hitMsg = name + '</span> attacks <span class="capitalize">' + opponent + '</span> : *hit* : ('
+                        + roll + ' + ' + bonus + ' = ' + total + ')</div>',
+                missMsg = name + '</span> attacks <span class="capitalize">' + opponent + '</span> : *miss* : ('
+                        + roll + ' + ' + bonus + ' = ' + total + ')</div>',
+                dmgDone = name + '</span> damages <span class="capitalize">' + opponent + '</span> : '
+                        + damage + ' (' + damage + ' Physical)</div>';
 
             if(hit == true){
+
                 if(name == 'Galadriel'){
                     $log.append(charSpan + hitMsg);
+                    $log.append(charSpan + dmgDone);
                 }else{
                     $log.append(oppSpan + hitMsg);
+                    $log.append(oppSpan + dmgDone);
                 }
+
             }else{
+
                 if(name == 'Galadriel'){
                     $log.append(charSpan + missMsg);
                 }else{
                     $log.append(oppSpan + missMsg);
                 }
+            }
+        },
+
+        declareWin: function(winner, loser){
+            var $log = $('#report-log'),
+                charWin = '<div class="text"><span class="capitalize character">' + winner
+                + '</span> killed <span class="capitalize">' + loser + '</span>',
+                oppWin = '<div class="text"><span class="capitalize opponent">' + winner
+                + '</span> killed <span class="capitalize">' + loser + '</span>';
+
+            if(winner == 'Galadriel'){
+                $log.append(charWin);
+            }else{
+                $log.append(oppWin);
             }
         }
     };
