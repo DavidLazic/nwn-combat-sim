@@ -1,8 +1,9 @@
-APP.COMBAT_MODULE = (function($, app, calculate){
+APP.COMBAT_MODULE = (function($, app, calculate, view){
 
     var privateMethod,
         publicMethod,
-        calculate = app.CALCULATE;
+        calculate = app.CALCULATE,
+        view = app.EVENT_HANDLER;
 
     privateMethod = {
 
@@ -21,11 +22,13 @@ APP.COMBAT_MODULE = (function($, app, calculate){
                     charAttack = 0,
                     charAC = myChar.ac,
                     charHP = myChar.hp,
+                    charName = myChar.name,
 
                     oppMaxAttacks = myOpp.ab.length,
                     oppAttack = 0,
                     oppAC = myOpp.ac,
-                    oppHP = myOpp.hp;
+                    oppHP = myOpp.hp,
+                    oppName = myOpp.name;
 
                 // For readability purposes of the combat report log, setTimeout is needed.
                 setTimeout(function(){
@@ -45,13 +48,15 @@ APP.COMBAT_MODULE = (function($, app, calculate){
                                 charAttackRoll = calculate.calculateAttackRoll(charBaseAttackBonus);
 
                             // If current attack roll surpases opponent object's AC, calculate damage done for successful hit.
-                            if(charAttackRoll > oppAC){
+                            if(charAttackRoll[1] > oppAC){
 
                                 var charDamageDone = calculate.calculateDamage(myChar, true);
 
-                                console.log('Char rolls the attack of: ' + charAttackRoll + ' and damages target for: ' + charDamageDone + ' points.');
+                                view.writeMessage(charName, oppName, charAttackRoll[0], charBaseAttackBonus, charAttackRoll[1], true);
+
                             }else{
-                                console.log('Miss.');
+
+                               view.writeMessage(charName, oppName, charAttackRoll[0], charBaseAttackBonus, charAttackRoll[1], false);
                             }
 
                             charAttack++;
@@ -64,8 +69,12 @@ APP.COMBAT_MODULE = (function($, app, calculate){
                             if(oppAttackRoll > charAC){
 
                                 var oppDamageDone = calculate.calculateDamage(myOpp, true);
+
+                                view.writeMessage(oppName, charName, oppAttackRoll[0], oppBaseAttackBonus, oppAttackRoll[1], true);
+
                             }else{
-                                console.log('Opponent misses.');
+
+                                view.writeMessage(oppName, charName, oppAttackRoll[0], oppBaseAttackBonus, oppAttackRoll[1], false);
                             }
 
                             oppAttack++;
@@ -81,8 +90,12 @@ APP.COMBAT_MODULE = (function($, app, calculate){
                             if(oppAttackRoll > charAC){
 
                                 var oppDamageDone = calculate.calculateDamage(myOpp, true);
+
+                                view.writeMessage(oppName, charName, oppAttackRoll[0], oppBaseAttackBonus, oppAttackRoll[1], true);
+
                             }else{
-                                console.log('Opponent misses.');
+
+                                view.writeMessage(oppName, charName, oppAttackRoll[0], oppBaseAttackBonus, oppAttackRoll[1], false);
                             }
 
                             oppAttack++;
@@ -92,13 +105,14 @@ APP.COMBAT_MODULE = (function($, app, calculate){
                             var charBaseAttackBonus = privateMethod.increaseABIterateCount(myChar, charAttack),
                                 charAttackRoll = calculate.calculateAttackRoll(charBaseAttackBonus);
 
-                            if(charAttackRoll > oppAC){
+                            if(charAttackRoll[1] > oppAC){
 
                                 var charDamageDone = calculate.calculateDamage(myChar, true);
 
-                                console.log('Char rolls the attack of: ' + charAttackRoll + ' and damages target for: ' + charDamageDone + ' points.');
+                                view.writeMessage(charName, oppName, charAttackRoll[0], charBaseAttackBonus, charAttackRoll[1], true);
                             }else{
-                                console.log('Miss.');
+
+                                view.writeMessage(charName, oppName, charAttackRoll[0], charBaseAttackBonus, charAttackRoll[1], false);
                             }
 
                             charAttack++;
@@ -132,4 +146,4 @@ APP.COMBAT_MODULE = (function($, app, calculate){
 
     return publicMethod;
 
-}(jQuery, APP, APP.CALCULATE));
+}(jQuery, APP, APP.CALCULATE, APP.EVENT_HANDLER));

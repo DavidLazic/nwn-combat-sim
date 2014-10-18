@@ -84,6 +84,48 @@ APP.EVENT_HANDLER = (function($, app){
             if(cb){
                 cb();
             }
+        },
+
+        writeMessage: function(name, opponent, roll, bonus, total, hit){
+            var $log = $('#report-log'),
+                charSpan = '<div class="text"><span class="capitalize character">',
+                oppSpan = '<div class="text"><span class="capitalize opponent">',
+
+                hitMsg = name +
+                        '</span> attacks ' +
+                        opponent +
+                        ' : *hit* : (' +
+                        roll +
+                        ' + ' +
+                        bonus +
+                        ' = ' +
+                        total +
+                        ')</div>',
+
+                missMsg = name + '</span> attacks ' +
+                        opponent +
+                        ' : *miss* : (' +
+                        roll +
+                        ' + ' +
+                        bonus +
+                        ' = ' +
+                        total +
+                        ')</div>';
+
+
+            if(hit == true){
+                if(name == 'Galadriel'){
+                    $log.append(charSpan + hitMsg);
+                }else{
+                    $log.append(oppSpan + hitMsg);
+                }
+            }else{
+                if(name == 'Galadriel'){
+                    $log.append(charSpan + missMsg);
+                }else{
+                    $log.append(oppSpan + missMsg);
+                }
+            }
         }
     };
 

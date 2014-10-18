@@ -122,9 +122,11 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
          */
         renderForCombat: function(object){
 
-            var myChar = {},
+            var $selected = $('#select-opponent option:selected'),
+                myChar = {},
                 myOpp = {};
 
+            myChar.name = 'Galadriel',
             myChar.strength = 21,
             // myChar.strength = parseInt($('#char-str').text()),
             myChar.hp = 226,
@@ -135,6 +137,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
             myChar.ab = [57, 52, 47, 42],
             myChar.dmg = calculate.calculateDamage(myChar);
 
+            myOpp.name = $selected.text(),
             myOpp.hp = object.hitPoints,
             myOpp.ac = object.armorClass,
             myOpp.ab = object.attackBonus,

@@ -1,6 +1,16 @@
 .report-log{
 	border: 1px solid lighten(#999, 30);
+    font-size: 0.9em;
 	min-height: 150px;
 	max-height: 150px;
 	overflow-y: scroll;
+    .character{
+        color: $char;
+    }
+    .opponent{
+        color: $opp;
+    }
+    .text{
+        color: $text;
+    }
 }

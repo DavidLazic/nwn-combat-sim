@@ -26,7 +26,7 @@ APP.CALCULATE = (function($, app){
                 var baseRoll = Math.floor((Math.random() * rollMax) + rollMin),
                     attackRoll = baseRoll + currentAttackBonus;
 
-                return attackRoll;
+                return [baseRoll, attackRoll];
             }
         };
 
