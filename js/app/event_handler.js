@@ -90,6 +90,7 @@ APP.EVENT_HANDLER = (function($, app){
          * Write the message in report log.
          */
         writeMessage: function(name, opponent, roll, bonus, total, damage, hit){
+
             var $log = $('#report-log'),
 
                 charSpan = '<div class="text"><span class="capitalize character">',
@@ -123,6 +124,7 @@ APP.EVENT_HANDLER = (function($, app){
         },
 
         declareWin: function(winner, loser){
+
             var $log = $('#report-log'),
                 charWin = '<div class="text"><span class="capitalize character">' + winner
                 + '</span> killed <span class="capitalize">' + loser + '</span>',
