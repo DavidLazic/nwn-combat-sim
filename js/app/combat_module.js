@@ -14,11 +14,18 @@ APP.COMBAT_MODULE = (function($, app, calculate){
 
             for(var i = 0; i < roundLength; i++){
 
+                var randomDelay = calculate.randomValue(500, 300);
+
                 // While iterating over total attacks, set attack counters to 0.
                 var charMaxAttacks = myChar.ab.length,
-                    oppMaxAttacks = myOpp.ab.length,
                     charAttack = 0,
-                    oppAttack = 0;
+                    charAC = myChar.ac,
+                    charHP = myChar.hp,
+
+                    oppMaxAttacks = myOpp.ab.length,
+                    oppAttack = 0,
+                    oppAC = myOpp.ac,
+                    oppHP = myOpp.hp;
 
                 // For readability purposes of the combat report log, setTimeout is needed.
                 setTimeout(function(){
@@ -26,40 +33,79 @@ APP.COMBAT_MODULE = (function($, app, calculate){
                     // Hit can be 0 or 1 based on Math.random().
                     // Random "hit" value gives the combat a bit more reality, as objects won't be hitting each other
                     // in a linear way, e.g. 1-1-1-1 / 2-2-2-2.
-                    var hit = Math.floor(Math.random() * 2);
+                    var hit = calculate.randomValue(2);
 
                     if(hit == 1){
-                        // If object has any attacks left, he will make a hit.
+
+                        // If the object has any attacks left, he will make a hit.
                         if(charAttack < charMaxAttacks){
-                            var baseAttackBonus = privateMethod.increaseABIterateCount(myChar, charAttack),
-                                attackRoll = calculate.calculateAttackRoll(baseAttackBonus);
-                            console.log('myChar hits.');
-                            console.log(attackRoll);
+
+                            // For each hit chance, calculate the attack roll.
+                            var charBaseAttackBonus = privateMethod.increaseABIterateCount(myChar, charAttack),
+                                charAttackRoll = calculate.calculateAttackRoll(charBaseAttackBonus);
+
+                            // If current attack roll surpases opponent object's AC, calculate damage done for successful hit.
+                            if(charAttackRoll > oppAC){
+
+                                var charDamageDone = calculate.calculateDamage(myChar, true);
+
+                                console.log('Char rolls the attack of: ' + charAttackRoll + ' and damages target for: ' + charDamageDone + ' points.');
+                            }else{
+                                console.log('Miss.');
+                            }
+
                             charAttack++;
-                            console.log('Attacks number:', charAttack);
+
                         }else{
-                            console.log('myOpp hits.');
+
+                            var oppBaseAttackBonus = privateMethod.increaseABIterateCount(myOpp, oppAttack),
+                                oppAttackRoll = calculate.calculateAttackRoll(oppBaseAttackBonus);
+
+                            if(oppAttackRoll > charAC){
+
+                                var oppDamageDone = calculate.calculateDamage(myOpp, true);
+                            }else{
+                                console.log('Opponent misses.');
+                            }
+
                             oppAttack++;
-                            console.log('Attacks number:', oppAttack);
                         }
 
                     }else{
 
                         if(oppAttack < oppMaxAttacks){
-                            console.log('myOpp hits.');
+
+                            var oppBaseAttackBonus = privateMethod.increaseABIterateCount(myOpp, oppAttack),
+                                oppAttackRoll = calculate.calculateAttackRoll(oppBaseAttackBonus);
+
+                            if(oppAttackRoll > charAC){
+
+                                var oppDamageDone = calculate.calculateDamage(myOpp, true);
+                            }else{
+                                console.log('Opponent misses.');
+                            }
+
                             oppAttack++;
-                            console.log('Attacks number:', oppAttack);
+
                         }else{
-                            var baseAttackBonus = privateMethod.increaseABIterateCount(myChar, charAttack),
-                                attackRoll = calculate.calculateAttackRoll(baseAttackBonus);
-                            console.log('myChar hits.');
-                            console.log(attackRoll);
+
+                            var charBaseAttackBonus = privateMethod.increaseABIterateCount(myChar, charAttack),
+                                charAttackRoll = calculate.calculateAttackRoll(charBaseAttackBonus);
+
+                            if(charAttackRoll > oppAC){
+
+                                var charDamageDone = calculate.calculateDamage(myChar, true);
+
+                                console.log('Char rolls the attack of: ' + charAttackRoll + ' and damages target for: ' + charDamageDone + ' points.');
+                            }else{
+                                console.log('Miss.');
+                            }
+
                             charAttack++;
-                            console.log('Attacks number:', charAttack);
                         }
                     }
 
-                }, 300 * i);
+                }, randomDelay * i);
             }
         },
 

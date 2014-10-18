@@ -101,6 +101,18 @@ APP.CALCULATE = (function($, app){
                     attackRoll = privateMethod.attackRoll(rollMin, rollMax, currentAttackBonus);
 
                 return attackRoll;
+            },
+
+            randomValue: function(max, min){
+                var value;
+
+                if(min == undefined){
+                    value = Math.floor(Math.random() * max);
+                }else{
+                    value = Math.floor(Math.random() * max) + min;
+                }
+
+                return value;
             }
         };
 
