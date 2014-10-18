@@ -81,7 +81,6 @@ APP.EVENT_HANDLER = (function($, app){
                 $(this).html(labels[i]);
             });
 
-
             if(cb){
                 cb();
             }

@@ -1,7 +1,10 @@
-APP.AJAX_WRAPPER = (function($, app){
+APP.AJAX_WRAPPER = (function($, app, view, calculate){
 
     var privateMethod,
-        publicMethod;
+        publicMethod,
+        view = app.EVENT_HANDLER,
+        calculate = app.CALCULATE,
+        combat = app.COMBAT_MODULE;
 
     privateMethod = {
 
@@ -72,9 +75,7 @@ APP.AJAX_WRAPPER = (function($, app){
          */
         renderForView: function(object){
 
-            var view = app.EVENT_HANDLER,
-                calculate = app.CALCULATE,
-                obj = $('[data-property]'),
+            var obj = $('[data-property]'),
                 objectsArray = [],
                 labelsArray = [],
 
@@ -121,9 +122,7 @@ APP.AJAX_WRAPPER = (function($, app){
          */
         renderForCombat: function(object){
 
-            var combat = app.COMBAT_MODULE,
-                calculate = app.CALCULATE,
-                myChar = {},
+            var myChar = {},
                 myOpp = {};
 
             myChar.strength = 21,
@@ -161,4 +160,4 @@ APP.AJAX_WRAPPER = (function($, app){
 
     return publicMethod;
 
-}(jQuery, APP));
+}(jQuery, APP, APP.EVENT_HANDLER, APP.CALCULATE));
