@@ -7,7 +7,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
     privateMethod = {
 
-        startRound: function(myChar, myOpp){
+        startRound: function(myChar, myOpp, charHP, oppHP){
 
             // Length/duration of one round which is determined
             // by the total number of both object's attacks per round.
@@ -22,23 +22,25 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                     charMaxAttacks = myChar.ab.length,
                     charAC = myChar.ac,
-                    charHP = myChar.hp,
+                    charHP = charHP || myChar.hp,
                     charName = myChar.name,
 
                     oppMaxAttacks = myOpp.ab.length,
                     oppAC = myOpp.ac,
-                    oppHP = myOpp.hp,
+                    oppHP = oppHP || myOpp.hp,
                     oppName = myOpp.name,
 
                     // While iterating over total attacks, set attack counters to 0.
                     charAttack = 0,
                     oppAttack = 0,
 
-                    hasEnded = false;
+                    hasEnded = false,
+                    index = 0;
 
                 // For readability purposes of the combat report log, setTimeout is needed.
                 setTimeout(function(){
 
+                    // While character's or opponent's health are above 0, do combat.
                     if(charHP > 0 && oppHP > 0 && hasEnded == false){
                         // Hit can be 0 or 1 based on Math.random().
                         // Random "hit" value gives the combat a bit more reality, as objects won't be hitting each other
@@ -201,6 +203,12 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                         }
                     }
 
+                    index++;
+
+                    if(index == roundLength){
+                        publicMethod.startFight(myChar, myOpp, charHP, oppHP);
+                    }
+
                 }, randomDelay * i);
             }
         },
@@ -216,13 +224,22 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
             return currentValue;
         }
+
     };
 
     publicMethod = {
 
-        startFight: function(myChar, myOpp){
+        startFight: function(myChar, myOpp, charHP, oppHP){
 
-            var round = privateMethod.startRound(myChar, myOpp);
+            if(charHP == undefined && oppHP == undefined){
+                var round = privateMethod.startRound(myChar, myOpp);
+            }else{
+                if(charHP > 0 && oppHP > 0){
+                    var round = privateMethod.startRound(myChar, myOpp, charHP, oppHP);
+                }else{
+                    return false;
+                }
+            }
         }
     };
 
