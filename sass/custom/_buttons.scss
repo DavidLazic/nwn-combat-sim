@@ -12,10 +12,10 @@
 	}
     &:focus,
     &:active{
-        background: url(/img/button-bg.jpg) center;
+        background: url(/img/button_bg.jpg) center;
     }
 	&.disabled{
-		background: url(/img/button-bg.jpg) center;
+		background: url(/img/button_bg.jpg) center;
         color: #fff;
         opacity: 1;
 	}
@@ -25,5 +25,29 @@
 	&.btn-green{
 		background-color: #25d1ae;
 	}
+}
+
+.btn-container{
+    border-radius: 5px 5px 0 0;
+    bottom: 0;
+    display: inline-block;
+    height: 22px;
+    position: absolute;
+    width: 90px;
+    &.active{
+        height: 30px;
+    }
+    .btn-menu{
+        border-top: 1px solid #666;
+        border-left: 1px solid #666;
+        border-right: 1px solid #666;
+        border-radius: 5px 5px 0 0;
+        vertical-align: top;
+    }
+}
+
+#statistics,
+#char-statistics{
+    left: 89px;
 }
 

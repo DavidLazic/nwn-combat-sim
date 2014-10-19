@@ -42,6 +42,22 @@ APP.EVENT_HANDLER = (function($, app){
 
                 ajax.sendRequest(url, selectedValue, false);
             }
+        },
+
+        /**
+         * Switch class "active" for navigation buttons.
+         */
+        switchClass: function(e){
+
+            var $target = $(e.target).parent();
+
+            if($target.hasClass('active')){
+                $target.removeClass('active');
+                $target.siblings().addClass('active');
+            }else{
+                $target.addClass('active');
+                $target.siblings().removeClass('active');
+            }
         }
     };
 
@@ -61,10 +77,12 @@ APP.EVENT_HANDLER = (function($, app){
         bindEvents: function(){
 
             var $selectList = $('#select-opponent'),
-                $buttonFight = $('#btn-combat');
+                $buttonFight = $('#btn-combat'),
+                $menuButtons = $('.btn-menu');
 
             $selectList.on('change', $.proxy(privateMethod, 'getData'));
             $buttonFight.on('click', $.proxy(privateMethod, 'getData'));
+            $menuButtons.on('click', $.proxy(privateMethod, 'switchClass'));
         },
 
         /**

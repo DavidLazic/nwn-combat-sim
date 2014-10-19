@@ -4,7 +4,6 @@
 	color: #fff;
 	font-family: 'Neverwinter';
 	font-size: 1.2em;
-	padding-bottom: 30px;
 }
 .record-header{
 	background-color: #000;
@@ -57,6 +56,7 @@
 	padding: 0;
 	width: 100%;
 	> img{
+        margin-top: -2px;
 		width: 100%;
 	}
 }
@@ -64,7 +64,7 @@
 	margin-bottom: 15px;
 }
 .ac-hp{
-	background: url(/img/ac-hp.jpg) center no-repeat;
+	background: url(/img/ac_hp.jpg) center no-repeat;
 	background-color: transparent;
 	background-position: 10px 50%;
 	height: 60px;
@@ -81,4 +81,10 @@
 }
 .record-footer{
     background-color: #000;
+    height: 15px;
+}
+
+.footer-arrow{
+    margin-top: -15px;
+    width: auto;
 }
