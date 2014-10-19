@@ -45,18 +45,36 @@ APP.EVENT_HANDLER = (function($, app){
         },
 
         /**
-         * Switch class "active" for navigation buttons.
+         * Switch class "active" for navigation buttons and switch view containers.
          */
-        switchClass: function(e){
+        switchView: function(e){
 
-            var $target = $(e.target).parent();
+            var $target = $(e.target).parent(),
+                $creature = $target.parents('#creature'),
+                $character = $target.parents('#character'),
+                $charContainer = $('#character .content-container'),
+                $creatureContainer = $('#creature .content-container'),
+
+                character = $character.data('id'),
+                creature = $creature.data('id');
 
             if($target.hasClass('active')){
-                $target.removeClass('active');
-                $target.siblings().addClass('active');
+
+                return false;
+
             }else{
+
                 $target.addClass('active');
                 $target.siblings().removeClass('active');
+
+                if(typeof character == 'string'){
+
+                    $charContainer.toggleClass('active');
+
+                }else if(typeof creature == 'string'){
+
+                    $creatureContainer.toggleClass('active');
+                }
             }
         }
     };
@@ -82,7 +100,7 @@ APP.EVENT_HANDLER = (function($, app){
 
             $selectList.on('change', $.proxy(privateMethod, 'getData'));
             $buttonFight.on('click', $.proxy(privateMethod, 'getData'));
-            $menuButtons.on('click', $.proxy(privateMethod, 'switchClass'));
+            $menuButtons.on('click', $.proxy(privateMethod, 'switchView'));
         },
 
         /**

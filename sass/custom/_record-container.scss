@@ -88,3 +88,10 @@
     margin-top: -15px;
     width: auto;
 }
+
+.content-container{
+    display: none;
+    &.active{
+        display: block;
+    }
+}
