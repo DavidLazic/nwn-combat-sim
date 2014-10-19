@@ -128,7 +128,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
 
             myChar.name = 'Galadriel',
             myChar.strength = parseInt($('#char-strength').text()),
-            myChar.hp = parseInt($('#char-current-hp').text()),
+            myChar.hp = parseInt($('#char-max-hp').text()),
             myChar.ac = parseInt($('#char-ac').text()),
             myChar.diceRoll = [1, 8],
             myChar.ab = [68, 63, 58, 53],

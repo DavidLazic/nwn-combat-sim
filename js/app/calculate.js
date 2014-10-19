@@ -41,7 +41,7 @@ APP.CALCULATE = (function($, app){
              * For each 2 levels of certain ability starting from level 10, modifier gets raised by 1.
              */
              calculateModifier: function(object){
-                console.log('calculate Modifier');
+
                 var $modifier = $('.modifier');
 
                 $.each($modifier, function(){
@@ -78,9 +78,6 @@ APP.CALCULATE = (function($, app){
                     dmgMIN = diceRoll[0],
                     dmgMAX = diceRoll[1] * dmgMIN,
                     viewDamage = dmgMIN + '-' + dmgMAX + ' + ' + strModifier;
-
-                console.log(object, diceRoll, strModifier, dmgMIN, dmgMAX);
-
 
                 if(combatStatus == true){
 
