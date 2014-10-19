@@ -16,10 +16,10 @@
         </div><!-- End header -->
 
         <!-- Character container -->
-        <div class="col-md-5 record-container padding-0" id="character">
+        <div class="col-md-5 record-container padding-0 margin-bottom-40" id="character">
 
             <!-- Record header -->
-            <div class="col-md-12 record-header">character record, galadriel jr'eivra</div><!-- End record header -->
+            <div class="col-md-12 record-header">character record, <span class="margin-left-20">galadriel jr'eivra</span></div><!-- End record header -->
 
             <!-- Tabs -->
             <div class="col-md-12">
@@ -32,63 +32,63 @@
                 <!-- Avatar, AC, HP -->
                 <div class="col-md-5 padding-top-10">
                     <div class="avatar">
-                        <img id="char-avatar" src="img/idle_portrait.jpg">
+                        <img id="char-avatar" class="avatar" src="img/drow_female.jpg">
                     </div>
                     <div class="ac-hp">
                         <div>
                             <div>ac:</div>
-                            <input class="form-control" id="ac-input" placeholder="AC Value">
+                            <span class="value" id="char-ac">62</span>
                         </div>
                         <div>
                             <div>hp:</div>
                             <div>
-                                <span id="char-current-hp">226</span>/
-                                <span id="char-max-hp">226</span>
+                                <span class="value" id="char-current-hp">294</span>/
+                                <span class="value" id="char-max-hp">294</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Table -->
                 <div class="col-md-7 padding-right-0">
-                    <div class="col-md-12 race-alignment"></div>
+                    <div class="col-md-12 race-alignment">half-elf, chaotic neutral</div>
                     <form class="col-md-12 padding-left-0">
                         <fieldset>
                             <ul class="ability-list">
                                 <li class="col-md-12">
                                     <span class="col-md-6">strength</span>
                                     <span class="col-xs-2 icon"><img src="img/gr_str.jpg"></span>
-                                    <span class="col-xs-2 value" id="char-strength"></span>
-                                    <span class="col-xs-2 modifier idle-clear value"></span>
+                                    <span class="col-xs-2 value" id="char-strength">25</span>
+                                    <span class="col-xs-2 modifier value">7</span>
                                 </li>
                                 <li class="col-md-12">
                                     <span class="col-md-6">dexterity</span>
                                     <span class="col-xs-2 icon"><img src="img/gr_dex.jpg"></span>
-                                    <span class="col-xs-2 value" id="char-dexterity"></span>
-                                    <span class="col-xs-2 modifier value"></span>
+                                    <span class="col-xs-2 value" id="char-dexterity">44</span>
+                                    <span class="col-xs-2 modifier value">17</span>
                                 </li>
                                 <li class="col-md-12">
                                     <span class="col-md-6">constitution</span>
                                     <span class="col-xs-2 icon"><img src="img/gr_con.jpg"></span>
-                                    <span class="col-xs-2 value" id="char-constitution"></span>
-                                    <span class="col-xs-2 modifier value"></span>
+                                    <span class="col-xs-2 value" id="char-constitution">12</span>
+                                    <span class="col-xs-2 modifier value">1</span>
                                 </li>
                                 <li class="col-md-12">
                                     <span class="col-md-6">intelligence</span>
                                     <span class="col-xs-2 icon"><img src="img/gr_int.jpg"></span>
-                                    <span class="col-xs-2 value" id="char-intelligence"></span>
-                                    <span class="col-xs-2 modifier value"></span>
+                                    <span class="col-xs-2 value" id="char-intelligence">16</span>
+                                    <span class="col-xs-2 modifier value">3</span>
                                 </li>
                                 <li class="col-md-12">
                                     <span class="col-md-6">wisdom</span>
                                     <span class="col-xs-2 icon"><img src="img/gr_wis.jpg"></span>
-                                    <span class="col-xs-2 value" id="char-wisdom"></span>
-                                    <span class="col-xs-2 modifier value"></span>
+                                    <span class="col-xs-2 value" id="char-wisdom">8</span>
+                                    <span class="col-xs-2 modifier value">-1</span>
                                 </li>
                                 <li class="col-md-12">
                                     <span class="col-md-6">charisma</span>
                                     <span class="col-xs-2 icon"><img src="img/gr_cha.jpg"></span>
-                                    <span class="col-xs-2 value" id="char-charisma"></span>
-                                    <span class="col-xs-2 modifier value"></span>
+                                    <span class="col-xs-2 value" id="char-charisma">16</span>
+                                    <span class="col-xs-2 modifier value">3</span>
                                 </li>
                             </ul>
                         </fieldset>
@@ -99,26 +99,26 @@
             <div class="col-md-12">
                 <ul>
                     <li class="col-xs-12 col-md-12 padding-0">
-                        <span class="col-xs-4 col-md-4 padding-0">attack bonus: </span>
-                        <span id="ab" class="col-xs-8 col-md-8 value padding-0"></span>
+                        <span class="col-xs-4 col-md-4 padding-0">attack bonus:</span>
+                        <span id="ab" class="col-xs-8 col-md-8 value padding-0">+68/+63/+58/+53</span>
                     </li>
                     <li class="col-xs-12 col-md-12 padding-0">
                         <span class="col-xs-4 col-md-4 padding-0">dice roll:</span>
-                        <span id="dc" class="col-xs-8 col-md-8 value padding-0"></span>
+                        <span id="dc" class="col-xs-8 col-md-8 value padding-0">1d8</span>
                     </li>
                     <li class="col-xs-12 col-md-12 padding-0">
                         <span class="col-xs-4 col-md-4 padding-0">damage:</span>
-                        <span id="damage" class="col-xs-8 col-md-8 value padding-0"></span>
+                        <span id="damage" class="col-xs-8 col-md-8 value padding-0">1-8 + 20</span>
                     </li>
                 </ul>
             </div><!-- End additional stats -->
 
             <!-- Record footer -->
-            <div class="col-md-12"></div><!-- End record footer -->
+            <div class="col-md-12 record-footer"></div><!-- End record footer -->
         </div><!-- End character container -->
 
         <!-- Creature container -->
-        <div class="col-md-5 col-md-offset-2 record-container padding-0" id="creature">
+        <div class="col-md-5 col-md-offset-2 record-container padding-0 margin-bottom-40" id="creature">
 
             <!-- Record header -->
             <div class="col-md-12 record-header">
@@ -145,7 +145,7 @@
                 <!-- Avatar, AC, HP -->
                 <div class="col-md-5 padding-top-10">
                     <div class="avatar">
-                        <img id="avatar" src="img/idle_portrait.jpg">
+                        <img id="avatar" class="avatar" src="img/idle_portrait.jpg">
                     </div>
                     <div class="ac-hp">
                         <div>
@@ -226,16 +226,16 @@
             </div><!-- End additional stats -->
 
             <!-- Record footer -->
-            <div class="col-md-12"></div><!-- End record footer -->
+            <div class="col-md-12 record-footer"></div><!-- End record footer -->
         </div><!-- End creature container -->
 
         <!-- Start fight -->
-        <div class="col-md-6 col-md-offset-3">
-            <a class="btn btn-red" id="btn-combat" href="javascript:void(0)">Fight!</a>
+        <div class="col-md-6 col-md-offset-3 center">
+            <a class="btn" id="btn-combat" href="javascript:void(0)">Fight</a>
         </div><!-- End start fight -->
 
         <!-- Report -->
-        <ul class="col-md-6 col-md-offset-1 report-log" id="report-log">
+        <ul class="col-md-6 col-md-offset-3 report-log" id="report-log">
 
         </ul><!-- End report -->
     </div><!-- End main container -->

@@ -127,19 +127,17 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
                 myOpp = {};
 
             myChar.name = 'Galadriel',
-            myChar.strength = 21,
-            // myChar.strength = parseInt($('#char-str').text()),
-            myChar.hp = 226,
-            // myChar.hp = $('#char-hp').text(),
-            myChar.ac = 59,
-            // myChar.ac = $('#char-ac').val(),
+            myChar.strength = parseInt($('#char-strength').text()),
+            myChar.hp = parseInt($('#char-current-hp').text()),
+            myChar.ac = parseInt($('#char-ac').text()),
             myChar.diceRoll = [1, 8],
-            myChar.ab = [57, 52, 47, 42],
+            myChar.ab = [68, 63, 58, 53],
             myChar.dmg = calculate.calculateDamage(myChar);
 
             myOpp.name = $selected.text(),
             myOpp.hp = object.hitPoints,
             myOpp.ac = object.armorClass,
+            myOpp.diceRoll = object.diceRoll,
             myOpp.ab = object.attackBonus,
             myOpp.dmg = calculate.calculateDamage(object);
 

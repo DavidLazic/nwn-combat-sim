@@ -1,11 +1,19 @@
 .btn{
+    background: #000;
+    border-radius: 0;
+    border: 1px solid darken(#7b521f, 10);
 	color: #fff;
+    font-size: 0.8em;
 	margin-bottom: 20px;
-	padding: 5px 40px;
+	padding: 10px 60px;
 	&:hover{
-		background-color: darken(#e74045, 10);
+        border: 1px solid #7b521f;
 		color: #fff;
 	}
+    &:focus,
+    &:active{
+        background: url(/img/button-bg.jpg) center;
+    }
 	&.disabled{
 		background-color: #999;
 		&:hover{

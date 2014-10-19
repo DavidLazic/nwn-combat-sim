@@ -36,6 +36,7 @@ APP.EVENT_HANDLER = (function($, app){
             }else if($target.is($startCombat)){
 
                 ajax.sendRequest(url, selectedValue, true);
+                $startCombat.addClass('disabled');
 
             }else{
 
@@ -89,54 +90,22 @@ APP.EVENT_HANDLER = (function($, app){
         /**
          * Write the message in report log.
          */
-        writeMessage: function(name, opponent, roll, bonus, total, damage, hit){
+        writeMessage: function(message){
 
-            var $log = $('#report-log'),
+            var $log = $('#report-log');
 
-                charSpan = '<div class="text"><span class="capitalize character">',
-                oppSpan = '<div class="text"><span class="capitalize opponent">',
-
-                hitMsg = name + '</span> attacks <span class="capitalize">' + opponent + '</span> : *hit* : ('
-                        + roll + ' + ' + bonus + ' = ' + total + ')</div>',
-                missMsg = name + '</span> attacks <span class="capitalize">' + opponent + '</span> : *miss* : ('
-                        + roll + ' + ' + bonus + ' = ' + total + ')</div>',
-                dmgDone = name + '</span> damages <span class="capitalize">' + opponent + '</span> : '
-                        + damage + ' (' + damage + ' Physical)</div>';
-
-            if(hit == true){
-
-                if(name == 'Galadriel'){
-                    $log.append(charSpan + hitMsg);
-                    $log.append(charSpan + dmgDone);
-                }else{
-                    $log.append(oppSpan + hitMsg);
-                    $log.append(oppSpan + dmgDone);
-                }
-
-            }else{
-
-                if(name == 'Galadriel'){
-                    $log.append(charSpan + missMsg);
-                }else{
-                    $log.append(oppSpan + missMsg);
-                }
-            }
+            $log.append(message);
+            this.scrollControl($log);
         },
 
-        declareWin: function(winner, loser){
+        /**
+         * For each new report line move the scroller down.
+         */
+        scrollControl: function(elem){
 
-            var $log = $('#report-log'),
+            var scrollHeight = elem.prop('scrollHeight');
 
-                charWin = '<div class="text"><span class="capitalize character">' + winner
-                        + '</span> killed <span class="capitalize">' + loser + '</span>',
-                oppWin = '<div class="text"><span class="capitalize opponent">' + winner
-                        + '</span> killed <span class="capitalize">' + loser + '</span>';
-
-            if(winner == 'Galadriel'){
-                $log.append(charWin);
-            }else{
-                $log.append(oppWin);
-            }
+            elem.scrollTop(scrollHeight);
         }
     };
 

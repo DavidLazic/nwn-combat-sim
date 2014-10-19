@@ -9,10 +9,10 @@ APP.CALCULATE = (function($, app){
              * Calculate damage done based on @min, @max and @modifier values.
              * @return {integer}
              */
-            damageRoll: function(dmgMIN, dmgMAX, strModifier){
+            damageRoll: function(dmgMIN, dmgMAX, strModifier, weaponBonus){
 
                 var baseRoll = Math.floor((Math.random() * (dmgMAX - 1)) + dmgMIN),
-                    damage =  baseRoll + strModifier;
+                    damage =  baseRoll + strModifier + weaponBonus;
 
                 return damage;
             },
@@ -71,7 +71,7 @@ APP.CALCULATE = (function($, app){
              * @param {object}
              * @return {string}
              */
-             calculateDamage: function(object, combatStatus){
+             calculateDamage: function(object, combatStatus, weaponBonus){
 
                 var diceRoll = object.diceRoll,
                     strModifier = Math.floor((object.strength - 10) / 2),
@@ -82,7 +82,14 @@ APP.CALCULATE = (function($, app){
 
                 if(combatStatus == true){
 
-                    var damage = privateMethod.damageRoll(dmgMIN, dmgMAX, strModifier);
+                    if(weaponBonus == true){
+
+                        var damage = privateMethod.damageRoll(dmgMIN, dmgMAX, strModifier, 13);
+
+                    }else{
+
+                        var damage = privateMethod.damageRoll(dmgMIN, dmgMAX, strModifier);
+                    }
 
                     return damage;
 

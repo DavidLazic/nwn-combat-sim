@@ -1,5 +1,6 @@
 .record-container{
 	background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #333;
 	color: #fff;
 	font-family: 'Neverwinter';
 	font-size: 1.2em;
@@ -37,7 +38,9 @@
 .ability-list{
 	padding-left: 0;
 	> li{
+        border-bottom: 1px solid #333;
 		margin-bottom: 5px;
+        padding-bottom: 2px;
 		padding-left: 0;
 	}
 }
@@ -47,6 +50,7 @@
 	font-weight: bold;
 	padding-top: 8px;
 }
+
 .icon{
 	display: inline-block;
 	max-width: 20px;
@@ -56,7 +60,7 @@
 		width: 100%;
 	}
 }
-#avatar{
+.avatar{
 	margin-bottom: 15px;
 }
 .ac-hp{
@@ -74,4 +78,7 @@
 			margin: 0 5px;
 		}
 	}
+}
+.record-footer{
+    background-color: #000;
 }

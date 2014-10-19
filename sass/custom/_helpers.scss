@@ -38,3 +38,8 @@
 @each $item in $display-settings {
 	.#{$item} {display: #{$item};}
 }
+
+// Text-align ======================================================
+@each $item in $align-settings {
+    .#{$item} {text-align: #{$item};}
+}
