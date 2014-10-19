@@ -93,5 +93,6 @@
     display: none;
     &.active{
         display: block;
+        min-height: 350px;
     }
 }
