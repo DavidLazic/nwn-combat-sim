@@ -12,7 +12,7 @@ APP.CALCULATE = (function($, app){
             damageRoll: function(dmgMIN, dmgMAX, strModifier, weaponBonus){
 
                 var baseRoll = Math.floor((Math.random() * (dmgMAX - 1)) + dmgMIN),
-                    damage =  baseRoll + strModifier + weaponBonus;
+                    damage = baseRoll + strModifier + weaponBonus;
 
                 return damage;
             },
@@ -41,7 +41,7 @@ APP.CALCULATE = (function($, app){
              * For each 2 levels of certain ability starting from level 10, modifier gets raised by 1.
              */
              calculateModifier: function(object){
-
+                console.log('calculate Modifier');
                 var $modifier = $('.modifier');
 
                 $.each($modifier, function(){
@@ -79,6 +79,8 @@ APP.CALCULATE = (function($, app){
                     dmgMAX = diceRoll[1] * dmgMIN,
                     viewDamage = dmgMIN + '-' + dmgMAX + ' + ' + strModifier;
 
+                console.log(object, diceRoll, strModifier, dmgMIN, dmgMAX);
+
 
                 if(combatStatus == true){
 
@@ -88,7 +90,7 @@ APP.CALCULATE = (function($, app){
 
                     }else{
 
-                        var damage = privateMethod.damageRoll(dmgMIN, dmgMAX, strModifier);
+                        var damage = privateMethod.damageRoll(dmgMIN, dmgMAX, strModifier, 0);
                     }
 
                     return damage;

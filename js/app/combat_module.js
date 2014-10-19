@@ -81,14 +81,14 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                     // If one of the objects has HP below 0, declare winner and set combat end to true.
                     }else{
 
-                        if(charHP <= 0){
+                        if(charHP <= -1){
 
                             view.writeMessage(messages.oppSpan +
                                               oppName +
                                               messages.killed +
                                               charName +
                                               messages.endKill);
-                        }else if(oppHP <= 0){
+                        }else if(oppHP <= -1){
 
                             view.writeMessage(messages.charSpan +
                                               charName +
@@ -165,7 +165,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                             if(oppAttackRoll.attackRoll > charAC){
 
-                                var oppDamageDone = calculate.calculateDamage(myOpp, true);
+                                var oppDamageDone = calculate.calculateDamage(myOpp, true, false);
 
                                 charHP -= oppDamageDone;
                                 calculate.currentHP(charHP, $charCurrentHP);
@@ -218,7 +218,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                             if(oppAttackRoll.attackRoll > charAC){
 
-                                var oppDamageDone = calculate.calculateDamage(myOpp, true);
+                                var oppDamageDone = calculate.calculateDamage(myOpp, true, false);
 
                                 charHP -= oppDamageDone;
                                 calculate.currentHP(charHP, $charCurrentHP);

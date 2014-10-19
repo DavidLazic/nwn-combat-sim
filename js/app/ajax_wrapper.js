@@ -135,6 +135,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
             myChar.dmg = calculate.calculateDamage(myChar);
 
             myOpp.name = $selected.text(),
+            myOpp.strength = object.strength,
             myOpp.hp = object.hitPoints,
             myOpp.ac = object.armorClass,
             myOpp.diceRoll = object.diceRoll,
