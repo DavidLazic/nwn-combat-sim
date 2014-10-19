@@ -316,9 +316,8 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                     // Increase inner loop's iterator count after each iteration.
                     index++;
 
-                    // When inner loop reaches the end and if one of the object's has HP above 0
-                    // extract current HP values and start the round over with the given values.
-                    if(index == roundLength && charHP > 0 && oppHP > 0){
+                    // When inner loop reaches the start the round over with the given values.
+                    if(index == roundLength){
                         publicMethod.startFight(myChar, myOpp, charHP, oppHP);
                     }
 

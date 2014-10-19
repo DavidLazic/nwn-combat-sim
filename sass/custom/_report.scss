@@ -1,9 +1,15 @@
+.report-container{
+    border: 1px solid darken(#7b521f, 10);
+    max-width: 100%;
+    overflow: hidden;
+}
+
 .report-log{
-	border: 1px solid darken(#7b521f, 10);
     font-size: 0.9em;
 	min-height: 150px;
 	max-height: 150px;
 	overflow-y: scroll;
+    width: 110%;
     .character{
         color: $char;
     }
