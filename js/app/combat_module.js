@@ -37,31 +37,33 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
             // Length/duration of one round which is determined
             // by the total number of both object's attacks per round.
-            var roundLength = myChar.ab.length + myOpp.ab.length;
+            var roundLength = myChar.ab.length + myOpp.ab.length,
+
+                randomDelay = calculate.randomValue(100, 1),
+
+                $charCurrentHP = $('#char-current-hp'),
+                $oppCurrentHP = $('#current-hp'),
+
+                charMaxAttacks = myChar.ab.length,
+                charAC = myChar.ac,
+                charHP = charHP || myChar.hp,
+                charName = myChar.name,
+
+                oppMaxAttacks = myOpp.ab.length,
+                oppAC = myOpp.ac,
+                oppHP = oppHP || myOpp.hp,
+                oppName = myOpp.name,
+
+                // While iterating over total attacks, set attack counters to 0.
+                charAttack = 0,
+                oppAttack = 0,
+
+                hasEnded = false,
+                index = 0,
+
+                messageArray = [];
 
             for(var i = 0; i < roundLength; i++){
-
-                var randomDelay = calculate.randomValue(500, 300),
-
-                    $charCurrentHP = $('#char-current-hp'),
-                    $oppCurrentHP = $('#current-hp'),
-
-                    charMaxAttacks = myChar.ab.length,
-                    charAC = myChar.ac,
-                    charHP = charHP || myChar.hp,
-                    charName = myChar.name,
-
-                    oppMaxAttacks = myOpp.ab.length,
-                    oppAC = myOpp.ac,
-                    oppHP = oppHP || myOpp.hp,
-                    oppName = myOpp.name,
-
-                    // While iterating over total attacks, set attack counters to 0.
-                    charAttack = 0,
-                    oppAttack = 0,
-
-                    hasEnded = false,
-                    index = 0;
 
                 // For readability purposes of the combat report log, setTimeout is needed.
                 setTimeout(function(){
@@ -83,18 +85,13 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                         if(charHP <= -1){
 
-                            view.writeMessage(messages.oppSpan +
-                                              oppName +
-                                              messages.killed +
-                                              charName +
-                                              messages.endKill);
+                            messageArray = [messages.oppSpan, oppName, messages.killed, charName, messages.endKill];
+                            view.writeMessage(messageArray);
+
                         }else if(oppHP <= -1){
 
-                            view.writeMessage(messages.charSpan +
-                                              charName +
-                                              messages.killed +
-                                              oppName +
-                                              messages.endKill);
+                            messageArray = [messages.charSpan, charName, messages.killed, oppName, messages.endKill];
+                            view.writeMessage(messageArray);
                         }
 
                         hasEnded = true;
@@ -120,40 +117,19 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                 oppHP -= charDamageDone;
                                 calculate.currentHP(oppHP, $oppCurrentHP);
 
-                                view.writeMessage(messages.charSpan +
-                                                  charName +
-                                                  messages.attacks +
-                                                  oppName +
-                                                  messages.hit +
-                                                  charAttackRoll.baseRoll +
-                                                  messages.add +
-                                                  charBaseAttackBonus +
-                                                  messages.equals +
-                                                  charAttackRoll.attackRoll +
-                                                  messages.end);
+                                messageArray = [messages.charSpan, charName, messages.attacks, oppName, messages.hit, charAttackRoll.baseRoll, messages.add, charBaseAttackBonus, messages.equals, charAttackRoll.attackRoll, messages.end];
 
-                                view.writeMessage(messages.charSpan +
-                                                  charName +
-                                                  messages.damages +
-                                                  oppName +
-                                                  messages.damage +
-                                                  charDamageDone +
-                                                  messages.dmgPre +
-                                                  charDamageDone +
-                                                  messages.dmgAfter);
+                                view.writeMessage(messageArray);
+
+                                messageArray = [messages.charSpan, charName, messages.damages, oppName, messages.damage, charDamageDone, messages.dmgPre, charDamageDone, messages.dmgAfter];
+
+                                view.writeMessage(messageArray);
+
                             }else{
 
-                                view.writeMessage(messages.charSpan +
-                                                  charName +
-                                                  messages.attacks +
-                                                  oppName +
-                                                  messages.miss +
-                                                  charAttackRoll.baseRoll +
-                                                  messages.add +
-                                                  charBaseAttackBonus +
-                                                  messages.equals +
-                                                  charAttackRoll.attackRoll +
-                                                  messages.end);
+                                messageArray = [messages.charSpan, charName, messages.attacks, oppName, messages.miss, charAttackRoll.baseRoll, messages.add, charBaseAttackBonus, messages.equals, charAttackRoll.attackRoll, messages.end];
+
+                                view.writeMessage(messageArray);
                             }
 
                             charAttack++;
@@ -170,40 +146,19 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                 charHP -= oppDamageDone;
                                 calculate.currentHP(charHP, $charCurrentHP);
 
-                                view.writeMessage(messages.oppSpan +
-                                                  oppName +
-                                                  messages.attacks +
-                                                  charName +
-                                                  messages.hit +
-                                                  oppAttackRoll.baseRoll +
-                                                  messages.add +
-                                                  oppBaseAttackBonus +
-                                                  messages.equals +
-                                                  oppAttackRoll.attackRoll +
-                                                  messages.end);
+                                messageArray = [messages.oppSpan, oppName, messages.attacks, charName, messages.hit, oppAttackRoll.baseRoll, messages.add, oppBaseAttackBonus, messages.equals, oppAttackRoll.attackRoll, messages.end];
 
-                                view.writeMessage(messages.oppSpan +
-                                                  oppName +
-                                                  messages.damages +
-                                                  charName +
-                                                  messages.damage +
-                                                  oppDamageDone +
-                                                  messages.dmgPre +
-                                                  oppDamageDone +
-                                                  messages.dmgAfter);
+                                view.writeMessage(messageArray);
+
+                                messageArray = [messages.oppSpan, oppName, messages.damages, charName, messages.damage, oppDamageDone, messages.dmgPre, oppDamageDone, messages.dmgAfter];
+
+                                view.writeMessage(messageArray);
+
                             }else{
 
-                                view.writeMessage(messages.oppSpan +
-                                                  oppName +
-                                                  messages.attacks +
-                                                  charName +
-                                                  messages.miss +
-                                                  oppAttackRoll.baseRoll +
-                                                  messages.add +
-                                                  oppBaseAttackBonus +
-                                                  messages.equals +
-                                                  oppAttackRoll.attackRoll +
-                                                  messages.end);
+                                messageArray = [messages.oppSpan, oppName, messages.attacks, charName, messages.miss, oppAttackRoll.baseRoll, messages.add, oppBaseAttackBonus, messages.equals, oppAttackRoll.attackRoll, messages.end];
+
+                                view.writeMessage(messageArray);
                             }
 
                             oppAttack++;
@@ -223,40 +178,19 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                 charHP -= oppDamageDone;
                                 calculate.currentHP(charHP, $charCurrentHP);
 
-                                view.writeMessage(messages.oppSpan +
-                                                  oppName +
-                                                  messages.attacks +
-                                                  charName +
-                                                  messages.hit +
-                                                  oppAttackRoll.baseRoll +
-                                                  messages.add +
-                                                  oppBaseAttackBonus +
-                                                  messages.equals +
-                                                  oppAttackRoll.attackRoll +
-                                                  messages.end);
+                                messageArray = [messages.oppSpan, oppName, messages.attacks, charName, messages.hit, oppAttackRoll.baseRoll, messages.add, oppBaseAttackBonus, messages.equals, oppAttackRoll.attackRoll, messages.end];
 
-                                view.writeMessage(messages.oppSpan +
-                                                  oppName +
-                                                  messages.damages +
-                                                  charName +
-                                                  messages.damage +
-                                                  oppDamageDone +
-                                                  messages.dmgPre +
-                                                  oppDamageDone +
-                                                  messages.dmgAfter);
+                                view.writeMessage(messageArray);
+
+                                messageArray = [messages.oppSpan, oppName, messages.damages, charName, messages.damage, oppDamageDone, messages.dmgPre, oppDamageDone, messages.dmgAfter];
+
+                                view.writeMessage(messageArray);
+
                             }else{
 
-                                view.writeMessage(messages.oppSpan +
-                                                  oppName +
-                                                  messages.attacks +
-                                                  charName +
-                                                  messages.miss +
-                                                  oppAttackRoll.baseRoll +
-                                                  messages.add +
-                                                  oppBaseAttackBonus +
-                                                  messages.equals +
-                                                  oppAttackRoll.attackRoll +
-                                                  messages.end);
+                                messageArray = [messages.oppSpan, oppName, messages.attacks, charName, messages.miss, oppAttackRoll.baseRoll, messages.add, oppBaseAttackBonus, messages.equals, oppAttackRoll.attackRoll, messages.end];
+
+                                view.writeMessage(messageArray);
                             }
 
                             oppAttack++;
@@ -273,40 +207,20 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                 oppHP -= charDamageDone;
                                 calculate.currentHP(oppHP, $oppCurrentHP);
 
-                                view.writeMessage(messages.charSpan +
-                                                  charName +
-                                                  messages.attacks +
-                                                  oppName +
-                                                  messages.hit +
-                                                  charAttackRoll.baseRoll +
-                                                  messages.add +
-                                                  charBaseAttackBonus +
-                                                  messages.equals +
-                                                  charAttackRoll.attackRoll +
-                                                  messages.end);
+                                messageArray = [messages.charSpan, charName, messages.attacks, oppName, messages.hit, charAttackRoll.baseRoll, messages.add, charBaseAttackBonus, messages.equals, charAttackRoll.attackRoll, messages.end];
 
-                                view.writeMessage(messages.charSpan +
-                                                  charName +
-                                                  messages.damages +
-                                                  oppName +
-                                                  messages.damage +
-                                                  charDamageDone +
-                                                  messages.dmgPre +
-                                                  charDamageDone +
-                                                  messages.dmgAfter);
+                                view.writeMessage(messageArray);
+
+                                messageArray = [messages.charSpan, charName, messages.damages, oppName, messages.damage, charDamageDone, messages.dmgPre, charDamageDone, messages.dmgAfter];
+
+                                view.writeMessage(messageArray);
+
                             }else{
 
-                                view.writeMessage(messages.charSpan +
-                                                  charName +
-                                                  messages.attacks +
-                                                  oppName +
-                                                  messages.miss +
-                                                  charAttackRoll.baseRoll +
-                                                  messages.add +
-                                                  charBaseAttackBonus +
-                                                  messages.equals +
-                                                  charAttackRoll.attackRoll +
-                                                  messages.end);
+                                messageArray = [messages.charSpan, charName, messages.attacks, oppName, messages.miss, charAttackRoll.baseRoll, messages.add, charBaseAttackBonus, messages.equals, charAttackRoll.attackRoll, messages.end];
+
+                                view.writeMessage(messageArray);
+
                             }
 
                             charAttack++;

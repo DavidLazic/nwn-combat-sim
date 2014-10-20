@@ -86,6 +86,7 @@ APP.EVENT_HANDLER = (function($, app){
          * Initialize main function.
          */
         init: function(){
+
             this.bindEvents();
         },
 
@@ -124,11 +125,14 @@ APP.EVENT_HANDLER = (function($, app){
         },
 
         /**
-         * Write the message in report log.
+         * Convert the given message array into a string message.
+         * @param {array}
+         * @return {string}
          */
-        writeMessage: function(message){
+        writeMessage: function(array){
 
-            var $log = $('#report-log');
+            var $log = $('#report-log'),
+                message = array.join('');
 
             $log.append(message);
             this.scrollControl($log);

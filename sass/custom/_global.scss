@@ -7,12 +7,9 @@ html, body{
 	width: 100%;
 }
 
-html{
-	height: 100%;
-}
-
 body{
 	background: url(/img/nwn_bg.jpg) center no-repeat;
+    background-attachment: fixed;
 	background-size: cover;
 	min-height: 100%;
 }
@@ -42,6 +39,10 @@ a{
 	width: 100%;
 }
 
+.container{
+    margin-bottom: 120px;
+}
+
 .capitalize{
     text-transform: capitalize;
 }
@@ -56,4 +57,8 @@ a{
 
 .overflow-hidden{
     overflow: hidden;
+}
+
+.tooltip{
+    font-size: 0.8em;
 }
