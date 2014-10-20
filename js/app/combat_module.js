@@ -39,7 +39,9 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             // by the total number of both object's attacks per round.
             var roundLength = myChar.ab.length + myOpp.ab.length,
 
-                randomDelay = calculate.randomValue(500, 300),
+                randomDelay = calculate.randomValue(100, 1),
+
+                $startCombat = $('#btn-combat'),
 
                 $charCurrentHP = $('#char-current-hp'),
                 $oppCurrentHP = $('#current-hp'),
@@ -59,6 +61,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                 oppAttack = 0,
 
                 hasEnded = false,
+                // Iterator for inner (setTimeout) loop.
                 index = 0,
 
                 messageArray = [];
@@ -87,11 +90,13 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                             messageArray = [messages.oppSpan, oppName, messages.killed, charName, messages.endKill];
                             view.writeMessage(messageArray);
+                            $startCombat.removeClass('disabled');
 
                         }else if(oppHP <= -1){
 
                             messageArray = [messages.charSpan, charName, messages.killed, oppName, messages.endKill];
                             view.writeMessage(messageArray);
+                            $startCombat.removeClass('disabled');
                         }
 
                         hasEnded = true;
@@ -256,20 +261,23 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
     publicMethod = {
 
         /**
-         * Start first round with both object's max hp.
+         * Start first round with both object's max hp. e.g. (current charHP and oppHP will be undefined).
          * After the round has ended, use current hp values as parameters for next round.
          */
         startFight: function(myChar, myOpp, charHP, oppHP){
 
-            // On the first round, charHP and oppHP will be undefined, so the round will start
-            // with object's maxHP values.
+            var $log = $('#report-log'),
+                round;
+
             if(charHP == undefined && oppHP == undefined){
 
-                var round = privateMethod.startRound(myChar, myOpp);
+                $log.html('');
+
+                round = privateMethod.startRound(myChar, myOpp);
 
             }else{
 
-                var round = privateMethod.startRound(myChar, myOpp, charHP, oppHP);
+                round = privateMethod.startRound(myChar, myOpp, charHP, oppHP);
             }
         }
     };
