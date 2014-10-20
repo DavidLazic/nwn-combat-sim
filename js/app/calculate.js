@@ -123,6 +123,18 @@ APP.CALCULATE = (function($, app){
                 }
 
                 return value;
+            },
+
+            /**
+             * Calculate top position for the background.
+             */
+            calculateCoords: function(speed){
+
+                var posTop = $(window).scrollTop(),
+                    yPos = -(posTop / speed),
+                    coords = '0px ' + yPos + 'px';
+
+                return coords;
             }
         };
 

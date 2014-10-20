@@ -76,6 +76,20 @@ APP.EVENT_HANDLER = (function($, app){
                     $creatureContainer.toggleClass('active');
                 }
             }
+        },
+
+        /**
+         * Parallax effect for the background image.
+         */
+        parallax: function(){
+
+            var $body = $('body'),
+                calculate = app.CALCULATE,
+
+                speed = $body.data('speed'),
+                coords = calculate.calculateCoords(speed);
+
+            $body.css({'background-position' : coords});
         }
     };
 
@@ -97,11 +111,13 @@ APP.EVENT_HANDLER = (function($, app){
 
             var $selectList = $('#select-opponent'),
                 $buttonFight = $('#btn-combat'),
-                $menuButtons = $('.btn-menu');
+                $menuButtons = $('.btn-menu'),
+                $win = $(window);
 
             $selectList.on('change', $.proxy(privateMethod, 'getData'));
             $buttonFight.on('click', $.proxy(privateMethod, 'getData'));
             $menuButtons.on('click', $.proxy(privateMethod, 'switchView'));
+            $win.on('scroll', $.proxy(privateMethod, 'parallax'));
         },
 
         /**
