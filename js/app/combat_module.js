@@ -39,7 +39,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             // by the total number of both object's attacks per round.
             var roundLength = myChar.ab.length + myOpp.ab.length,
 
-                randomDelay = calculate.randomValue(100, 1),
+                randomDelay = calculate.randomValue(500, 300),
 
                 $startCombat = $('#btn-combat'),
 
