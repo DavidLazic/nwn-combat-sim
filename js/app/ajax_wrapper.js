@@ -1,12 +1,12 @@
 APP.AJAX_WRAPPER = (function($, app, view, calculate){
 
-    var privateMethod,
-        publicMethod,
-        view = app.EVENT_HANDLER,
+    var privateObj,
+        publicObj,
+        view = app.VIEW,
         calculate = app.CALCULATE,
         combat = app.COMBAT_MODULE;
 
-    privateMethod = {
+    privateObj = {
 
         /**
          * Create object.
@@ -21,11 +21,11 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
             ajaxObj.dataType = 'JSON';
 
             ajaxObj.success = function(data){
-                privateMethod.ajaxSuccess(data, label, combatStatus);
+                privateObj.ajaxSuccess(data, label, combatStatus);
             };
 
             ajaxObj.error = function(data){
-                privateMethod.ajaxError(data);
+                privateObj.ajaxError(data);
             }
 
             return ajaxObj;
@@ -147,19 +147,19 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
 
     };
 
-    publicMethod = {
+    publicObj = {
 
         /**
          * Send request with created object.
          */
         sendRequest: function(url, label, combatStatus){
 
-            var $object = privateMethod.createInstance(url, label, combatStatus);
+            var $object = privateObj.createInstance(url, label, combatStatus);
 
             $.ajax($object);
         }
     };
 
-    return publicMethod;
+    return publicObj;
 
 }(jQuery, APP, APP.EVENT_HANDLER, APP.CALCULATE));

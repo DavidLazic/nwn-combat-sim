@@ -1,9 +1,9 @@
 APP.COMBAT_MODULE = (function($, app, calculate, view){
 
-    var privateMethod,
-        publicMethod,
+    var privateObj,
+        publicObj,
         calculate = app.CALCULATE,
-        view = app.EVENT_HANDLER,
+        view = app.VIEW,
         messages;
 
     /**
@@ -31,7 +31,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
         endKill: '</span></div>'
     }
 
-    privateMethod = {
+    privateObj = {
 
         startRound: function(myChar, myOpp, charHP, oppHP){
 
@@ -111,7 +111,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                         if(charAttack < charMaxAttacks){
 
                             // For each hit chance, calculate the attack roll.
-                            var charBaseAttackBonus = privateMethod.increaseABIterateCount(myChar, charAttack),
+                            var charBaseAttackBonus = privateObj.increaseABIterateCount(myChar, charAttack),
                                 charAttackRoll = calculate.calculateAttackRoll(charBaseAttackBonus);
 
                             // If current attack roll surpases opponent object's AC, calculate damage done for successful hit.
@@ -141,7 +141,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                         }else{
 
-                            var oppBaseAttackBonus = privateMethod.increaseABIterateCount(myOpp, oppAttack),
+                            var oppBaseAttackBonus = privateObj.increaseABIterateCount(myOpp, oppAttack),
                                 oppAttackRoll = calculate.calculateAttackRoll(oppBaseAttackBonus);
 
                             if(oppAttackRoll.attackRoll > charAC){
@@ -173,7 +173,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                         if(oppAttack < oppMaxAttacks){
 
-                            var oppBaseAttackBonus = privateMethod.increaseABIterateCount(myOpp, oppAttack),
+                            var oppBaseAttackBonus = privateObj.increaseABIterateCount(myOpp, oppAttack),
                                 oppAttackRoll = calculate.calculateAttackRoll(oppBaseAttackBonus);
 
                             if(oppAttackRoll.attackRoll > charAC){
@@ -202,7 +202,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                         }else{
 
-                            var charBaseAttackBonus = privateMethod.increaseABIterateCount(myChar, charAttack),
+                            var charBaseAttackBonus = privateObj.increaseABIterateCount(myChar, charAttack),
                                 charAttackRoll = calculate.calculateAttackRoll(charBaseAttackBonus);
 
                             if(charAttackRoll.attackRoll > oppAC){
@@ -237,7 +237,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                     // When inner loop reaches the start the round over with the given values.
                     if(index == roundLength){
-                        publicMethod.startFight(myChar, myOpp, charHP, oppHP);
+                        publicObj.startFight(myChar, myOpp, charHP, oppHP);
                     }
 
                 }, randomDelay * i);
@@ -258,7 +258,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
     };
 
-    publicMethod = {
+    publicObj = {
 
         /**
          * Start first round with both object's max hp. e.g. (current charHP and oppHP will be undefined).
@@ -273,15 +273,15 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                 $log.html('');
 
-                round = privateMethod.startRound(myChar, myOpp);
+                round = privateObj.startRound(myChar, myOpp);
 
             }else{
 
-                round = privateMethod.startRound(myChar, myOpp, charHP, oppHP);
+                round = privateObj.startRound(myChar, myOpp, charHP, oppHP);
             }
         }
     };
 
-    return publicMethod;
+    return publicObj;
 
-}(jQuery, APP, APP.CALCULATE, APP.EVENT_HANDLER));
+}(jQuery, APP, APP.CALCULATE, APP.VIEW));

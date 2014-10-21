@@ -1,9 +1,9 @@
 APP.CALCULATE = (function($, app){
 
-    var privateMethod,
-        publicMethod;
+    var privateObj,
+        publicObj;
 
-        privateMethod = {
+        privateObj = {
 
             /**
              * Calculate damage done based on @min, @max and @modifier values.
@@ -34,7 +34,7 @@ APP.CALCULATE = (function($, app){
             }
         };
 
-        publicMethod = {
+        publicObj = {
 
             /**
              * Calculate ability modifier based on the current ability value.
@@ -83,11 +83,11 @@ APP.CALCULATE = (function($, app){
 
                     if(weaponBonus == true){
 
-                        var damage = privateMethod.damageRoll(dmgMIN, dmgMAX, strModifier, 13);
+                        var damage = privateObj.damageRoll(dmgMIN, dmgMAX, strModifier, 13);
 
                     }else{
 
-                        var damage = privateMethod.damageRoll(dmgMIN, dmgMAX, strModifier, 0);
+                        var damage = privateObj.damageRoll(dmgMIN, dmgMAX, strModifier, 0);
                     }
 
                     return damage;
@@ -108,7 +108,7 @@ APP.CALCULATE = (function($, app){
                 var rollMin = 1,
                     rollMax = 20,
                     currentAttackBonus = value,
-                    attackRoll = privateMethod.attackRoll(rollMin, rollMax, currentAttackBonus);
+                    attackRoll = privateObj.attackRoll(rollMin, rollMax, currentAttackBonus);
 
                 return attackRoll;
             },
@@ -138,6 +138,6 @@ APP.CALCULATE = (function($, app){
             }
         };
 
-        return publicMethod;
+        return publicObj;
 
 }(jQuery, APP));
