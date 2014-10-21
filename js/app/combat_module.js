@@ -117,10 +117,10 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                             // If current attack roll surpases opponent object's AC, calculate damage done for successful hit.
                             if(charAttackRoll.attackRoll > oppAC){
 
-                                var charDamageDone = calculate.calculateDamage(myChar, true, true);
+                                var charDamageDone = calculate.calculateDamage(myChar.diceRoll, myChar.strength, true, true);
 
                                 oppHP -= charDamageDone;
-                                calculate.currentHP(oppHP, $oppCurrentHP);
+                                view.updateCurrentHP(oppHP, $oppCurrentHP);
 
                                 messageArray = [messages.charSpan, charName, messages.attacks, oppName, messages.hit, charAttackRoll.baseRoll, messages.add, charBaseAttackBonus, messages.equals, charAttackRoll.attackRoll, messages.end];
 
@@ -146,10 +146,10 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                             if(oppAttackRoll.attackRoll > charAC){
 
-                                var oppDamageDone = calculate.calculateDamage(myOpp, true, false);
+                                var oppDamageDone = calculate.calculateDamage(myOpp.diceRoll, myOpp.strength, true, false);
 
                                 charHP -= oppDamageDone;
-                                calculate.currentHP(charHP, $charCurrentHP);
+                                view.updateCurrentHP(charHP, $charCurrentHP);
 
                                 messageArray = [messages.oppSpan, oppName, messages.attacks, charName, messages.hit, oppAttackRoll.baseRoll, messages.add, oppBaseAttackBonus, messages.equals, oppAttackRoll.attackRoll, messages.end];
 
@@ -178,10 +178,10 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                             if(oppAttackRoll.attackRoll > charAC){
 
-                                var oppDamageDone = calculate.calculateDamage(myOpp, true, false);
+                                var oppDamageDone = calculate.calculateDamage(myOpp.diceRoll, myOpp.strength, true, false);
 
                                 charHP -= oppDamageDone;
-                                calculate.currentHP(charHP, $charCurrentHP);
+                                view.updateCurrentHP(charHP, $charCurrentHP);
 
                                 messageArray = [messages.oppSpan, oppName, messages.attacks, charName, messages.hit, oppAttackRoll.baseRoll, messages.add, oppBaseAttackBonus, messages.equals, oppAttackRoll.attackRoll, messages.end];
 
@@ -207,10 +207,10 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                             if(charAttackRoll.attackRoll > oppAC){
 
-                                var charDamageDone = calculate.calculateDamage(myChar, true, true);
+                                var charDamageDone = calculate.calculateDamage(myChar.diceRoll, myChar.strength, true, true);
 
                                 oppHP -= charDamageDone;
-                                calculate.currentHP(oppHP, $oppCurrentHP);
+                                view.updateCurrentHP(oppHP, $oppCurrentHP);
 
                                 messageArray = [messages.charSpan, charName, messages.attacks, oppName, messages.hit, charAttackRoll.baseRoll, messages.add, charBaseAttackBonus, messages.equals, charAttackRoll.attackRoll, messages.end];
 

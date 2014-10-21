@@ -84,8 +84,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
                 avatarArray = [$avatar, avatar],
 
                 $health = $('#current-hp'),
-                maxHP = object.hitPoints,
-                health = calculate.currentHP(maxHP),
+                health = object.hitPoints,
                 healthArray = [$health, health];
 
             $.each(obj, function(){
@@ -112,7 +111,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
                                 labelsArray,
                                 avatarArray,
                                 healthArray,
-                                calculate.calculateModifier);
+                                view.writeModifier);
         },
 
         /**
@@ -132,7 +131,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
             myChar.ac = parseInt($('#char-ac').text()),
             myChar.diceRoll = [1, 8],
             myChar.ab = [68, 63, 58, 53],
-            myChar.dmg = calculate.calculateDamage(myChar);
+            myChar.dmg = calculate.calculateDamage(myChar.diceRoll, myChar.strength);
 
             myOpp.name = $selected.text(),
             myOpp.strength = object.strength,
@@ -140,7 +139,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
             myOpp.ac = object.armorClass,
             myOpp.diceRoll = object.diceRoll,
             myOpp.ab = object.attackBonus,
-            myOpp.dmg = calculate.calculateDamage(object);
+            myOpp.dmg = calculate.calculateDamage(object.diceRoll, object.strength);
 
             combat.startFight(myChar, myOpp);
         }

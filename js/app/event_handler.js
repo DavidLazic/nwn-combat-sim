@@ -13,29 +13,31 @@ APP.EVENT_HANDLER = (function($, app){
          */
         getData: function(e){
 
-            var $selected = $('#select-opponent option:selected'),
+            var ajax = app.AJAX_WRAPPER,
+                view = app.VIEW,
+
+                $clear = $('.idle-clear'),
+                $avatar = $('#avatar'),
+                idleURL = '/img/idle_portrait.jpg',
+
+                $selected = $('#select-opponent option:selected'),
                 selectedValue = $selected.val(),
                 creatureType = $selected.data('url'),
                 $target = $(e.target),
                 $startCombat = $('#btn-combat'),
 
-                url = 'js/creatureDB/' + creatureType + '.json',
-                ajax = app.AJAX_WRAPPER;
+                url = 'js/creatureDB/' + creatureType + '.json';
 
-            if(selectedValue == 0 && typeof selectedValue == 'string'){
+            if(selectedValue == undefined && typeof selectedValue == 'string'){
 
-                var $clear = $('.idle-clear'),
-                    $avatar = $('#avatar'),
-                    idleURL = '/img/idle_portrait.jpg';
-
-                $clear.text('');
-                $avatar.attr('src', idleURL);
+                view.clearView($clear, $avatar, idleURL);
 
                 return false;
 
             }else if($target.is($startCombat)){
 
                 ajax.sendRequest(url, selectedValue, true);
+
                 $startCombat.addClass('disabled');
 
             }else{
@@ -83,10 +85,10 @@ APP.EVENT_HANDLER = (function($, app){
          */
         parallax: function(){
 
-            var $body = $('body'),
-                calculate = app.CALCULATE,
-
+            var calculate = app.CALCULATE,
+                $body = $('body'),
                 speed = $body.data('speed'),
+
                 coords = calculate.calculateCoords(speed);
 
             $body.css({'background-position' : coords});
@@ -105,7 +107,7 @@ APP.EVENT_HANDLER = (function($, app){
         },
 
         /**
-         * Bind @selection and @fight events.
+         * Bind events.
          */
         bindEvents: function(){
 
@@ -119,10 +121,6 @@ APP.EVENT_HANDLER = (function($, app){
             $menuButtons.on('click', $.proxy(privateObj, 'switchView'));
             $win.on('scroll', $.proxy(privateObj, 'parallax'));
         }
-
-
-
-
     };
 
     return publicObj;

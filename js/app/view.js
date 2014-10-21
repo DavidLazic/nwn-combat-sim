@@ -1,4 +1,4 @@
-APP.VIEW = (function($) {
+APP.VIEW = (function($, app) {
 
     var privateObj,
         publicObj;
@@ -50,12 +50,47 @@ APP.VIEW = (function($) {
                 message = array.join('');
 
             $log.append(message);
+
             privateObj.scrollControl($log);
         },
 
+        /**
+         * Clear view fields if idle.
+         */
+        clearView: function(fields, avatar, idleURL){
+
+            fields.text('');
+
+            avatar.attr('src', idleURL);
+        },
+
+        /**
+         * Update object's current HP.
+         */
+        updateCurrentHP: function(currentHP, object){
+
+            object.html(currentHP);
+        },
+
+        /**
+         * Callback function for calculating and writing modifier values.
+         */
+        writeModifier: function(){
+
+            var calculate = app.CALCULATE,
+                $modifier = $('.modifier');
+
+            $.each($modifier, function(){
+
+                var value = parseInt($(this).prev().text()),
+                    modValue = calculate.calculateModifier(value);
+
+                $(this).html(modValue);
+            });
+        }
 
     };
 
     return publicObj;
 
-}(jQuery));
+}(jQuery, APP));

@@ -7,6 +7,7 @@ APP.CALCULATE = (function($, app){
 
             /**
              * Calculate damage done based on @min, @max and @modifier values.
+             * In case of the character object, there's a @weaponBonus damage.
              * @return {integer}
              */
             damageRoll: function(dmgMIN, dmgMAX, strModifier, weaponBonus){
@@ -40,54 +41,37 @@ APP.CALCULATE = (function($, app){
              * Calculate ability modifier based on the current ability value.
              * For each 2 levels of certain ability starting from level 10, modifier gets raised by 1.
              */
-             calculateModifier: function(object){
+             calculateModifier: function(value){
 
-                var $modifier = $('.modifier');
+                var modValue = Math.floor((value - 10) / 2);
 
-                $.each($modifier, function(){
-
-                    var value = parseInt($(this).prev().text()),
-                        modValue = Math.floor((value - 10) / 2);
-
-                    $(this).html(modValue);
-                });
-            },
-
-            /**
-             * If object isn't forwarded as an argument, currentHP is maxHP.
-             */
-            currentHP: function(currentHP, object){
-
-                if(!(object == undefined)){
-                    object.html(currentHP);
-                }
-
-                return currentHP;
+                return modValue;
             },
 
             /**
              * Render damage property for showing in view.
              * e.g. diceRoll (2d8) results in 2-16 + strModifier.
-             * @param {object}
-             * @return {string}
+             * If combatStatus is active, render damage done.
+             * @param {integer}, {boolean}
+             * @return {integer} / {string}
              */
-             calculateDamage: function(object, combatStatus, weaponBonus){
+             calculateDamage: function(diceRoll, strength, combatStatus, weaponBonus){
 
-                var diceRoll = object.diceRoll,
-                    strModifier = Math.floor((object.strength - 10) / 2),
+                var strModifier = this.calculateModifier(strength),
                     dmgMIN = diceRoll[0],
                     dmgMAX = diceRoll[1] * dmgMIN,
-                    viewDamage = dmgMIN + '-' + dmgMAX + ' + ' + strModifier;
+                    viewDamage = dmgMIN + '-' + dmgMAX + ' + ' + strModifier,
+                    damage;
 
-                if(combatStatus == true){
+                if(combatStatus){
 
-                    if(weaponBonus == true){
+                    if(weaponBonus){
 
-                        var damage = privateObj.damageRoll(dmgMIN, dmgMAX, strModifier, 13);
+                        damage = privateObj.damageRoll(dmgMIN, dmgMAX, strModifier, 13);
 
                     }else{
 
-                        var damage = privateObj.damageRoll(dmgMIN, dmgMAX, strModifier, 0);
+                        damage = privateObj.damageRoll(dmgMIN, dmgMAX, strModifier, 0);
                     }
 
                     return damage;
