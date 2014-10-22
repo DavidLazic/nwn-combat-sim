@@ -19,6 +19,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
         killed: '</span> killed <span class="capitalize">',
 
         hit: '</span> : *hit* : (',
+        critHit: '</span> : *critical hit* : (',
         miss: '</span> : *miss* : (',
         damage: '</span> : ',
 
@@ -119,7 +120,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
             }else if(roll.baseRoll == 20){
 
-
+                hit.criticalHit = 'true';
 
             }else if(roll.attackRoll > opponent.ac){
 
@@ -142,45 +143,81 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             return attacks;
         },
 
+        criticalAttack: function(attackerSpan, attacker, viewObject, defender, damage, hit){
+
+            defender.hp -= damage;
+
+            view.updateCurrentHP(defender.hp, viewObject);
+
+            messages.createMessage.attack(attackerSpan,
+                                          attacker.name,
+                                          defender.name,
+                                          messages.critHit,
+                                          hit.roll.baseRoll,
+                                          hit.roll.currentAttackBonus,
+                                          hit.roll.attackRoll);
+
+            messages.createMessage.damage(attackerSpan,
+                                          attacker.name,
+                                          defender.name,
+                                          damage);
+        },
+
+        normalAttack: function(attackerSpan, attacker, viewObject, defender, damage, hit){
+
+            defender.hp -= damage;
+
+            view.updateCurrentHP(defender.hp, viewObject);
+
+            messages.createMessage.attack(attackerSpan,
+                                          attacker.name,
+                                          defender.name,
+                                          messages.hit,
+                                          hit.roll.baseRoll,
+                                          hit.roll.currentAttackBonus,
+                                          hit.roll.attackRoll);
+
+            messages.createMessage.damage(attackerSpan,
+                                          attacker.name,
+                                          defender.name,
+                                          damage);
+        },
+
+        missAttack: function(attackerSpan, attacker, defender, hit){
+
+            messages.createMessage.attack(attackerSpan,
+                                          attacker.name,
+                                          defender.name,
+                                          messages.miss,
+                                          hit.roll.baseRoll,
+                                          hit.roll.currentAttackBonus,
+                                          hit.roll.attackRoll);
+        },
+
         oppAttack: function(myChar, myOpp){
 
             var $charCurrentHP = $('#char-current-hp'),
 
-                hasAttacks,
                 hit,
                 damage;
 
             hit = this.checkHit(myOpp, this.counter.opponent, myChar);
 
+            if(typeof hit.criticalHit == 'string' && hit.criticalHit == 'true'){
 
-            if(typeof hit.strike == 'string' && hit.strike == 'true'){
+                damage = (this.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false)) * 2;
+
+                this.criticalAttack(messages.oppSpan, myOpp, $charCurrentHP, myChar, damage, hit);
+
+            }else if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
                 damage = this.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false);
 
-                myChar.hp -= damage;
+                this.normalAttack(messages.oppSpan, myOpp, $charCurrentHP, myChar, damage, hit);
 
-                view.updateCurrentHP(myChar.hp, $charCurrentHP);
-
-                messages.createMessage.attack(messages.oppSpan,
-                                              myOpp.name,
-                                              myChar.name,
-                                              messages.hit,
-                                              hit.roll.baseRoll,
-                                              hit.roll.currentAttackBonus,
-                                              hit.roll.attackRoll);
-
-                messages.createMessage.damage(messages.oppSpan,
-                                              myOpp.name,
-                                              myChar.name,
-                                              damage);
             }else{
-                messages.createMessage.attack(messages.oppSpan,
-                                              myOpp.name,
-                                              myChar.name,
-                                              messages.miss,
-                                              hit.roll.baseRoll,
-                                              hit.roll.currentAttackBonus,
-                                              hit.roll.attackRoll);
+
+                this.missAttack(messages.oppSpan, myOpp, myChar, hit);
             }
 
             this.counter.opponent++;
@@ -195,36 +232,21 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
             hit = this.checkHit(myChar, this.counter.character, myOpp);
 
-            // If @strike is "true", the object made a hit, calculate damage done.
-            if(typeof hit.strike == 'string' && hit.strike == 'true'){
+            if(typeof hit.criticalHit == 'string' && hit.criticalHit == 'true'){
+
+                damage = (this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true)) * 2;
+
+                this.criticalAttack(messages.charSpan, myChar, $oppCurrentHP, myOpp, damage, hit);
+
+            }else if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
                 damage = this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
 
-                myOpp.hp -= damage;
+                this.normalAttack(messages.charSpan, myChar, $oppCurrentHP, myOpp, damage, hit);
 
-                view.updateCurrentHP(myOpp.hp, $oppCurrentHP);
-
-                messages.createMessage.attack(messages.charSpan,
-                                              myChar.name,
-                                              myOpp.name,
-                                              messages.hit,
-                                              hit.roll.baseRoll,
-                                              hit.roll.currentAttackBonus,
-                                              hit.roll.attackRoll);
-
-                messages.createMessage.damage(messages.charSpan,
-                                              myChar.name,
-                                              myOpp.name,
-                                              damage);
             }else{
 
-                messages.createMessage.attack(messages.charSpan,
-                                              myChar.name,
-                                              myOpp.name,
-                                              messages.miss,
-                                              hit.roll.baseRoll,
-                                              hit.roll.currentAttackBonus,
-                                              hit.roll.attackRoll);
+                this.missAttack(messages.charSpan, myChar, myOpp, hit);
             }
 
             this.counter.character++;
