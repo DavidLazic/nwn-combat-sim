@@ -1,85 +1,7 @@
-APP.COMBAT_MODULE = (function($, app, calculate, view){
+APP.COMBAT_MODULE = (function($, app, calculate, view, messages){
 
     var privateObj,
-        publicObj,
-        calculate = app.CALCULATE,
-        view = app.VIEW,
-        messages;
-
-    /**
-     * HTML format for "writeMessage" on the view.
-     */
-    messages = {
-
-        charSpan: '<div class="text"><span class="capitalize character">',
-        oppSpan: '<div class="text"><span class="capitalize opponent">',
-
-        attacks: '</span> attacks <span class="capitalize">',
-        damages: '</span> damages <span class="capitalize">',
-        killed: '</span> killed <span class="capitalize">',
-
-        hit: '</span> : *hit* : (',
-        critHit: '</span> : *critical hit* : (',
-        miss: '</span> : *miss* : (',
-        damage: '</span> : ',
-
-        add: ' + ',
-        reduce: ' - ',
-        equals: ' = ',
-
-        end: ')</div>',
-        dmgPre: ' (',
-        dmgAfter: ' Physical)</div>',
-        endKill: '</span></div>',
-
-        createMessage: {
-
-            message: [],
-
-            attack: function(attackerSpan, attacker, defender, attack, baseRoll, BAB, attackRoll){
-
-                this.message = [attackerSpan,
-                                attacker,
-                                messages.attacks,
-                                defender,
-                                attack,
-                                baseRoll,
-                                messages.add,
-                                BAB,
-                                messages.equals,
-                                attackRoll,
-                                messages.end];
-
-                view.writeMessage(this.message);
-            },
-
-            damage: function(attackerSpan, attacker, defender, damageDone){
-
-                this.message = [attackerSpan,
-                                attacker,
-                                messages.damages,
-                                defender,
-                                messages.damage,
-                                damageDone,
-                                messages.dmgPre,
-                                damageDone,
-                                messages.dmgAfter];
-
-                view.writeMessage(this.message);
-            },
-
-            kill: function(attackerSpan, attacker, defender){
-
-                this.message = [attackerSpan,
-                                attacker,
-                                messages.killed,
-                                defender,
-                                messages.endKill];
-
-                view.writeMessage(this.message);
-            }
-        }
-    };
+        publicObj;
 
     privateObj = {
 
@@ -411,4 +333,4 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
     return publicObj;
 
-}(jQuery, APP, APP.CALCULATE, APP.VIEW));
+}(jQuery, APP, APP.CALCULATE, APP.VIEW, APP.MESSAGES));
