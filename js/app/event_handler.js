@@ -18,7 +18,7 @@ APP.EVENT_HANDLER = (function($, app){
 
                 $clear = $('.idle-clear'),
                 $avatar = $('#avatar'),
-                idleURL = '/img/idle_portrait.jpg',
+                idleURL = 'img/idle_portrait.jpg',
 
                 $selected = $('#select-opponent option:selected'),
                 selectedValue = $selected.val(),
