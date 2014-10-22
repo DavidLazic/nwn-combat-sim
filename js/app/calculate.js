@@ -29,6 +29,7 @@ APP.CALCULATE = (function($, app){
                     attackRoll = baseRoll + currentAttackBonus;
 
                 roll.baseRoll = baseRoll;
+                roll.currentAttackBonus = currentAttackBonus;
                 roll.attackRoll = attackRoll;
 
                 return roll;

@@ -15,7 +15,7 @@
       2,
       6
     ],
-    "avatarURL": "dragon_white",
+    "avatarURL": "dragon/dragon_white",
     "strength": 33,
     "dexterity": 10,
     "constitution": 23,
@@ -39,7 +39,7 @@
       2,
       8
     ],
-    "avatarURL": "dragon_red",
+    "avatarURL": "dragon/dragon_red",
     "strength": 39,
     "dexterity": 10,
     "constitution": 29,
@@ -63,7 +63,7 @@
       2,
       8
     ],
-    "avatarURL": "dragon_green",
+    "avatarURL": "dragon/dragon_green",
     "strength": 35,
     "dexterity": 10,
     "constitution": 25,
@@ -87,7 +87,7 @@
       2,
       8
     ],
-    "avatarURL": "dragon_blue",
+    "avatarURL": "dragon/dragon_blue",
     "strength": 35,
     "dexterity": 10,
     "constitution": 25,
@@ -111,12 +111,36 @@
       2,
       6
     ],
-    "avatarURL": "dragon_black",
+    "avatarURL": "dragon/dragon_black",
     "strength": 33,
     "dexterity": 10,
     "constitution": 23,
     "intelligence": 16,
     "wisdom": 17,
     "charisma": 16
+  },
+  {
+    "label": "shenron",
+    "race": "dragon, ",
+    "alignment": "chaotic evil",
+    "armorClass": 88,
+    "hitPoints": 4495,
+    "attackBonus": [
+      70,
+      65,
+      60,
+      55
+    ],
+    "diceRoll": [
+      4,
+      10
+    ],
+    "avatarURL": "dragon/dragon_bronze",
+    "strength": 60,
+    "dexterity": 10,
+    "constitution": 40,
+    "intelligence": 24,
+    "wisdom": 25,
+    "charisma": 24
   }
 ]

@@ -97,7 +97,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
                 }else if(label === 'diceRoll'){
                     labelValue = object[label][0] + 'd' + object[label][1];
                 }else if(label === 'damage'){
-                    labelValue = calculate.calculateDamage(object);
+                    labelValue = calculate.calculateDamage(object.diceRoll, object.strength);
                 }else{
                     labelValue = object[label];
                 }

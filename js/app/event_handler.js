@@ -28,7 +28,7 @@ APP.EVENT_HANDLER = (function($, app){
 
                 url = 'js/creatureDB/' + creatureType + '.json';
 
-            if(selectedValue == undefined && typeof selectedValue == 'string'){
+            if(selectedValue == 0 && typeof selectedValue == 'string'){
 
                 view.clearView($clear, $avatar, idleURL);
 
