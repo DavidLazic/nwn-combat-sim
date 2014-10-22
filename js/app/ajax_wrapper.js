@@ -141,7 +141,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
             myOpp.ab = object.attackBonus,
             myOpp.dmg = calculate.calculateDamage(object.diceRoll, object.strength);
 
-            combat.startFight(myChar, myOpp);
+            combat.startFight(myChar, myOpp, true);
         }
 
     };

@@ -25,12 +25,13 @@ APP.EVENT_HANDLER = (function($, app){
                 creatureType = $selected.data('url'),
                 $target = $(e.target),
                 $startCombat = $('#btn-combat'),
+                $log = $('report-log'),
 
                 url = 'js/creatureDB/' + creatureType + '.json';
 
             if(selectedValue == 0 && typeof selectedValue == 'string'){
 
-                view.clearView($clear, $avatar, idleURL);
+                view.clearView($clear, $avatar, idleURL, $startCombat, $log);
 
                 return false;
 

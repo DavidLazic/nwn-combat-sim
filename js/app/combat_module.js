@@ -82,12 +82,20 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
     privateObj = {
 
-        // While iterating over total attacks, set initial attack counters to 0.
-        charAttackCounter: 0,
-        oppAttackCounter: 0,
+        // Set initial attack counters to 0.
+        counter: {
+
+            character: 0,
+
+            opponent: 0
+        },
 
         hasEnded: false,
 
+        /**
+         * Determine the amount of the damage done.
+         * @return {integer}
+         */
         checkDamageDone: function(diceRoll, strength, combatStatus, damageBonus){
 
             var damage = calculate.calculateDamage(diceRoll, strength, combatStatus, damageBonus);
@@ -95,6 +103,10 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             return damage;
         },
 
+        /**
+         * Determine if the attack was successful.
+         * @return {object}
+         */
         checkHit: function(attacker, value, opponent){
 
             var BAB = this.currentBAB(attacker, value),
@@ -108,6 +120,10 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             return hit;
         },
 
+        /**
+         * Determine if the object can make an attack.
+         * @return {string}
+         */
         checkAttacksLeft: function(object, counter){
 
             var attacks = (counter < object.ab.length) ? 'true' : 'false';
@@ -115,170 +131,124 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             return attacks;
         },
 
-        continueRound: function(myChar, myOpp, roll){
-        console.log(this.charAttackCounter, this.oppAttackCounter);
+        oppAttack: function(myChar, myOpp){
 
             var $charCurrentHP = $('#char-current-hp'),
-                $oppCurrentHP = $('#current-hp'),
 
                 hasAttacks,
                 hit,
                 damage;
 
+            hit = this.checkHit(myOpp, this.counter.opponent, myChar);
+
+            if(typeof hit.strike == 'string' && hit.strike == 'true'){
+
+                damage = this.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false);
+
+                myChar.hp -= damage;
+
+                view.updateCurrentHP(myChar.hp, $charCurrentHP);
+
+                messages.createMessage.attack(messages.oppSpan,
+                                              myOpp.name,
+                                              myChar.name,
+                                              messages.hit,
+                                              hit.roll.baseRoll,
+                                              hit.roll.currentAttackBonus,
+                                              hit.roll.attackRoll);
+
+                messages.createMessage.damage(messages.oppSpan,
+                                              myOpp.name,
+                                              myChar.name,
+                                              damage);
+            }else{
+                messages.createMessage.attack(messages.oppSpan,
+                                              myOpp.name,
+                                              myChar.name,
+                                              messages.miss,
+                                              hit.roll.baseRoll,
+                                              hit.roll.currentAttackBonus,
+                                              hit.roll.attackRoll);
+            }
+
+            this.counter.opponent++;
+        },
+
+        charAttack: function(myChar, myOpp){
+
+            var $oppCurrentHP = $('#current-hp'),
+
+                hit,
+                damage;
+
+            hit = this.checkHit(myChar, this.counter.character, myOpp);
+
+            // If @strike is "true", the object made a hit, calculate damage done.
+            if(typeof hit.strike == 'string' && hit.strike == 'true'){
+
+                damage = this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
+
+                myOpp.hp -= damage;
+
+                view.updateCurrentHP(myOpp.hp, $oppCurrentHP);
+
+                messages.createMessage.attack(messages.charSpan,
+                                              myChar.name,
+                                              myOpp.name,
+                                              messages.hit,
+                                              hit.roll.baseRoll,
+                                              hit.roll.currentAttackBonus,
+                                              hit.roll.attackRoll);
+
+                messages.createMessage.damage(messages.charSpan,
+                                              myChar.name,
+                                              myOpp.name,
+                                              damage);
+            }else{
+
+                messages.createMessage.attack(messages.charSpan,
+                                              myChar.name,
+                                              myOpp.name,
+                                              messages.miss,
+                                              hit.roll.baseRoll,
+                                              hit.roll.currentAttackBonus,
+                                              hit.roll.attackRoll);
+            }
+
+            this.counter.character++;
+        },
+
+        /**
+         * Objects get an attack chance based on the result of @roll.
+         */
+        continueRound: function(myChar, myOpp, roll){
+
+            var hasAttacks;
+
             if(typeof roll == 'number' && roll == 1){
 
-                hasAttacks =  this.checkAttacksLeft(myChar, this.charAttackCounter);
-                console.log(hasAttacks);
+                hasAttacks =  this.checkAttacksLeft(myChar, this.counter.character);
+
                 if(typeof hasAttacks == 'string' && hasAttacks == 'true'){
 
-                    hit = this.checkHit(myChar, this.charAttackCounter, myOpp);
-
-                    if(typeof hit.strike == 'string' && hit.strike == 'true'){
-
-                        damage = this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
-
-                        myOpp.hp -= damage;
-
-                        view.updateCurrentHP(myOpp.hp, $oppCurrentHP);
-
-                        messages.createMessage.attack(messages.charSpan,
-                                                   myChar.name,
-                                                   myOpp.name,
-                                                   messages.hit,
-                                                   hit.roll.baseRoll,
-                                                   hit.roll.currentAttackBonus,
-                                                   hit.roll.attackRoll);
-
-                        messages.createMessage.damage(messages.charSpan,
-                                                      myChar.name,
-                                                      myOpp.name,
-                                                      damage);
-                    }else{
-
-                        messages.createMessage.attack(messages.charSpan,
-                                                    myChar.name,
-                                                    myOpp.name,
-                                                    messages.miss,
-                                                    hit.roll.baseRoll,
-                                                    hit.roll.currentAttackBonus,
-                                                    hit.roll.attackRoll);
-                    }
-
-                    this.charAttackCounter++;
+                    this.charAttack(myChar, myOpp);
 
                 }else{
 
-                    hit = this.checkHit(myOpp, this.oppAttackCounter, myChar);
-
-                    if(typeof hit.strike == 'string' && hit.strike == 'true'){
-
-                        damage = this.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false);
-
-                        myChar.hp -= damage;
-
-                        view.updateCurrentHP(myChar.hp, $charCurrentHP);
-
-                        messages.createMessage.attack(messages.oppSpan,
-                                                   myOpp.name,
-                                                   myChar.name,
-                                                   messages.hit,
-                                                   hit.roll.baseRoll,
-                                                   hit.roll.currentAttackBonus,
-                                                   hit.roll.attackRoll);
-
-                        messages.createMessage.damage(messages.oppSpan,
-                                                      myOpp.name,
-                                                      myChar.name,
-                                                      damage);
-                    }else{
-                        messages.createMessage.attack(messages.oppSpan,
-                                                    myOpp.name,
-                                                    myChar.name,
-                                                    messages.miss,
-                                                    hit.roll.baseRoll,
-                                                    hit.roll.currentAttackBonus,
-                                                    hit.roll.attackRoll);
-                    }
-
-                    this.oppAttackCounter++;
+                    this.oppAttack(myChar, myOpp);
                 }
 
             }else if(typeof roll == 'number' && roll === 0){
 
-                hasAttacks = this.checkAttacksLeft(myOpp, this.oppAttackCounter);
+                hasAttacks = this.checkAttacksLeft(myOpp, this.counter.opponent);
 
                 if(typeof hasAttacks == 'string' && hasAttacks == 'true'){
 
-                    hit = this.checkHit(myOpp, this.oppAttackCounter, myChar);
-
-                    if(typeof hit.strike == 'string' && hit.strike == 'true'){
-
-                        damage = this.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false);
-
-                        myChar.hp -= damage;
-
-                        view.updateCurrentHP(myChar.hp, $charCurrentHP);
-
-                        messages.createMessage.attack(messages.oppSpan,
-                                                   myOpp.name,
-                                                   myChar.name,
-                                                   messages.hit,
-                                                   hit.roll.baseRoll,
-                                                   hit.roll.currentAttackBonus,
-                                                   hit.roll.attackRoll);
-
-                        messages.createMessage.damage(messages.oppSpan,
-                                                      myOpp.name,
-                                                      myChar.name,
-                                                      damage);
-                    }else{
-
-                        messages.createMessage.attack(messages.oppSpan,
-                                                    myOpp.name,
-                                                    myChar.name,
-                                                    messages.miss,
-                                                    hit.roll.baseRoll,
-                                                    hit.roll.currentAttackBonus,
-                                                    hit.roll.attackRoll);
-                    }
-
-                    this.oppAttackCounter++;
+                    this.oppAttack(myChar, myOpp);
 
                 }else{
 
-                    hit = this.checkHit(myChar, this.charAttackCounter, myOpp);
-                    console.log(hasAttacks);
-                    if(typeof hit.strike == 'string' && hit.strike == 'true'){
-
-                        damage = this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
-
-                        myOpp.hp -= damage;
-
-                        view.updateCurrentHP(myOpp.hp, $oppCurrentHP);
-
-                        messages.createMessage.attack(messages.charSpan,
-                                                   myChar.name,
-                                                   myOpp.name,
-                                                   messages.hit,
-                                                   hit.roll.baseRoll,
-                                                   hit.roll.currentAttackBonus,
-                                                   hit.roll.attackRoll);
-
-                        messages.createMessage.damage(messages.charSpan,
-                                                      myChar.name,
-                                                      myOpp.name,
-                                                      damage);
-                    }else{
-                        messages.createMessage.attack(messages.charSpan,
-                                                    myChar.name,
-                                                    myOpp.name,
-                                                    messages.miss,
-                                                    hit.roll.baseRoll,
-                                                    hit.roll.currentAttackBonus,
-                                                    hit.roll.attackRoll);
-                    }
-
-                    this.charAttackCounter++;
+                    this.charAttack(myChar, myOpp);
                 }
             }
 
@@ -302,7 +272,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                 return combatEnd;
 
-            // If battle has ended interrupt loop.
+            // If battle has ended interrupt the loop.
             }else if(this.hasEnded){
 
                 return 'true';
@@ -310,11 +280,11 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             // If one of the objects has HP below 0, declare winner and set combat end to true.
             }else{
 
-                if(myChar.hp <= -1){
+                if(myChar.hp <= 0){
 
                     messages.createMessage.kill(messages.oppSpan, myOpp.name, myChar.name);
 
-                }else if(myOpp.hp <= -1){
+                }else if(myOpp.hp <= 0){
 
                     messages.createMessage.kill(messages.charSpan, myChar.name, myOpp.name);
                 }
@@ -341,7 +311,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
             for(var i = 0; i < roundLength; i++){
 
-                // For readability purposes of the combat report log and realistic HP substraction, setTimeout is needed.
+                // For readability purposes of the combat report log and realistic HP substraction, setTimeout is used.
                 setTimeout(function(){
 
                     // Check if round has ended.
@@ -358,12 +328,14 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                         // Increase inner loop's iterator count after each iteration.
                         index++;
 
-                        // When inner loop reaches the start the round over with the given values.
+                        // When inner loop reaches the max of iterations, start a round over.
                         if(index == roundLength){
 
                             publicObj.startFight(myChar, myOpp);
-                            privateObj.charAttackCounter = 0;
-                            privateObj.oppAttackCounter = 0;
+
+                            // Reset counters.
+                            privateObj.counter.character = 0;
+                            privateObj.counter.opponent = 0;
                         }
                     }
 
@@ -391,21 +363,15 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
          * Start first round with both object's max hp. e.g. (current charHP and oppHP will be undefined).
          * After the round has ended, use current hp values as parameters for next round.
          */
-        startFight: function(myChar, myOpp){
+        startFight: function(myChar, myOpp, newRound){
 
-            var $log = $('#report-log'),
-                round;
+            if(newRound){
+                privateObj.counter.character = 0;
+                privateObj.counter.opponent = 0;
+                privateObj.hasEnded = false;
+            }
 
-            // if(charHP == undefined && oppHP == undefined){
-
-            //     $log.html('');
-
-                round = privateObj.startRound(myChar, myOpp);
-
-            // }else{
-
-                // round = privateObj.startRound(myChar, myOpp, charHP, oppHP);
-            // }
+            var round = privateObj.startRound(myChar, myOpp);
         }
     };
 

@@ -57,11 +57,15 @@ APP.VIEW = (function($, app) {
         /**
          * Clear view fields if idle.
          */
-        clearView: function(fields, avatar, idleURL){
+        clearView: function(fields, avatar, idleURL, button, log){
 
             fields.text('');
 
             avatar.attr('src', idleURL);
+
+            button.removeClass('disabled');
+
+            log.html('');
         },
 
         /**
