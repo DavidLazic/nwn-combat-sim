@@ -1,6 +1,6 @@
 Neverwinter Nights
 ===================
->* Combat simulator
+> Combat simulator
 
 This simulator is a small preview of the combat system found in the popular game called "Neverwinter Nights". It is based on D&D's 3.5 edition rules.
 
