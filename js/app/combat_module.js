@@ -113,9 +113,20 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                 roll = calculate.calculateAttackRoll(BAB),
                 hit = {};
 
-            hit.roll = roll;
+            if(roll.baseRoll == 1){
 
-            hit.strike = (roll.attackRoll > opponent.ac) ? 'true' : 'false';
+                hit.strike = 'false';
+
+            }else if(roll.baseRoll == 20){
+
+
+
+            }else if(roll.attackRoll > opponent.ac){
+
+                hit.strike = 'true';
+            }
+
+            hit.roll = roll;
 
             return hit;
         },
@@ -140,6 +151,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                 damage;
 
             hit = this.checkHit(myOpp, this.counter.opponent, myChar);
+
 
             if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
