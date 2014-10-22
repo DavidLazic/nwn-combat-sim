@@ -124,7 +124,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                 hit,
                 damage;
 
-            if(typeof roll == 'number' && roll === 1){
+            if(typeof roll == 'number' && roll == 1){
 
                 hasAttacks =  this.checkAttacksLeft(myChar, this.charAttackCounter);
 
@@ -135,12 +135,12 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                     if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
                         damage = this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
-
+                        console.log(damage);
                         myOpp.hp -= damage;
 
                         view.updateCurrentHP(myOpp.hp, $oppCurrentHP);
 
-                        messages.createMessage.hit(messages.charSpan,
+                        messages.createMessage.attack(messages.charSpan,
                                                    myChar.name,
                                                    myOpp.name,
                                                    messages.hit,
@@ -154,7 +154,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                                       damage);
                     }else{
 
-                        messages.createMessage.miss(messages.charSpan,
+                        messages.createMessage.attack(messages.charSpan,
                                                     myChar.name,
                                                     myOpp.name,
                                                     messages.miss,
@@ -177,7 +177,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                         view.updateCurrentHP(myChar.hp, $charCurrentHP);
 
-                        messages.createMessage.hit(messages.oppSpan,
+                        messages.createMessage.attack(messages.oppSpan,
                                                    myOpp.name,
                                                    myChar.name,
                                                    messages.hit,
@@ -190,7 +190,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                                       myChar.name,
                                                       damage);
                     }else{
-                        messages.createMessage.miss(messages.oppSpan,
+                        messages.createMessage.attack(messages.oppSpan,
                                                     myOpp.name,
                                                     myChar.name,
                                                     messages.miss,
@@ -208,7 +208,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                 if(typeof hasAttacks == 'string' && hasAttacks == 'true'){
 
-                    hit = this.checkHit(myChar, this.charAttackCounter, myOpp);
+                    hit = this.checkHit(myOpp, this.oppAttackCounter, myChar);
 
                     if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
@@ -218,7 +218,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                         view.updateCurrentHP(myChar.hp, $charCurrentHP);
 
-                        messages.createMessage.hit(messages.oppSpan,
+                        messages.createMessage.attack(messages.oppSpan,
                                                    myOpp.name,
                                                    myChar.name,
                                                    messages.hit,
@@ -232,7 +232,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                                       damage);
                     }else{
 
-                        messages.createMessage.miss(messages.oppSpan,
+                        messages.createMessage.attack(messages.oppSpan,
                                                     myOpp.name,
                                                     myChar.name,
                                                     messages.miss,
@@ -255,7 +255,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                         view.updateCurrentHP(myOpp.hp, $oppCurrentHP);
 
-                        messages.createMessage.hit(messages.charSpan,
+                        messages.createMessage.attack(messages.charSpan,
                                                    myChar.name,
                                                    myOpp.name,
                                                    messages.hit,
@@ -268,7 +268,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                                                       myOpp.name,
                                                       damage);
                     }else{
-                        messages.createMessage.miss(messages.charSpan,
+                        messages.createMessage.attack(messages.charSpan,
                                                     myChar.name,
                                                     myOpp.name,
                                                     messages.miss,
@@ -292,7 +292,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             var $startCombat = $('#btn-combat');
 
             // While character's or opponent's health are above 0, do combat.
-            if(myChar.hp > 0 && myOpp.hp > 0 && this.hasEnded === false){
+            if(myChar.hp > 0 && myOpp.hp > 0 && this.hasEnded == false){
 
                 // Can be 0 or 1 based on Math.random().
                 // Random outcome gives the combat a bit more reality, as objects won't be hitting each other
@@ -352,7 +352,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
 
                     }else{
 
-                        privateObj.continueRound(myChar, myOpp);
+                        privateObj.continueRound(myChar, myOpp, combatEnd);
 
                         // Increase inner loop's iterator count after each iteration.
                         index++;

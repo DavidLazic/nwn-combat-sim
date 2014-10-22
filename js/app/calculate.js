@@ -58,15 +58,15 @@ APP.CALCULATE = (function($, app){
              */
              calculateDamage: function(diceRoll, strength, combatStatus, weaponBonus){
 
-                var strModifier = this.calculateModifier(strength),
+                var strModifier = publicObj.calculateModifier(strength),
                     dmgMIN = diceRoll[0],
                     dmgMAX = diceRoll[1] * dmgMIN,
                     viewDamage = dmgMIN + '-' + dmgMAX + ' + ' + strModifier,
                     damage;
 
-                if(combatStatus){
+                if(combatStatus == true){
 
-                    if(weaponBonus){
+                    if(weaponBonus == true){
 
                         damage = privateObj.damageRoll(dmgMIN, dmgMAX, strModifier, 13);
 
