@@ -116,6 +116,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
         },
 
         continueRound: function(myChar, myOpp, roll){
+        console.log(this.charAttackCounter, this.oppAttackCounter);
 
             var $charCurrentHP = $('#char-current-hp'),
                 $oppCurrentHP = $('#current-hp'),
@@ -127,7 +128,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
             if(typeof roll == 'number' && roll == 1){
 
                 hasAttacks =  this.checkAttacksLeft(myChar, this.charAttackCounter);
-
+                console.log(hasAttacks);
                 if(typeof hasAttacks == 'string' && hasAttacks == 'true'){
 
                     hit = this.checkHit(myChar, this.charAttackCounter, myOpp);
@@ -135,7 +136,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                     if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
                         damage = this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
-                        console.log(damage);
+
                         myOpp.hp -= damage;
 
                         view.updateCurrentHP(myOpp.hp, $oppCurrentHP);
@@ -246,7 +247,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                 }else{
 
                     hit = this.checkHit(myChar, this.charAttackCounter, myOpp);
-
+                    console.log(hasAttacks);
                     if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
                         damage = this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
@@ -361,6 +362,8 @@ APP.COMBAT_MODULE = (function($, app, calculate, view){
                         if(index == roundLength){
 
                             publicObj.startFight(myChar, myOpp);
+                            privateObj.charAttackCounter = 0;
+                            privateObj.oppAttackCounter = 0;
                         }
                     }
 
