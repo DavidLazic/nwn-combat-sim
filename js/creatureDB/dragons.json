@@ -142,5 +142,77 @@
     "intelligence": 24,
     "wisdom": 25,
     "charisma": 24
+  },
+  {
+    "label": "blue-ice",
+    "race": "dragon, ",
+    "alignment": "lawful evil",
+    "armorClass": 48,
+    "hitPoints": 3600,
+    "attackBonus": [
+      44,
+      39,
+      34,
+      29
+    ],
+    "diceRoll": [
+      6,
+      10
+    ],
+    "avatarURL": "dragon/dragon_blue",
+    "strength": 40,
+    "dexterity": 10,
+    "constitution": 40,
+    "intelligence": 20,
+    "wisdom": 21,
+    "charisma": 20
+  },
+  {
+    "label": "darmian",
+    "race": "dragon, ",
+    "alignment": "lawful good",
+    "armorClass": 43,
+    "hitPoints": 430,
+    "attackBonus": [
+      42,
+      37,
+      32,
+      27
+    ],
+    "diceRoll": [
+      2,
+      6
+    ],
+    "avatarURL": "dragon/dragon_gold",
+    "strength": 30,
+    "dexterity": 20,
+    "constitution": 40,
+    "intelligence": 27,
+    "wisdom": 20,
+    "charisma": 27
+  },
+  {
+    "label": "dragon-warlord",
+    "race": "dragon, ",
+    "alignment": "chaotic evil",
+    "armorClass": 40,
+    "hitPoints": 1165,
+    "attackBonus": [
+      45,
+      35,
+      30,
+      25
+    ],
+    "diceRoll": [
+      3,
+      10
+    ],
+    "avatarURL": "dragon/dragon_copper",
+    "strength": 40,
+    "dexterity": 10,
+    "constitution": 21,
+    "intelligence": 18,
+    "wisdom": 19,
+    "charisma": 18
   }
 ]
