@@ -5,12 +5,21 @@ APP.CHECK = (function($, app){
 
     privateObj = {
 
+        /**
+         * Check the winner.
+         * @param {array}
+         * @return {object}
+         */
         checkWinner: function(fighter){
 
-            var winner = {};
+            var winner;
 
-            winner.character = (fighter[1].hp <= 0) ? 'true' : 'false';
-            winner.opponent = (fighter[0].hp <= 0) ? 'true' : 'false';
+            $.each(fighter, function(i){
+
+                if($(this).hp > 0){
+                    winner = $(this);
+                }
+            });
 
             return winner;
         },
