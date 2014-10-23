@@ -5,10 +5,6 @@ APP.CALCULATE = (function($, app){
 
         privateObj = {
 
-            criticalHit: function(){
-
-            },
-
             /**
              * Calculate damage done based on @min, @max and @modifier values.
              * In case of the character object, there's a @weaponBonus damage.
