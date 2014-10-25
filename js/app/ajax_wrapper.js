@@ -57,11 +57,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
          */
         renderObject: function(object, combatStatus){
 
-            if(combatStatus == true){
-                this.renderForCombat(object);
-            }else{
-                this.renderForView(object);
-            }
+            var render = (combatStatus) ? this.renderForCombat(object) : this.renderForView(object);
         },
 
         /**
@@ -118,27 +114,49 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
          */
         renderForCombat: function(object){
 
-            var $selected = $('#select-opponent option:selected'),
-                myChar = {},
-                myOpp = {};
-
-            myChar.name = 'Galadriel',
-            myChar.strength = parseInt($('#char-strength').text()),
-            myChar.hp = parseInt($('#char-max-hp').text()),
-            myChar.ac = parseInt($('#char-ac').text()),
-            myChar.diceRoll = [1, 8],
-            myChar.ab = [68, 63, 58, 53],
-            myChar.dmg = calculate.calculateDamage(myChar.diceRoll, myChar.strength);
-
-            myOpp.name = $selected.text(),
-            myOpp.strength = object.strength,
-            myOpp.hp = object.hitPoints,
-            myOpp.ac = object.armorClass,
-            myOpp.diceRoll = object.diceRoll,
-            myOpp.ab = object.attackBonus,
-            myOpp.dmg = calculate.calculateDamage(object.diceRoll, object.strength);
+            var myChar = this.fighter(),
+                myOpp = this.fighter(object);
 
             combat.startFight(myChar, myOpp, true);
+        },
+
+        fighter: function(object){
+
+            var combatant = {};
+
+            combatant.name      = (object) ? object.name : 'Galadriel',
+            combatant.strength  = (object) ? object.strength : this.getStrengthInfo(),
+            combatant.hp        = (object) ? object.hitPoints : this.getHPInfo(),
+            combatant.ac        = (object) ? object.armorClass : this.getACInfo(),
+            combatant.diceRoll  = (object) ? object.diceRoll : [1, 8],
+            combatant.ab        = (object) ? object.attackBonus : [68, 63, 58, 53],
+            combatant.dmg       = calculate.calculateDamage(combatant.diceRoll, combatant.strength);
+
+            return combatant;
+        },
+
+        getStrengthInfo: function(){
+
+            var $strength = $('#char-strength'),
+                strength = parseInt($strength.text());
+
+            return strength;
+        },
+
+        getHPInfo: function(){
+
+            var $hp = $('#char-max-hp'),
+                hp = parseInt($hp.text());
+
+            return hp;
+        },
+
+        getACInfo: function(){
+
+            var $ac = $('#char-ac'),
+                ac = parseInt($ac.text());
+
+            return ac;
         }
 
     };
