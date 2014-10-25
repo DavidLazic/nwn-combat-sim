@@ -1,4 +1,4 @@
-APP.COMBAT_MODULE = (function($, app, calculate, view, messages){
+APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
 
     var privateObj,
         publicObj;
@@ -216,40 +216,31 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages){
          */
         checkRoundEnd: function(myChar, myOpp){
 
-            var $startCombat = $('#btn-combat');
+            var $startCombat = $('#btn-combat'),
+                round = check.checkRoundEnd(myChar, myOpp, this.hasEnded);
 
-            // While character's or opponent's health are above 0, do combat.
-            if(myChar.hp > 0 && myOpp.hp > 0 && this.hasEnded == false){
-
-                // Can be 0 or 1 based on Math.random().
-                // Random outcome gives the combat a bit more reality, as objects won't be hitting each other
-                // in linear way, e.g. 1-1-1-1 / 2-2-2-2.
-                var combatEnd = calculate.randomValue(2);
-
-                return combatEnd;
-
-            // If battle has ended interrupt the loop.
-            }else if(this.hasEnded){
+            if(round.hasEnded == true){
 
                 return 'true';
 
-            // If one of the objects has HP below 0, declare winner and set combat end to true.
             }else{
 
-                if(myChar.hp <= 0){
+                if(round.bothAlive == 'true'){
 
-                    messages.createMessage.kill(messages.oppSpan, myOpp.name, myChar.name);
+                    var randomRoll = calculate.randomValue(2);
 
-                }else if(myOpp.hp <= 0){
+                    return randomRoll;
 
-                    messages.createMessage.kill(messages.charSpan, myChar.name, myOpp.name);
+                }else{
+
+                    messages.createMessage.kill(round.winner, round.loser);
+
+                    this.hasEnded = true;
+
+                    $startCombat.removeClass('disabled');
+
+                    return 'true';
                 }
-
-                this.hasEnded = true;
-
-                $startCombat.removeClass('disabled');
-
-                return 'true';
             }
         },
 
@@ -306,9 +297,22 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages){
          * @return {integer}
          */
         currentBAB: function(object, value){
+
             var currentValue = object.ab[value];
 
             return currentValue;
+        },
+
+        resetRound: function(newRound, myChar){
+
+            var $charCurrentHP = $('#char-current-hp');
+
+            if(newRound){
+                this.counter.character = 0;
+                this.counter.opponent = 0;
+                this.hasEnded = false;
+                view.updateCurrentHP(myChar.hp, $charCurrentHP);
+            }
         }
 
     };
@@ -321,11 +325,10 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages){
          */
         startFight: function(myChar, myOpp, newRound){
 
-            if(newRound){
-                privateObj.counter.character = 0;
-                privateObj.counter.opponent = 0;
-                privateObj.hasEnded = false;
-            }
+            myChar.span = messages.charSpan;
+            myOpp.span = messages.oppSpan;
+
+            privateObj.resetRound(newRound, myChar);
 
             var round = privateObj.startRound(myChar, myOpp);
         }
@@ -333,4 +336,4 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages){
 
     return publicObj;
 
-}(jQuery, APP, APP.CALCULATE, APP.VIEW, APP.MESSAGES));
+}(jQuery, APP, APP.CALCULATE, APP.VIEW, APP.MESSAGES, APP.CHECK));

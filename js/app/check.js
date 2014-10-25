@@ -10,18 +10,20 @@ APP.CHECK = (function($, app){
          * @param {array}
          * @return {object}
          */
-        checkWinner: function(fighter){
+        checkWinner: function(fighters){
 
-            var winner;
+            var fighter = {};
 
-            $.each(fighter, function(i){
+            $.each(fighters, function(i){
 
-                if($(this).hp > 0){
-                    winner = $(this);
+                if(this.hp > 0){
+                    fighter.winner = this;
+                }else{
+                    fighter.loser = this;
                 }
             });
 
-            return winner;
+            return fighter;
         },
 
         /**
@@ -39,16 +41,24 @@ APP.CHECK = (function($, app){
 
     publicObj = {
 
+        /**
+         * @param {object}, hasEnded{boolean}
+         * @return {object}
+         */
         checkRoundEnd: function(myChar, myOpp, hasEnded){
 
             var round =  {},
-                fighter = [];
+                fighter = [],
+                declareWinner;
+
 
             fighter.push(myChar, myOpp);
+            declareWinner = privateObj.checkWinner(fighter);
 
             round.hasEnded = hasEnded;
             round.bothAlive = privateObj.checkHP(fighter);
-            round.declareWinner = privateObj.checkWinner(fighter);
+            round.winner = declareWinner.winner;
+            round.loser = declareWinner.loser;
 
             return round;
         },

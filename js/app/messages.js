@@ -64,12 +64,12 @@ APP.MESSAGES = (function($, app, view){
                 view.writeMessage(this.message);
             },
 
-            kill: function(attackerSpan, attacker, defender){
+            kill: function(attacker, defender){
 
-                this.message = [attackerSpan,
-                                attacker,
+                this.message = [attacker.span,
+                                attacker.name,
                                 publicObj.killed,
-                                defender,
+                                defender.name,
                                 publicObj.endKill];
 
                 view.writeMessage(this.message);

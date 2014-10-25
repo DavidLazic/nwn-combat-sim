@@ -1,10 +1,7 @@
-APP.AJAX_WRAPPER = (function($, app, view, calculate){
+APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
 
     var privateObj,
-        publicObj,
-        view = app.VIEW,
-        calculate = app.CALCULATE,
-        combat = app.COMBAT_MODULE;
+        publicObj;
 
     privateObj = {
 
@@ -161,4 +158,4 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate){
 
     return publicObj;
 
-}(jQuery, APP, APP.EVENT_HANDLER, APP.CALCULATE));
+}(jQuery, APP, APP.VIEW, APP.CALCULATE, APP.COMBAT_MODULE));
