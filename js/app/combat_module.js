@@ -16,17 +16,6 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
         hasEnded: false,
 
         /**
-         * Determine the amount of the damage done.
-         * @return {integer}
-         */
-        checkDamageDone: function(diceRoll, strength, combatStatus, damageBonus){
-
-            var damage = calculate.calculateDamage(diceRoll, strength, combatStatus, damageBonus);
-
-            return damage;
-        },
-
-        /**
          * Determine if the attack was successful.
          * @return {object}
          */
@@ -36,80 +25,53 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
                 roll = calculate.calculateAttackRoll(BAB),
                 hit = {};
 
-            if(roll.baseRoll == 1){
-
-                hit.strike = 'false';
-
-            }else if(roll.baseRoll == 20){
-
-                hit.criticalHit = 'true';
-
-            }else if(roll.attackRoll > opponent.ac){
-
-                hit.strike = 'true';
-            }
-
-            hit.roll = roll;
+            hit = check.checkHitType(roll, opponent);
 
             return hit;
         },
 
-        /**
-         * Determine if the object can make an attack.
-         * @return {string}
-         */
-        checkAttacksLeft: function(object, counter){
 
-            var attacks = (counter < object.ab.length) ? 'true' : 'false';
 
-            return attacks;
-        },
-
-        criticalAttack: function(attackerSpan, attacker, viewObject, defender, damage, hit){
+        criticalAttack: function(attacker, viewObject, defender, damage, hit){
 
             defender.hp -= damage;
 
             view.updateCurrentHP(defender.hp, viewObject);
 
-            messages.createMessage.attack(attackerSpan,
-                                          attacker.name,
-                                          defender.name,
+            messages.createMessage.attack(attacker,
+                                          defender,
                                           messages.critHit,
                                           hit.roll.baseRoll,
                                           hit.roll.currentAttackBonus,
                                           hit.roll.attackRoll);
 
-            messages.createMessage.damage(attackerSpan,
-                                          attacker.name,
-                                          defender.name,
+            messages.createMessage.damage(attacker,
+                                          defender,
                                           damage);
         },
 
-        normalAttack: function(attackerSpan, attacker, viewObject, defender, damage, hit){
+        normalAttack: function(attacker, viewObject, defender, damage, hit){
 
             defender.hp -= damage;
 
             view.updateCurrentHP(defender.hp, viewObject);
 
-            messages.createMessage.attack(attackerSpan,
-                                          attacker.name,
-                                          defender.name,
+            messages.createMessage.attack(attacker,
+                                          defender,
                                           messages.hit,
                                           hit.roll.baseRoll,
                                           hit.roll.currentAttackBonus,
                                           hit.roll.attackRoll);
 
-            messages.createMessage.damage(attackerSpan,
-                                          attacker.name,
-                                          defender.name,
+            messages.createMessage.damage(attacker,
+                                          defender,
                                           damage);
         },
 
-        missAttack: function(attackerSpan, attacker, defender, hit){
+        missAttack: function(attacker, defender, hit){
 
-            messages.createMessage.attack(attackerSpan,
-                                          attacker.name,
-                                          defender.name,
+            messages.createMessage.attack(attacker,
+                                          defender,
                                           messages.miss,
                                           hit.roll.baseRoll,
                                           hit.roll.currentAttackBonus,
@@ -127,19 +89,19 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
 
             if(typeof hit.criticalHit == 'string' && hit.criticalHit == 'true'){
 
-                damage = (this.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false)) * 2;
+                damage = (check.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false)) * 2;
 
-                this.criticalAttack(messages.oppSpan, myOpp, $charCurrentHP, myChar, damage, hit);
+                this.criticalAttack(myOpp, $charCurrentHP, myChar, damage, hit);
 
             }else if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
-                damage = this.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false);
+                damage = check.checkDamageDone(myOpp.diceRoll, myOpp.strength, true, false);
 
-                this.normalAttack(messages.oppSpan, myOpp, $charCurrentHP, myChar, damage, hit);
+                this.normalAttack(myOpp, $charCurrentHP, myChar, damage, hit);
 
             }else{
 
-                this.missAttack(messages.oppSpan, myOpp, myChar, hit);
+                this.missAttack(myOpp, myChar, hit);
             }
 
             this.counter.opponent++;
@@ -156,19 +118,19 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
 
             if(typeof hit.criticalHit == 'string' && hit.criticalHit == 'true'){
 
-                damage = (this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true)) * 2;
+                damage = (check.checkDamageDone(myChar.diceRoll, myChar.strength, true, true)) * 2;
 
-                this.criticalAttack(messages.charSpan, myChar, $oppCurrentHP, myOpp, damage, hit);
+                this.criticalAttack(myChar, $oppCurrentHP, myOpp, damage, hit);
 
             }else if(typeof hit.strike == 'string' && hit.strike == 'true'){
 
-                damage = this.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
+                damage = check.checkDamageDone(myChar.diceRoll, myChar.strength, true, true);
 
-                this.normalAttack(messages.charSpan, myChar, $oppCurrentHP, myOpp, damage, hit);
+                this.normalAttack(myChar, $oppCurrentHP, myOpp, damage, hit);
 
             }else{
 
-                this.missAttack(messages.charSpan, myChar, myOpp, hit);
+                this.missAttack(myChar, myOpp, hit);
             }
 
             this.counter.character++;
@@ -183,7 +145,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
 
             if(typeof roll == 'number' && roll == 1){
 
-                hasAttacks =  this.checkAttacksLeft(myChar, this.counter.character);
+                hasAttacks =  check.checkAttacksLeft(myChar, this.counter.character);
 
                 if(typeof hasAttacks == 'string' && hasAttacks == 'true'){
 
@@ -196,7 +158,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
 
             }else if(typeof roll == 'number' && roll === 0){
 
-                hasAttacks = this.checkAttacksLeft(myOpp, this.counter.opponent);
+                hasAttacks = check.checkAttacksLeft(myOpp, this.counter.opponent);
 
                 if(typeof hasAttacks == 'string' && hasAttacks == 'true'){
 

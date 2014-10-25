@@ -32,12 +32,12 @@ APP.MESSAGES = (function($, app, view){
 
             message: [],
 
-            attack: function(attackerSpan, attacker, defender, attack, baseRoll, BAB, attackRoll){
+            attack: function(attacker, defender, attack, baseRoll, BAB, attackRoll){
 
-                this.message = [attackerSpan,
-                                attacker,
+                this.message = [attacker.span,
+                                attacker.name,
                                 publicObj.attacks,
-                                defender,
+                                defender.name,
                                 attack,
                                 baseRoll,
                                 publicObj.add,
@@ -49,12 +49,12 @@ APP.MESSAGES = (function($, app, view){
                 view.writeMessage(this.message);
             },
 
-            damage: function(attackerSpan, attacker, defender, damageDone){
+            damage: function(attacker, defender, damageDone){
 
-                this.message = [attackerSpan,
-                                attacker,
+                this.message = [attacker.span,
+                                attacker.name,
                                 publicObj.damages,
-                                defender,
+                                defender.name,
                                 publicObj.damage,
                                 damageDone,
                                 publicObj.dmgPre,

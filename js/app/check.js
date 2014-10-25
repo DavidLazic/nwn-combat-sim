@@ -63,6 +63,54 @@ APP.CHECK = (function($, app){
             return round;
         },
 
+        /**
+         * Determine if the object can make an attack.
+         * @return {string}
+         */
+        checkAttacksLeft: function(object, counter){
+
+            var attacks = (counter < object.ab.length) ? 'true' : 'false';
+
+            return attacks;
+        },
+
+        /**
+         * Determine the type of an attack.
+         * @return {object}
+         */
+        checkHitType: function(roll, opponent){
+
+            var hit = {};
+
+            if(roll.baseRoll == 1){
+
+                hit.strike = 'false';
+
+            }else if(roll.baseRoll == 20){
+
+                hit.criticalHit = 'true';
+
+            }else if(roll.attackRoll > opponent.ac){
+
+                hit.strike = 'true';
+            }
+
+            hit.roll = roll;
+
+            return hit;
+        },
+
+        /**
+         * Determine the amount of the damage done.
+         * @return {integer}
+         */
+        checkDamageDone: function(diceRoll, strength, combatStatus, damageBonus){
+
+            var calculate = app.CALCULATE,
+                damage = calculate.calculateDamage(diceRoll, strength, combatStatus, damageBonus);
+
+            return damage;
+        }
     };
 
     return publicObj;
