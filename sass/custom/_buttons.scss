@@ -12,10 +12,10 @@
 	}
     &:focus,
     &:active{
-        background: url(/img/button_bg.jpg) center;
+        background: url(/nwn-fight-simulator/img/button_bg.jpg) center;
     }
 	&.disabled{
-		background: url(/img/button_bg.jpg) center;
+		background: url(/nwn-fight-simulator/img/button_bg.jpg) center;
         color: #fff;
         opacity: 1;
 	}
