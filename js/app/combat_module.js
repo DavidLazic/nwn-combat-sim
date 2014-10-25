@@ -219,6 +219,7 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
             var $startCombat = $('#btn-combat'),
                 round = check.checkRoundEnd(myChar, myOpp, this.hasEnded);
 
+            // If the battle has ended interrupt the loop.
             if(round.hasEnded == true){
 
                 return 'true';
@@ -227,6 +228,9 @@ APP.COMBAT_MODULE = (function($, app, calculate, view, messages, check){
 
                 if(round.bothAlive == 'true'){
 
+                    // Can be 0 or 1 based on Math.random().
+                    // Random outcome gives the combat a bit more reality, as objects won't be attacking each other
+                    // in linear way, e.g. 1-1-1-1 / 2-2-2-2.
                     var randomRoll = calculate.randomValue(2);
 
                     return randomRoll;
