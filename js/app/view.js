@@ -57,15 +57,15 @@ APP.VIEW = (function($, app) {
         /**
          * Clear view fields if idle.
          */
-        clearView: function(fields, avatar, idleURL, button, log){
+        clearView: function(config){
 
-            fields.text('');
+            config.$clear.text('');
 
-            avatar.attr('src', idleURL);
+            config.$avatar.attr('src', config.idleURL);
 
-            button.removeClass('disabled');
+            config.$startCombat.removeClass('disabled');
 
-            log.html('');
+            config.$log.html('');
         },
 
         /**

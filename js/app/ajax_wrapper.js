@@ -3,6 +3,8 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
     var privateObj,
         publicObj;
 
+
+
     privateObj = {
 
         /**
@@ -133,11 +135,12 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
             combatant.hp       = (object) ? object.hitPoints : this.getInfo($hp),
             combatant.ac       = (object) ? object.armorClass : this.getInfo($ac),
             combatant.diceRoll = (object) ? object.diceRoll : [1, 8],
-            combatant.ab       = (object) ? object.attackBonus : [68, 63, 58, 53],
+            combatant.ab       = (object) ? object.attackBonus : [68, 63, 58, 53];
             combatant.dmg      = calculate.calculateDamage(combatant.diceRoll, combatant.strength);
 
             return combatant;
         },
+
 
         getInfo: function(viewObject){
 
