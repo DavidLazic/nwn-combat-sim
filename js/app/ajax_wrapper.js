@@ -122,12 +122,16 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
 
         fighter: function(object){
 
-            var combatant = {};
+            var $strength = $('#char-strength'),
+                $hp = $('#char-max-hp'),
+                $ac = $('#char-ac'),
+
+                combatant = {};
 
             combatant.name      = (object) ? object.name : 'Galadriel',
-            combatant.strength  = (object) ? object.strength : this.getStrengthInfo(),
-            combatant.hp        = (object) ? object.hitPoints : this.getHPInfo(),
-            combatant.ac        = (object) ? object.armorClass : this.getACInfo(),
+            combatant.strength  = (object) ? object.strength : this.getInfo($strength),
+            combatant.hp        = (object) ? object.hitPoints : this.getInfo($hp),
+            combatant.ac        = (object) ? object.armorClass : this.getInfo($ac),
             combatant.diceRoll  = (object) ? object.diceRoll : [1, 8],
             combatant.ab        = (object) ? object.attackBonus : [68, 63, 58, 53],
             combatant.dmg       = calculate.calculateDamage(combatant.diceRoll, combatant.strength);
@@ -135,28 +139,11 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
             return combatant;
         },
 
-        getStrengthInfo: function(){
+        getInfo: function(viewObject){
 
-            var $strength = $('#char-strength'),
-                strength = parseInt($strength.text());
+            var value = parseInt(viewObject.text());
 
-            return strength;
-        },
-
-        getHPInfo: function(){
-
-            var $hp = $('#char-max-hp'),
-                hp = parseInt($hp.text());
-
-            return hp;
-        },
-
-        getACInfo: function(){
-
-            var $ac = $('#char-ac'),
-                ac = parseInt($ac.text());
-
-            return ac;
+            return value;
         }
 
     };
