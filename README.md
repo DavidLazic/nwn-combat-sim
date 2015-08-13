@@ -17,4 +17,4 @@ Basic principle is this:
 - Damage accounted is pure physical damage.
 - Round will loop until one of the combatants' HP falls below zero.
 
-[Live preview](http://davidlazic.github.io/nwn-fight-simulator/)
+[Live preview](http://davidlazic.github.io/nwn-combat-sim/)
