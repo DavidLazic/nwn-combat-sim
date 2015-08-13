@@ -1,6 +1,7 @@
 [
   {
     "label": "white",
+    "name": "ancient white dragon",
     "race": "dragon, ",
     "alignment": "chaotic evil",
     "armorClass": 37,
@@ -25,6 +26,7 @@
   },
   {
     "label": "red",
+    "name": "ancient red dragon",
     "race": "dragon, ",
     "alignment": "chaotic evil",
     "armorClass": 39,
@@ -49,6 +51,7 @@
   },
   {
     "label": "green",
+    "name": "ancient green dragon",
     "race": "dragon, ",
     "alignment": "lawful evil",
     "armorClass": 37,
@@ -73,6 +76,7 @@
   },
   {
     "label": "blue",
+    "name": "ancient blue dragon",
     "race": "dragon, ",
     "alignment": "lawful evil",
     "armorClass": 38,
@@ -97,6 +101,7 @@
   },
   {
     "label": "black",
+    "name": "ancient black dragon",
     "race": "dragon, ",
     "alignment": "chaotic evil",
     "armorClass": 38,
@@ -121,6 +126,7 @@
   },
   {
     "label": "shenron",
+    "name": "shenron",
     "race": "dragon, ",
     "alignment": "chaotic evil",
     "armorClass": 88,
@@ -145,6 +151,7 @@
   },
   {
     "label": "blue-ice",
+    "name": "blue ice dragon",
     "race": "dragon, ",
     "alignment": "lawful evil",
     "armorClass": 48,
@@ -169,6 +176,7 @@
   },
   {
     "label": "darmian",
+    "name": "darmian",
     "race": "dragon, ",
     "alignment": "lawful good",
     "armorClass": 43,
@@ -193,6 +201,7 @@
   },
   {
     "label": "dragon-warlord",
+    "name": "dragon warlord",
     "race": "dragon, ",
     "alignment": "chaotic evil",
     "armorClass": 40,

@@ -16,22 +16,25 @@ APP.EVENT_HANDLER = (function($, app){
             var ajax = app.AJAX_WRAPPER,
                 view = app.VIEW,
 
-                $clear = $('.idle-clear'),
-                $avatar = $('#avatar'),
-                idleURL = 'img/idle_portrait.jpg',
+                clearConfig = {
+                    $clear: $('.idle-clear'),
+                    $avatar: $('#avatar'),
+                    idleURL: 'img/idle_portrait.jpg',
+                    $startCombat: $('#btn-combat'),
+                    $log: $('report-log')
+                },
 
                 $selected = $('#select-opponent option:selected'),
                 selectedValue = $selected.val(),
                 creatureType = $selected.data('url'),
                 $target = $(e.target),
                 $startCombat = $('#btn-combat'),
-                $log = $('report-log'),
 
                 url = 'js/creatureDB/' + creatureType + '.json';
 
             if(selectedValue == 0 && typeof selectedValue == 'string'){
 
-                view.clearView($clear, $avatar, idleURL, $startCombat, $log);
+                view.clearView(clearConfig);
 
                 return false;
 

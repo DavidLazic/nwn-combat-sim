@@ -3,6 +3,8 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
     var privateObj,
         publicObj;
 
+
+
     privateObj = {
 
         /**
@@ -23,7 +25,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
 
             ajaxObj.error = function(data){
                 privateObj.ajaxError(data);
-            }
+            };
 
             return ajaxObj;
         },
@@ -57,11 +59,7 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
          */
         renderObject: function(object, combatStatus){
 
-            if(combatStatus == true){
-                this.renderForCombat(object);
-            }else{
-                this.renderForView(object);
-            }
+            var render = (combatStatus) ? this.renderForCombat(object) : this.renderForView(object);
         },
 
         /**
@@ -72,17 +70,17 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
          */
         renderForView: function(object){
 
-            var obj = $('[data-property]'),
+            var obj          = $('[data-property]'),
                 objectsArray = [],
-                labelsArray = [],
+                labelsArray  = [],
 
-                $avatar = $('#avatar'),
-                avatar = 'img/' + object.avatarURL + '.jpg',
-                avatarArray = [$avatar, avatar],
+                $avatar      = $('#avatar'),
+                avatar       = 'img/' + object.avatarURL + '.jpg',
+                avatarArray  = [$avatar, avatar],
 
-                $health = $('#current-hp'),
-                health = object.hitPoints,
-                healthArray = [$health, health];
+                $health      = $('#current-hp'),
+                health       = object.hitPoints,
+                healthArray  = [$health, health];
 
             $.each(obj, function(){
 
@@ -118,27 +116,37 @@ APP.AJAX_WRAPPER = (function($, app, view, calculate, combat){
          */
         renderForCombat: function(object){
 
-            var $selected = $('#select-opponent option:selected'),
-                myChar = {},
-                myOpp = {};
-
-            myChar.name = 'Galadriel',
-            myChar.strength = parseInt($('#char-strength').text()),
-            myChar.hp = parseInt($('#char-max-hp').text()),
-            myChar.ac = parseInt($('#char-ac').text()),
-            myChar.diceRoll = [1, 8],
-            myChar.ab = [68, 63, 58, 53],
-            myChar.dmg = calculate.calculateDamage(myChar.diceRoll, myChar.strength);
-
-            myOpp.name = $selected.text(),
-            myOpp.strength = object.strength,
-            myOpp.hp = object.hitPoints,
-            myOpp.ac = object.armorClass,
-            myOpp.diceRoll = object.diceRoll,
-            myOpp.ab = object.attackBonus,
-            myOpp.dmg = calculate.calculateDamage(object.diceRoll, object.strength);
+            var myChar = this.fighter(),
+                myOpp = this.fighter(object);
 
             combat.startFight(myChar, myOpp, true);
+        },
+
+        fighter: function(object){
+
+            var $strength = $('#char-strength'),
+                $hp       = $('#char-max-hp'),
+                $ac       = $('#char-ac'),
+
+                combatant = {};
+
+            combatant.name     = (object) ? object.name : 'Galadriel',
+            combatant.strength = (object) ? object.strength : this.getInfo($strength),
+            combatant.hp       = (object) ? object.hitPoints : this.getInfo($hp),
+            combatant.ac       = (object) ? object.armorClass : this.getInfo($ac),
+            combatant.diceRoll = (object) ? object.diceRoll : [1, 8],
+            combatant.ab       = (object) ? object.attackBonus : [68, 63, 58, 53],
+            combatant.dmg      = calculate.calculateDamage(combatant.diceRoll, combatant.strength);
+
+            return combatant;
+        },
+
+
+        getInfo: function(viewObject){
+
+            var value = parseInt(viewObject.text());
+
+            return value;
         }
 
     };
