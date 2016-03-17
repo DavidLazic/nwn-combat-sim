@@ -2,6 +2,8 @@ Neverwinter Nights
 ===================
 > Combat simulator
 
+![nwn](/screenshots/nwn.png "nwn")
+
 This simulator is a small preview of the combat system found in the popular game called "Neverwinter Nights". It is based on D&D's 3.5 edition rules.
 
 Sim includes only basic combat core. I've tried to keep consistency rules regarding ability modifiers, attack bonuses, critical hits and damage as much as I could, but I had to modify some of them.
